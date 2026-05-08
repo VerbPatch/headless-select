@@ -1,0 +1,16 @@
+{
+  "name": "vanilla-select-all-examples",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.2.2"
+  },
+  "dependencies": {
+    "@verbpatch/headless-select": "workspace:*"
+  }
+}

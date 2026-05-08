@@ -1,0 +1,31 @@
+{
+  "name": "@verbpatch/angular-select",
+  "version": "0.0.1-beta.3",
+  "description": "A headless select library for angular applications with universal data engine and advanced interaction logic.",
+  "author": "Rameez Raja <rameezrajapathan@live.com>",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://www.verbpatch.com/select",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verbpatch/headless-select.git",
+    "directory": "packages/angular-select"
+  },
+  "bugs": {
+    "url": "https://github.com/verbpatch/headless-select/issues"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@verbpatch/headless-select": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=12",
+    "rxjs": ">=6"
+  }
+}

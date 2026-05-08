@@ -1,0 +1,52 @@
+{
+  "name": "@verbpatch/vuejs-select",
+  "version": "0.0.1-beta.3",
+  "description": "A headless select library for vue applications with universal data engine and advanced interaction logic.",
+  "author": "Rameez Raja <rameezrajapathan@live.com>",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://www.verbpatch.com/select",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verbpatch/headless-select.git",
+    "directory": "packages/vuejs-select"
+  },
+  "bugs": {
+    "url": "https://github.com/verbpatch/headless-select/issues"
+  },
+  "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "keywords": [
+    "vue",
+    "select",
+    "headless",
+    "dropdown",
+    "autocomplete",
+    "typescript"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "dependencies": {
+    "@verbpatch/headless-select": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3"
+  }
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Headless Select Showcase (Zero Styles)</title>
+    <style>
+        /* Zero style demo - only functional visibility */
+        .hidden { display: none; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; vertical-align: top; }
+    </style>
+</head>
+<body>
+    <h1>Headless Select: Zero-Style Table Demo</h1>
+    <p>This demo has zero custom CSS styles. It shows that the library handles all state and sync while you provide the markup.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Headless UI Side (The "UI")</th>
+                <th>Native Side (Mirror)</th>
+                <th>Verification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 1. Minimal -->
+            <tr>
+                <td><strong>1. Minimal</strong></td>
+                <td><div id="anchor-minimal"></div></td>
+                <td><select id="native-minimal"></select></td>
+                <td>
+                    <button type="button" class="get-value-btn" data-for="native-minimal">Get Value</button>
+                    <div id="value-native-minimal"></div>
+                </td>
+            </tr>
+
+            <!-- 2. Multi-Select & Groups -->
+            <tr>
+                <td><strong>2. Groups & Multi</strong></td>
+                <td><div id="anchor-multi"></div></td>
+                <td><select id="native-multi" multiple></select></td>
+                <td>
+                    <button type="button" class="get-value-btn" data-for="native-multi">Get Value</button>
+                    <div id="value-native-multi"></div>
+                </td>
+            </tr>
+
+            <!-- 3. Remote Search -->
+            <tr>
+                <td><strong>3. Remote API</strong></td>
+                <td><div id="anchor-remote"></div></td>
+                <td><select id="native-remote"></select></td>
+                <td>
+                    <button type="button" class="get-value-btn" data-for="native-remote">Get Value</button>
+                    <div id="value-native-remote"></div>
+                </td>
+            </tr>
+
+            <!-- 4. Creatable -->
+            <tr>
+                <td><strong>4. Creatable</strong></td>
+                <td><div id="anchor-creatable"></div></td>
+                <td><select id="native-creatable" multiple></select></td>
+                <td>
+                    <button type="button" class="get-value-btn" data-for="native-creatable">Get Value</button>
+                    <div id="value-native-creatable"></div>
+                </td>
+            </tr>
+
+            <!-- 5. Hydration -->
+            <tr>
+                <td><strong>5. Hydration</strong></td>
+                <td><div id="anchor-hydration"></div></td>
+                <td>
+                    <select id="native-hydration" multiple>
+                        <optgroup label="Colors">
+                            <option value="red" selected>Red</option>
+                            <option value="green">Green</option>
+                            <option value="blue" selected>Blue</option>
+                        </optgroup>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="get-value-btn" data-for="native-hydration">Get Value</button>
+                    <div id="value-native-hydration"></div>
+                </td>
+            </tr>
+
+            <!-- 6. Virtualization -->
+            <tr>
+                <td><strong>6. Virtualization</strong></td>
+                <td><div id="anchor-virtual"></div></td>
+                <td><select id="native-virtual"></select></td>
+                <td>
+                    <button type="button" class="get-value-btn" data-for="native-virtual">Get Value</button>
+                    <div id="value-native-virtual"></div>
+                </td>
+            </tr>
+
+            <!-- 7. Two-Way Sync (Single) -->
+            <tr>
+                <td><strong>7. Sync (Single)</strong></td>
+                <td><div id="anchor-sync-single"></div></td>
+                <td>
+                    <select id="native-sync-single">
+                        <option value="v1">v1</option>
+                        <option value="v2">v2</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="set-random-btn" data-for="native-sync-single">Set JS Value</button>
+                    <button type="button" class="get-value-btn" data-for="native-sync-single">Get Value</button>
+                    <div id="value-native-sync-single"></div>
+                </td>
+            </tr>
+
+            <!-- 8. Two-Way Sync (Multiple) -->
+            <tr>
+                <td><strong>8. Sync (Multi)</strong></td>
+                <td><div id="anchor-sync-multi"></div></td>
+                <td>
+                    <select id="native-sync-multi" multiple>
+                        <option value="js">JS</option>
+                        <option value="ts">TS</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="set-random-btn" data-for="native-sync-multi">Set JS Values</button>
+                    <button type="button" class="get-value-btn" data-for="native-sync-multi">Get Value</button>
+                    <div id="value-native-sync-multi"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

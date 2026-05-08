@@ -1,0 +1,69 @@
+{
+  "name": "@verbpatch/headless-select",
+  "version": "0.0.1-beta.3",
+  "description": "A headless select library with universal data engine and advanced interaction logic.",
+  "author": "Rameez Raja <rameezrajapathan@live.com>",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://www.verbpatch.com/select",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verbpatch/headless-select.git",
+    "directory": "packages/headless-select"
+  },
+  "bugs": {
+    "url": "https://github.com/verbpatch/headless-select/issues"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js",
+      "browser": "./dist/index.umd.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "rollup -c",
+    "test": "vitest run --coverage",
+    "dev": "rollup -c -w",
+    "docs": "typedoc",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "prepublishOnly": "pnpm run clean && pnpm run build",
+    "size": "pnpm run build && size-limit",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "verbpatch",
+    "select",
+    "headless",
+    "dropdown",
+    "autocomplete",
+    "typescript",
+    "gpl"
+  ],
+  "size-limit": [
+    {
+      "path": "dist/*.js"
+    }
+  ],
+  "devDependencies": {
+    "rimraf": "^6.1.0",
+    "rollup": "^4.34.8"
+  }
+}
