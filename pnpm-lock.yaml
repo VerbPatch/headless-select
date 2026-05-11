@@ -111,7 +111,7 @@ importers:
         specifier: ^4.1.2
         version: 4.1.5(@vitest/coverage-v8@4.1.5)(jsdom@29.1.1)(vite@8.0.10(esbuild@0.27.7)(jiti@2.7.0)(terser@5.46.2)(yaml@2.8.4))
 
-  examples/react-virtualization:
+  examples/react-all:
     dependencies:
       '@verbpatch/headless-select':
         specifier: workspace:*

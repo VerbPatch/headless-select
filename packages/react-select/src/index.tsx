@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { 
-  useSelect as headlessSelect, 
-  SelectConfig, 
+import { useState, useLayoutEffect, useEffect, useMemo, useRef } from 'react';
+import {
+  useSelect as headlessSelect,
+  SelectConfig,
   SelectState,
-  SelectInstance 
+  SelectInstance
 } from '@verbpatch/headless-select';
 
 export * from '@verbpatch/headless-select';
@@ -25,7 +25,8 @@ export function useSelect(config: SelectConfig) {
   const instanceRef = useRef<SelectInstance | null>(null);
 
   // Initialize or re-initialize the instance when hydrateFrom is available
-  useEffect(() => {
+  // We use useLayoutEffect to ensure the instance is ready before the browser paints
+  useLayoutEffect(() => {
     if (!config || !config.hydrateFrom) return;
 
     if (!instanceRef.current) {
@@ -38,15 +39,12 @@ export function useSelect(config: SelectConfig) {
     const unsubscribe = instanceRef.current.subscribe(setState);
     return () => {
       unsubscribe();
-      // We don't necessarily destroy here if it's just a config update, 
-      // but if the hook unmounts we should. 
-      // Handled by the next effect.
     };
   }, [config?.hydrateFrom]);
 
   // Handle dynamic config updates (non-element changes)
-  useEffect(() => {
-    if (instanceRef.current) {
+  useLayoutEffect(() => {
+    if (instanceRef.current && config) {
       instanceRef.current.setConfig(config);
     }
   }, [config]);
@@ -63,7 +61,7 @@ export function useSelect(config: SelectConfig) {
 
   return useMemo(() => {
     const inst = instanceRef.current;
-    
+
     return {
       state,
       instance: inst,
