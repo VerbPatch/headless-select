@@ -1,8 +1,11 @@
-import { getTriggerProps } from './trigger.js';
-import { getListboxProps } from './listbox.js';
-import { getOptionProps } from './option.js';
-import { getSearchInputProps } from './searchInput.js';
-import type { SelectContext, SelectActions, KeyboardActions } from '../core/context.js';
+import { getTriggerProps } from '@/getters/trigger';
+import { getListboxProps } from '@/getters/listbox';
+import { getOptionProps } from '@/getters/option';
+import { getSearchInputProps } from '@/getters/searchInput';
+import { getNativeSelectProps } from '@/getters/nativeSelect';
+import { getCreateOptionProps } from '@/getters/createOption';
+import { getClearOptionProps } from '@/getters/clearOption';
+import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
 
 export function createGetters(
   ctx: SelectContext,
@@ -14,5 +17,8 @@ export function createGetters(
     getListboxProps: () => getListboxProps(ctx),
     getOptionProps: (value: string) => getOptionProps(ctx, actions, keyboard, value),
     getSearchInputProps: () => getSearchInputProps(ctx, actions, keyboard),
+    getNativeSelectProps: () => getNativeSelectProps(ctx),
+    getCreateOptionProps: () => getCreateOptionProps(ctx, actions),
+    getClearOptionProps: (value: string) => getClearOptionProps(actions, value),
   };
 }

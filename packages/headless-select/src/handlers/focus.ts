@@ -1,5 +1,5 @@
-import type { SelectContext } from '../core/context.js';
-import { nextFocusableIndex } from '../utils/index.js';
+import type { SelectContext } from '@/core/context';
+import { nextFocusableIndex } from '@/utils/index';
 
 export function createFocusActions(ctx: SelectContext) {
   function focusOption(value: string | null): void {

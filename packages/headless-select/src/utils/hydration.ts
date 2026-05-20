@@ -1,4 +1,4 @@
-import { DataItem } from '../core/types.js';
+import { DataItem } from '@/core/types';
 
 /**
  * Hydrates options and values from a native <select> element.

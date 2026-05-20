@@ -1,4 +1,4 @@
-import type { SelectContext, SelectActions } from '../core/context.js';
+import type { SelectContext, SelectActions } from '@/core/context';
 
 export function createKeyboardHandler(
   ctx: SelectContext,

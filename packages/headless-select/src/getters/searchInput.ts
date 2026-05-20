@@ -1,6 +1,6 @@
-import { getOptionId } from '../utils/index.js';
-import type { SearchInputProps } from '../core/types.js';
-import type { SelectContext, SelectActions, KeyboardActions } from '../core/context.js';
+import { getOptionId } from '@/utils/index';
+import type { SearchInputProps } from '@/core/types';
+import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
 
 export function getSearchInputProps(
   ctx: SelectContext,

@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  useSelect,
-  SelectConfig,
-  SelectState,
-  SelectInstance,
-} from '@verbpatch/headless-select';
+import { useSelect, SelectConfig, SelectState, SelectInstance } from '@verbpatch/headless-select';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()

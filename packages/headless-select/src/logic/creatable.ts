@@ -1,6 +1,6 @@
-import type { SelectOption, SelectChange } from '../core/types.js';
-import { mergeOptions, computeVisibleOptions } from '../utils/index.js';
-import type { SelectContext } from '../core/context.js';
+import type { SelectOption, SelectChange } from '@/core/types';
+import { mergeOptions, computeVisibleOptions } from '@/utils/index';
+import type { SelectContext } from '@/core/context';
 
 export function createCreatableActions(ctx: SelectContext) {
   function createOption(input: string): void {

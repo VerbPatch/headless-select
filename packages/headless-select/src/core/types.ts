@@ -47,6 +47,15 @@ export interface SelectState {
 
   isLoading: boolean;
   error: Error | null;
+
+  // Virtualization state (only populated if config.virtualize is true)
+  virtualization?: {
+    startIndex: number;
+    endIndex: number;
+    totalHeight: number;
+    offsetY: number;
+    items: { index: number; top: number }[];
+  };
 }
 
 // ─── Change Metadata (emitted with onChange) ──────────────────────────────────
@@ -87,7 +96,7 @@ export interface SelectConfig {
 
   // Hydrate initial options + selectedValues from an existing <select> element.
   // Useful for progressive enhancement of server-rendered forms.
-  hydrateFrom: HTMLSelectElement;
+  hydrateFrom?: HTMLSelectElement;
 
   // ── Behaviour ─────────────────────────────────────────────────────────
 
@@ -146,6 +155,11 @@ export interface SelectConfig {
   // Label rendered on the "Create …" row in the dropdown.
   // Default: (v) => `Create "${v}"`
   createOptionLabel?: (input: string) => string;
+
+  // ── Virtualization ────────────────────────────────────────────────────
+  virtualize?: boolean;
+  itemHeight?: number;
+  containerHeight?: number;
 
   // ── Accessibility ─────────────────────────────────────────────────────
 
@@ -250,6 +264,8 @@ export interface SelectInstance {
   focusLast: () => void;
   createOption: (input: string) => void;
   scrollToFocused: (container: HTMLElement) => void;
+  sync: () => void;
+  onScroll: (scrollTop: number) => void;
   setConfig: (patch: Partial<SelectConfig>) => void;
   destroy: () => void;
 
@@ -258,6 +274,9 @@ export interface SelectInstance {
   getListboxProps: () => ListboxProps;
   getOptionProps: (value: string) => OptionProps;
   getSearchInputProps: () => SearchInputProps;
+  getNativeSelectProps: () => any;
+  getCreateOptionProps: () => any;
+  getClearOptionProps: (value: string) => any;
 
   // Legacy/Helpers (compatible with existing code)
   getOptionLabel: (value: string) => string;

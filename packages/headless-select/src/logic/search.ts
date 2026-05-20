@@ -1,6 +1,6 @@
-import { computeVisibleOptions, computeCanCreate, debounce, mergeOptions } from '../utils/index.js';
-import type { SelectContext } from '../core/context.js';
-import type { OptionsCache } from '../core/cache.js';
+import { computeVisibleOptions, computeCanCreate, debounce, mergeOptions } from '@/utils/index';
+import type { SelectContext } from '@/core/context';
+import type { OptionsCache } from '@/core/cache';
 
 export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
   const debouncedLoad = debounce((search: string) => {

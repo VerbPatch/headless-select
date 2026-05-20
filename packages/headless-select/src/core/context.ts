@@ -1,4 +1,4 @@
-import type { SelectState, SelectConfig, SelectChange } from './types.js';
+import type { SelectState, SelectConfig, SelectChange } from '@/core/types';
 
 /**
  * Provides access to the core engine's internal state and configuration.

@@ -1,10 +1,6 @@
 import { readable } from 'svelte/store';
 import { onDestroy } from 'svelte';
-import {
-  useSelect as headlessSelect,
-  SelectConfig,
-  SelectState,
-} from '@verbpatch/headless-select';
+import { useSelect as headlessSelect, SelectConfig, SelectState } from '@verbpatch/headless-select';
 
 export * from '@verbpatch/headless-select';
 

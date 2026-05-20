@@ -1,6 +1,6 @@
-import { getOptionId } from '../utils/index.js';
-import type { OptionProps } from '../core/types.js';
-import type { SelectContext, SelectActions, KeyboardActions } from '../core/context.js';
+import { getOptionId } from '@/utils/index';
+import type { OptionProps } from '@/core/types';
+import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
 
 export function getOptionProps(
   ctx: SelectContext,

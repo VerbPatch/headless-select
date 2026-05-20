@@ -1,6 +1,6 @@
-import type { SelectChange } from '../core/types.js';
-import { computeVisibleOptions } from '../utils/index.js';
-import type { SelectContext } from '../core/context.js';
+import type { SelectChange } from '@/core/types';
+import { computeVisibleOptions } from '@/utils/index';
+import type { SelectContext } from '@/core/context';
 
 export function createSelectionActions(ctx: SelectContext) {
   function selectOption(value: string): void {
@@ -64,7 +64,27 @@ export function createSelectionActions(ctx: SelectContext) {
   }
 
   function toggleOption(value: string): void {
-    ctx.getState().selectedValues.includes(value) ? deselectOption(value) : selectOption(value);
+    const state = ctx.getState();
+    const config = ctx.getConfig();
+    const isSelected = state.selectedValues.includes(value);
+
+    if (isSelected) {
+      if (config.multiple) {
+        deselectOption(value);
+      } else {
+        const closeOnSelect = config.closeOnSelect ?? true;
+        if (closeOnSelect) {
+          ctx.setState({
+            isOpen: false,
+            search: '',
+            focusedOptionValue: null,
+          });
+          config.onClose?.();
+        }
+      }
+    } else {
+      selectOption(value);
+    }
   }
 
   function clearAll(): void {

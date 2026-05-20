@@ -1,5 +1,5 @@
-import type { TriggerProps } from '../core/types.js';
-import type { SelectContext, SelectActions, KeyboardActions } from '../core/context.js';
+import type { TriggerProps } from '@/core/types';
+import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
 
 export function getTriggerProps(
   ctx: SelectContext,

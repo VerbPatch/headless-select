@@ -1,9 +1,5 @@
 import { createSignal, createEffect, onCleanup } from 'solid-js';
-import {
-  useSelect as headlessSelect,
-  SelectConfig,
-  SelectState,
-} from '@verbpatch/headless-select';
+import { useSelect as headlessSelect, SelectConfig, SelectState } from '@verbpatch/headless-select';
 export * from '@verbpatch/headless-select';
 
 export function useSelect(config: SelectConfig) {

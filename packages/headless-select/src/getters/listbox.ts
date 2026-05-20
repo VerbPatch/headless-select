@@ -1,5 +1,5 @@
-import type { ListboxProps } from '../core/types.js';
-import type { SelectContext } from '../core/context.js';
+import type { ListboxProps } from '@/core/types';
+import type { SelectContext } from '@/core/context';
 
 export function getListboxProps(ctx: SelectContext): ListboxProps {
   const config = ctx.getConfig();

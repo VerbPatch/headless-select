@@ -1,9 +1,5 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue';
-import {
-  useSelect as headlessSelect,
-  SelectConfig,
-  SelectState,
-} from '@verbpatch/headless-select';
+import { useSelect as headlessSelect, SelectConfig, SelectState } from '@verbpatch/headless-select';
 
 export * from '@verbpatch/headless-select';
 
@@ -16,7 +12,7 @@ export function useSelect(config: SelectConfig) {
     (newConfig) => {
       instance.setConfig(newConfig);
     },
-    { deep: true }
+    { deep: true },
   );
 
   let unsubscribe: () => void;

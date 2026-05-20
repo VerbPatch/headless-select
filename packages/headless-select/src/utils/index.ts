@@ -1,3 +1,3 @@
-export * from './common.js';
-export * from './options.js';
-export * from './hydration.js';
+export * from '@/utils/common';
+export * from '@/utils/options';
+export * from '@/utils/hydration';

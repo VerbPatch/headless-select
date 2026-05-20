@@ -5,7 +5,11 @@
     "jsxImportSource": "solid-js",
     "declarationDir": "./dist",
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["../headless-select/src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

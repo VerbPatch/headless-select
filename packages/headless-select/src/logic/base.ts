@@ -1,5 +1,5 @@
-import { computeVisibleOptions, mergeOptions } from '../utils/index.js';
-import type { SelectContext } from '../core/context.js';
+import { computeVisibleOptions, mergeOptions } from '@/utils/index';
+import type { SelectContext } from '@/core/context';
 
 export function createBaseActions(
   ctx: SelectContext,

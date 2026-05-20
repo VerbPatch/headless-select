@@ -1,11 +1,13 @@
-import { useRef, useState, useEffect, useMemo } from 'react';
-import { useSelect, SelectConfig, calculateVirtualization } from '@verbpatch/react-select';
+import { useSelect } from '@verbpatch/react-select';
 
-interface SelectProps extends Omit<SelectConfig, 'hydrateFrom'> {
+interface SelectProps {
   children?: React.ReactNode;
   virtualize?: boolean;
   itemHeight?: number;
   containerHeight?: number;
+  showNative?: boolean;
+  hideNative?: boolean;
+  [key: string]: any;
 }
 
 export default function Select({ 
@@ -13,58 +15,38 @@ export default function Select({
   virtualize = false,
   itemHeight = 35,
   containerHeight = 300,
+  showNative = true,
+  hideNative = false,
   ...config 
 }: SelectProps) {
-  const nativeRef = useRef<HTMLSelectElement>(null);
-  const listboxRef = useRef<HTMLDivElement>(null);
-  const [scrollTop, setScrollTop] = useState(0);
-  
-  // Force a re-render once the ref is attached so the hook can initialize
-  const [, forceUpdate] = useState({});
-  useEffect(() => {
-    if (nativeRef.current) forceUpdate({});
-  }, []);
-
-  const selectConfig = useMemo(() => ({
+  const { 
+    state, 
+    instance, 
+    nativeRef,
+    getTriggerProps, 
+    getListboxProps, 
+    getOptionProps, 
+    getSearchInputProps,
+    getNativeSelectProps,
+    getCreateOptionProps,
+    getClearOptionProps
+  } = useSelect({
     ...config,
-    hydrateFrom: nativeRef.current!
-  }), [config, nativeRef.current]);
-
-  const { state, instance, getTriggerProps, getListboxProps, getOptionProps, getSearchInputProps } =
-    useSelect(nativeRef.current ? selectConfig : (null as any));
-
-  // ── Virtualization Logic ──────────────────────────────────────────────────
-  const virtual = useMemo(() => {
-    if (!virtualize) return null;
-    return calculateVirtualization(
-      state.visibleOptions.length,
-      itemHeight,
-      containerHeight,
-      scrollTop
-    );
-  }, [virtualize, state.visibleOptions.length, itemHeight, containerHeight, scrollTop]);
-
-  const onScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (virtualize) {
-      setScrollTop(e.currentTarget.scrollTop);
-    }
-  };
-
-  useEffect(() => {
-    if (virtualize && listboxRef.current && state.isOpen) {
-      setScrollTop(listboxRef.current.scrollTop);
-    }
-  }, [virtualize, state.isOpen]);
+    virtualize,
+    itemHeight,
+    containerHeight
+  });
 
   // ── Render Helpers ────────────────────────────────────────────────────────
   const renderOption = (option: any, style: React.CSSProperties = {}) => {
-    const isFocused = state.focusedOptionValue === option.value;
-    const isSelected = state.selectedValues.includes(option.value);
+    const props = getOptionProps(option.value);
+    const isFocused = props['data-focused'];
+    const isSelected = props['aria-selected'];
 
     return (
       <div
         key={option.value}
-        {...getOptionProps(option.value)}
+        {...props}
         className="option-item"
         style={{
           display: 'flex',
@@ -92,36 +74,55 @@ export default function Select({
   };
 
   return (
-    <div className="select-container" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-      <div style={{ flex: 1, borderRight: '1px solid #eee', paddingRight: '2rem' }}>
-        <label>Native Select Interface</label>
-        <select 
-          ref={nativeRef} 
-          multiple={config.multiple}
-          style={{ width: '100%', marginTop: '8px', padding: '4px', height: config.multiple || virtualize ? '120px' : 'auto' }}
-        >
-          {children}
-        </select>
-        <div style={{ fontSize: '10px', color: '#999', marginTop: '8px' }}>
-          ↑ Native &lt;select&gt; element. 2-way sync active.
-          {virtualize && " (10k items sync might be heavy)"}
+    <div className="select-container" style={{ display: 'flex', alignItems: 'flex-start' }}>
+      {showNative && (
+        <div style={{ 
+          flex: hideNative ? 0 : 1, 
+          borderRight: hideNative ? 'none' : '1px solid #eee', 
+          paddingRight: hideNative ? '0' : '2rem',
+          marginRight: hideNative ? '0' : '2rem',
+          display: hideNative ? 'contents' : 'block'
+        }}>
+          {!hideNative && <label>Native Select Interface</label>}
+          <select 
+            ref={nativeRef} 
+            {...getNativeSelectProps()}
+            style={{ 
+              width: hideNative ? '1px' : '100%', 
+              marginTop: hideNative ? '0' : '8px', 
+              padding: hideNative ? '0' : '4px', 
+              height: hideNative ? '1px' : (config.multiple || virtualize ? '120px' : 'auto'),
+              // Toggle between library's "visually hidden" and showcase "visible" styles
+              ...(hideNative ? {} : {
+                position: 'static',
+                clip: 'auto',
+                overflow: 'visible'
+              })
+            }}
+          >
+            {children}
+          </select>
+          {!hideNative && (
+            <div style={{ fontSize: '10px', color: '#999', marginTop: '8px' }}>
+              ↑ Native &lt;select&gt; element. 2-way sync active.
+              {virtualize && " (10k items sync might be heavy)"}
+            </div>
+          )}
         </div>
-      </div>
+      )}
 
       <div style={{ flex: 1, position: 'relative' }}>
         <label>Headless Custom UI {virtualize && "(Virtualized)"}</label>
+        {!showNative && <div style={{ fontSize: '10px', color: '#999', marginBottom: '4px' }}>(Pure Headless - No Native Sync)</div>}
         <button {...getTriggerProps()} className="select-trigger" style={{ marginTop: '8px' }}>
           {state.selectedValues.length > 0 ? (
             config.multiple ? (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                {state.selectedValues.map((v) => (
-                  <span key={v} style={{ border: '1px solid #ccc', padding: '0 6px', fontSize: '13px', display: 'flex', alignItems: 'center', background: '#fff' }}>
-                    {instance?.getOptionLabel(v) ?? v}
+                {instance?.getSelectedOptions().map((opt) => (
+                  <span key={opt.value} style={{ border: '1px solid #ccc', padding: '0 6px', fontSize: '13px', display: 'flex', alignItems: 'center', background: '#fff' }}>
+                    {opt.label}
                     <span 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        instance?.deselectOption(v);
-                      }}
+                      {...getClearOptionProps(opt.value)}
                       style={{ marginLeft: '6px', cursor: 'pointer', color: '#999' }}
                     >
                       ×
@@ -152,8 +153,7 @@ export default function Select({
 
             <div
               {...getListboxProps()}
-              ref={listboxRef}
-              onScroll={onScroll}
+              onScroll={(e) => instance?.onScroll(e.currentTarget.scrollTop)}
               className="listbox-container"
               style={{ 
                 maxHeight: virtualize ? `${containerHeight}px` : '250px', 
@@ -166,9 +166,9 @@ export default function Select({
                 <div style={{ padding: '12px', textAlign: 'center', color: '#999' }}>Loading...</div>
               ) : (
                 <>
-                  {virtualize && virtual ? (
-                    <div style={{ height: virtual.totalHeight, width: '100%' }}>
-                      {virtual.items.map((item) => {
+                  {virtualize && state.virtualization ? (
+                    <div style={{ height: state.virtualization.totalHeight, width: '100%' }}>
+                      {state.virtualization.items.map((item) => {
                         const option = state.visibleOptions[item.index];
                         if (!option) return null;
                         return renderOption(option, {
@@ -186,7 +186,7 @@ export default function Select({
 
                   {state.canCreate && (
                     <div 
-                      onClick={() => instance?.createOption(state.search)}
+                      {...getCreateOptionProps()}
                       style={{ padding: '10px 12px', cursor: 'pointer', color: '#007bff', borderTop: '1px solid #eee', fontSize: '14px' }}
                     >
                       + Create "{state.search}"

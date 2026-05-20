@@ -6,8 +6,15 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@verbpatch/headless-select': path.resolve(__dirname, '../../packages/headless-select/src/index.ts'),
-      '@verbpatch/react-select': path.resolve(__dirname, '../../packages/react-select/src/index.tsx'),
+      '@': path.resolve(__dirname, '../../packages/headless-select/src'),
+      '@verbpatch/headless-select': path.resolve(
+        __dirname,
+        '../../packages/headless-select/src/index.ts',
+      ),
+      '@verbpatch/react-select': path.resolve(
+        __dirname,
+        '../../packages/react-select/src/index.tsx',
+      ),
     },
   },
   server: {

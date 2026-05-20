@@ -1,9 +1,9 @@
-import { createBaseActions } from './base.js';
-import { createSelectionActions } from './selection.js';
-import { createSearchActions } from './search.js';
-import { createCreatableActions } from './creatable.js';
-import type { SelectContext, SelectActions } from '../core/context.js';
-import type { OptionsCache } from '../core/cache.js';
+import { createBaseActions } from '@/logic/base';
+import { createSelectionActions } from '@/logic/selection';
+import { createSearchActions } from '@/logic/search';
+import { createCreatableActions } from '@/logic/creatable';
+import type { SelectContext, SelectActions } from '@/core/context';
+import type { OptionsCache } from '@/core/cache';
 
 export function createActions(ctx: SelectContext, cache: OptionsCache): SelectActions {
   const searchActions = createSearchActions(ctx, cache);

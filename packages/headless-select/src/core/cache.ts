@@ -1,4 +1,4 @@
-import { SelectOption } from './types.js';
+import { SelectOption } from '@/core/types';
 
 export class OptionsCache {
   private cache = new Map<string, SelectOption[]>();

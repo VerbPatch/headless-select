@@ -1,10 +1,5 @@
 import { ReactiveController, ReactiveControllerHost } from 'lit';
-import {
-  useSelect,
-  SelectConfig,
-  SelectState,
-  SelectInstance,
-} from '@verbpatch/headless-select';
+import { useSelect, SelectConfig, SelectState, SelectInstance } from '@verbpatch/headless-select';
 
 export class SelectController implements ReactiveController {
   private host: ReactiveControllerHost;

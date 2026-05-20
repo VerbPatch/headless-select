@@ -1,4 +1,4 @@
-import { DataItem, SelectOption, isGroup, SelectConfig } from '../core/types.js';
+import { DataItem, SelectOption, isGroup, SelectConfig } from '@/core/types';
 
 /**
  * Flattens grouped options into a flat array of options.

@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { useSelect } from '../src/select.js';
-import { calculatePosition } from '../src/features/positioning.js';
-import { calculateVirtualization } from '../src/features/virtualization.js';
-import { debounce, scrollIntoView } from '../src/utils/common.js';
+import { useSelect } from '@/useSelect';
+import { calculatePosition } from '@/features/positioning';
+import { calculateVirtualization } from '@/features/virtualization';
+import { debounce, scrollIntoView } from '@/utils/common';
 
 describe('useSelect - High Coverage', () => {
   const options = [
@@ -26,12 +26,15 @@ describe('useSelect - High Coverage', () => {
     const grouped = [{ label: 'G', options: [{ value: 'a', label: 'A' }] }];
     const select = useSelect({ options: grouped, hydrateFrom: dummyEl });
     expect(select.getState().resolvedOptions).toHaveLength(1);
-    
+
     select.setConfig({ multiple: true });
     expect(select.getState().visibleOptions).toHaveLength(1);
 
     // Test updating options via setConfig
-    const newOptions = [{ value: 'b', label: 'B' }, { value: 'c', label: 'C' }];
+    const newOptions = [
+      { value: 'b', label: 'B' },
+      { value: 'c', label: 'C' },
+    ];
     select.setConfig({ options: newOptions });
     expect(select.getState().resolvedOptions).toHaveLength(2);
     expect(select.getState().resolvedOptions[0].value).toBe('b');
@@ -75,7 +78,7 @@ describe('useSelect - High Coverage', () => {
     expect(select.getState().selectedValues).toEqual([]);
     select.toggleOption('cherry');
     expect(select.getState().selectedValues).toEqual(['cherry']);
-    
+
     select.clearAll();
     expect(select.getState().selectedValues).toEqual([]);
   });
@@ -93,7 +96,7 @@ describe('useSelect - High Coverage', () => {
     const select = useSelect({ options, hydrateFrom: dummyEl });
     select.open();
     const props = select.getTriggerProps();
-    
+
     props.onKeyDown({ key: 'ArrowDown', preventDefault: () => {} } as unknown as KeyboardEvent);
     expect(select.getState().focusedOptionValue).toBe('apple');
 
@@ -108,7 +111,9 @@ describe('useSelect - High Coverage', () => {
     const select = useSelect({ options, searchable: false, hydrateFrom: dummyEl });
     select.open();
     select.focusOption('cherry');
-    select.getTriggerProps().onKeyDown({ key: 'Enter', preventDefault: () => {} } as unknown as KeyboardEvent);
+    select
+      .getTriggerProps()
+      .onKeyDown({ key: 'Enter', preventDefault: () => {} } as unknown as KeyboardEvent);
     expect(select.getState().selectedValues).toEqual(['cherry']);
   });
 
@@ -120,7 +125,7 @@ describe('useSelect - High Coverage', () => {
     select.setSearch('test');
     vi.runAllTimers();
     await vi.waitFor(() => expect(select.getState().isLoading).toBe(false));
-    expect(select.getState().resolvedOptions.some(o => o.value === 'async')).toBe(true);
+    expect(select.getState().resolvedOptions.some((o) => o.value === 'async')).toBe(true);
 
     select.setSearch('');
     select.setSearch('test');
@@ -131,25 +136,33 @@ describe('useSelect - High Coverage', () => {
   // ── Utils & Features ────────────────────────────────────────────────────────
 
   it('calculates position and virtualization correctly', () => {
-    const trigger = { getBoundingClientRect: () => ({ top: 10, bottom: 20, left: 0, width: 100 }) } as unknown as HTMLElement;
+    const trigger = {
+      getBoundingClientRect: () => ({ top: 10, bottom: 20, left: 0, width: 100 }),
+    } as unknown as HTMLElement;
     const menu = { getBoundingClientRect: () => ({ height: 50 }) } as unknown as HTMLElement;
     global.innerHeight = 100;
     expect(calculatePosition(trigger, menu).placement).toBe('bottom');
 
     const virt = calculateVirtualization(100, 20, 200, 0);
     expect(virt.startIndex).toBe(0);
-    expect(virt.items).toHaveLength(20); 
+    expect(virt.items).toHaveLength(20);
   });
 
   it('debounces and scrolls into view', () => {
     const fn = vi.fn();
     const { call } = debounce(fn, 100);
-    call(); call();
+    call();
+    call();
     vi.runAllTimers();
     expect(fn).toHaveBeenCalledTimes(1);
 
-    const container = { getBoundingClientRect: () => ({ top: 0, bottom: 100 }), scrollTop: 0 } as unknown as HTMLElement;
-    const element = { getBoundingClientRect: () => ({ top: 110, bottom: 120 }) } as unknown as HTMLElement;
+    const container = {
+      getBoundingClientRect: () => ({ top: 0, bottom: 100 }),
+      scrollTop: 0,
+    } as unknown as HTMLElement;
+    const element = {
+      getBoundingClientRect: () => ({ top: 110, bottom: 120 }),
+    } as unknown as HTMLElement;
     scrollIntoView(container, element);
     expect(container.scrollTop).toBeGreaterThan(0);
   });
@@ -157,17 +170,17 @@ describe('useSelect - High Coverage', () => {
   it('hydrates from element including multiple and optgroups', () => {
     const el = document.createElement('select');
     el.multiple = true;
-    
+
     const group = document.createElement('optgroup');
     group.label = 'Fruits';
     group.appendChild(new Option('Apple', 'apple', false, true));
     el.appendChild(group);
-    
+
     el.add(new Option('Banana', 'banana'));
-    
+
     const select = useSelect({ hydrateFrom: el });
     const state = select.getState();
-    
+
     expect(state.selectedValues).toEqual(['apple']);
     expect(state.resolvedOptions).toHaveLength(2);
     expect(state.resolvedOptions[0].groupLabel).toBe('Fruits');
