@@ -1,4 +1,4 @@
-import type { SelectState, SelectConfig, SelectChange, SelectOption } from '@/core/types';
+import type { SelectState, SelectConfig, SelectChange } from '@/core/types';
 
 /**
  * Provides access to the core engine's internal state and configuration.
@@ -19,10 +19,6 @@ export interface SelectContext {
    * Returns the current configuration.
    */
   getConfig: () => SelectConfig;
-  /**
-   * Returns the statically resolved initial options list.
-   */
-  getInitialOptions: () => SelectOption[];
   /**
    * Unique identifier for this select instance.
    */

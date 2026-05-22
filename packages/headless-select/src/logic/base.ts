@@ -43,7 +43,20 @@ export function createBaseActions(
     const state = ctx.getState();
     if (config.disabled || state.isOpen) return;
 
-    ctx.setState({ isOpen: true });
+    let focusVal = state.focusedOptionValue;
+    if (!focusVal && state.selectedValues.length > 0) {
+      // Find the first selected value that is currently visible
+      const firstVisibleSelected = state.visibleOptions.find((o) =>
+        state.selectedValues.includes(o.value),
+      );
+      if (firstVisibleSelected) {
+        focusVal = firstVisibleSelected.value;
+      } else {
+        focusVal = state.selectedValues[0];
+      }
+    }
+
+    ctx.setState({ isOpen: true, focusedOptionValue: focusVal });
     config.onOpen?.();
     void maybeLoadDefaultOptions();
   }

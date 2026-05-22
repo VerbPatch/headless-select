@@ -21,93 +21,93 @@ const initialState: SelectState = {
 };
 
 export function useSelect(config: SelectConfig) {
-  const [state, setState] = useState<SelectState>(initialState);
   const instanceRef = useRef<SelectInstance | null>(null);
-  const prevConfigRef = useRef<SelectConfig | null>(null);
+  if (!instanceRef.current) {
+    instanceRef.current = headlessSelect(config);
+  }
+
+  const [state, setState] = useState<SelectState>(() => instanceRef.current!.getState());
   const nativeRef = useRef<HTMLSelectElement>(null);
 
-  // Initialize or re-initialize the instance
   useLayoutEffect(() => {
-    if (!config) return;
+    let currentInstance = instanceRef.current;
 
-    if (!instanceRef.current) {
-      instanceRef.current = headlessSelect(config);
+    if (!currentInstance) {
+      currentInstance = headlessSelect(config);
+      instanceRef.current = currentInstance;
+      setState(currentInstance.getState());
     }
 
-    // Always subscribe BEFORE potentially triggering changes via setConfig
-    const unsubscribe = instanceRef.current.subscribe(setState);
-    
-    // Ensure React state is in sync with the current instance state
-    setState(instanceRef.current.getState());
+    const unsubscribe = currentInstance.subscribe(setState);
 
-    // Automatically sync nativeRef to hydrateFrom if not explicitly provided
-    const finalConfig = { ...config };
-    if (!finalConfig.hydrateFrom && nativeRef.current) {
-      finalConfig.hydrateFrom = nativeRef.current;
-    }
-
-    instanceRef.current.setConfig(finalConfig);
-    prevConfigRef.current = config;
-    
     return () => {
       unsubscribe();
-    };
-  }, [config?.hydrateFrom, !!nativeRef.current]);
-
-  // Handle dynamic config updates (non-element changes)
-  useLayoutEffect(() => {
-    if (!instanceRef.current || !config || config === prevConfigRef.current) return;
-
-    // Deep-ish check for config changes to avoid infinite loops with object literals
-    const prev = prevConfigRef.current;
-    if (prev) {
-      const keys = Object.keys(config) as Array<keyof SelectConfig>;
-      const prevKeys = Object.keys(prev) as Array<keyof SelectConfig>;
-
-      if (keys.length === prevKeys.length) {
-        const hasChanged = keys.some((key) => {
-          // Skip hydrateFrom as it's handled in the other effect
-          if (key === 'hydrateFrom') return false;
-          return config[key] !== prev[key];
-        });
-
-        if (!hasChanged) return;
-      }
-    }
-
-    const finalConfig = { ...config };
-    if (!finalConfig.hydrateFrom && nativeRef.current) {
-      finalConfig.hydrateFrom = nativeRef.current;
-    }
-
-    instanceRef.current.setConfig(finalConfig);
-    prevConfigRef.current = config;
-  }, [config]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (instanceRef.current) {
-        instanceRef.current.destroy();
-        instanceRef.current = null;
-      }
+      currentInstance!.destroy();
+      instanceRef.current = null;
     };
   }, []);
 
+  const prevConfigRef = useRef<SelectConfig | null>(null);
+  const prevNativeRef = useRef<HTMLSelectElement | null>(null);
+  const prevInstanceRef = useRef<SelectInstance | null>(null);
+
+  useLayoutEffect(() => {
+    if (!instanceRef.current) return;
+
+    let shouldUpdate = false;
+
+    if (instanceRef.current !== prevInstanceRef.current) {
+      shouldUpdate = true;
+    } else if (config !== prevConfigRef.current) {
+      const prev = prevConfigRef.current;
+      if (!prev) {
+        shouldUpdate = true;
+      } else {
+        const keys = Object.keys(config) as Array<keyof SelectConfig>;
+        const prevKeys = Object.keys(prev) as Array<keyof SelectConfig>;
+
+        if (keys.length !== prevKeys.length) {
+          shouldUpdate = true;
+        } else {
+          shouldUpdate = keys.some((key) => {
+            if (key === 'hydrateFrom') return false;
+            return config[key] !== prev[key];
+          });
+        }
+      }
+    }
+
+    if (!config.hydrateFrom && nativeRef.current !== prevNativeRef.current) {
+      shouldUpdate = true;
+    }
+
+    if (!shouldUpdate) return;
+
+    const finalConfig = { ...config };
+    if (!finalConfig.hydrateFrom && nativeRef.current) {
+      finalConfig.hydrateFrom = nativeRef.current;
+    }
+
+    instanceRef.current.setConfig(finalConfig);
+    prevConfigRef.current = config;
+    prevNativeRef.current = nativeRef.current;
+    prevInstanceRef.current = instanceRef.current;
+  });
+
   return useMemo(() => {
-    const inst = instanceRef.current;
+    const inst = instanceRef.current!;
 
     return {
       state,
       instance: inst,
       nativeRef,
-      getTriggerProps: () => (inst ? inst.getTriggerProps() : ({} as any)),
-      getListboxProps: () => (inst ? inst.getListboxProps() : ({} as any)),
-      getOptionProps: (value: string) => (inst ? inst.getOptionProps(value) : ({} as any)),
-      getSearchInputProps: () => (inst ? inst.getSearchInputProps() : ({} as any)),
-      getNativeSelectProps: () => (inst ? inst.getNativeSelectProps() : ({} as any)),
-      getCreateOptionProps: () => (inst ? inst.getCreateOptionProps() : ({} as any)),
-      getClearOptionProps: (value: string) => (inst ? inst.getClearOptionProps(value) : ({} as any)),
+      getTriggerProps: () => inst.getTriggerProps(),
+      getListboxProps: () => inst.getListboxProps(),
+      getOptionProps: (value: string) => inst.getOptionProps(value),
+      getSearchInputProps: () => inst.getSearchInputProps(),
+      getNativeSelectProps: () => inst.getNativeSelectProps(),
+      getCreateOptionProps: () => inst.getCreateOptionProps(),
+      getClearOptionProps: (value: string) => inst.getClearOptionProps(value),
     };
   }, [state]);
 }

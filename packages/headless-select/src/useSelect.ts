@@ -364,10 +364,27 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     scrollToFocused: (container: HTMLElement) => {
       const focusedValue = state.focusedOptionValue;
       if (!focusedValue) return;
-      const optionId = getOptionId(instanceId, focusedValue);
-      const element = container.querySelector(`[id="${optionId}"]`) as HTMLElement;
-      if (element) {
-        scrollIntoView(container, element);
+
+      if (config.virtualize) {
+        const idx = state.visibleOptions.findIndex((o) => o.value === focusedValue);
+        if (idx !== -1) {
+          const itemHeight = config.itemHeight ?? 35;
+          const containerHeight = config.containerHeight ?? 300;
+          const itemTop = idx * itemHeight;
+          const itemBottom = itemTop + itemHeight;
+
+          if (itemTop < container.scrollTop) {
+            container.scrollTop = itemTop;
+          } else if (itemBottom > container.scrollTop + containerHeight) {
+            container.scrollTop = itemBottom - containerHeight;
+          }
+        }
+      } else {
+        const optionId = getOptionId(instanceId, focusedValue);
+        const element = container.querySelector(`[id="${optionId}"]`) as HTMLElement;
+        if (element) {
+          scrollIntoView(container, element);
+        }
       }
     },
     sync: () => debouncedNativeChange(),
@@ -388,7 +405,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     focusLast: handlers.focusLast,
 
     setConfig: (patch: Partial<SelectConfig>) => {
-      const prevOptions = config.options;
+      // const prevOptions = config.options;
       const prevHydrateFrom = config.hydrateFrom;
       config = { ...config, ...patch };
 

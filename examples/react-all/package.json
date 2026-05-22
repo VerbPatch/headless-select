@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "clean": "rimraf dist",
+    "cleannm": "rimraf node_modules",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

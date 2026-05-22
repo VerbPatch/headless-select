@@ -14,19 +14,28 @@ export function hydrateFromElement(element: HTMLSelectElement): {
   multiple: boolean;
 } {
   const items: DataItem[] = [];
+  const selectedValues: Set<string> = new Set();
 
   Array.from(element.children).forEach((child) => {
     if (child instanceof HTMLOptGroupElement) {
       items.push({
         label: child.label,
-        options: Array.from(child.getElementsByTagName('option')).map((opt) => ({
-          value: opt.value,
-          label: opt.text,
-          disabled: opt.disabled,
-        })),
+        options: Array.from(child.getElementsByTagName('option')).map((opt) => {
+          if (opt.hasAttribute('selected') || opt.selected) {
+            selectedValues.add(opt.value);
+          }
+          return {
+            value: opt.value,
+            label: opt.text,
+            disabled: opt.disabled,
+          };
+        }),
         disabled: child.disabled,
       });
     } else if (child instanceof HTMLOptionElement) {
+      if (child.hasAttribute('selected') || child.selected) {
+        selectedValues.add(child.value);
+      }
       items.push({
         value: child.value,
         label: child.text,
@@ -35,11 +44,10 @@ export function hydrateFromElement(element: HTMLSelectElement): {
     }
   });
 
-  const selectedValues = Array.from(element.selectedOptions).map((opt) => opt.value);
-
+  Array.from(element.selectedOptions).forEach((opt) => selectedValues.add(opt.value));
   return {
     options: items,
-    selectedValues,
+    selectedValues: Array.from(selectedValues),
     multiple: element.multiple,
   };
 }

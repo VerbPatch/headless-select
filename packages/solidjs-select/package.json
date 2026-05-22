@@ -43,6 +43,7 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
+    "cleannm": "rimraf node_modules",
     "build": "rollup -c",
     "dev": "rollup -c -w"
   },

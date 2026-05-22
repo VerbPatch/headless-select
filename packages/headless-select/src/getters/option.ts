@@ -1,4 +1,4 @@
-import { getOptionId, getLastKeyboardEventTime } from '@/utils/index';
+import { getOptionId } from '@/utils/index';
 import type { OptionProps } from '@/core/types';
 import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
 

@@ -38,6 +38,7 @@
   },
   "scripts": {
     "clean": "rimraf dist",
+    "cleannm": "rimraf node_modules",
     "build": "rollup -c",
     "test": "vitest run --coverage",
     "dev": "rollup -c -w",

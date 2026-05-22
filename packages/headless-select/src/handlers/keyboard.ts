@@ -1,5 +1,4 @@
 import type { SelectContext, SelectActions } from '@/core/context';
-import { updateLastKeyboardEventTime } from '@/utils/common';
 
 /**
  * Factory for the central keyboard event handler.

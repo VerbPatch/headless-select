@@ -46,7 +46,7 @@ function App() {
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
             Native Hydration (Pre-filled via HTML)
           </label>
-          <Select multiple placeholder="Select colors..." hideNative={true}>
+          <Select multiple placeholder="Select colors..." hideNative={false}>
             <optgroup label="Colors">
               <option value="red" selected>
                 Red
@@ -76,7 +76,6 @@ function App() {
             value={singleValue}
             placeholder="Pick a fruit"
             onChange={(val) => {
-              console.log('Single Change:', val);
               setSingleValue(val as string);
             }}
           />
@@ -92,16 +91,23 @@ function App() {
             placeholder="Select food..."
             value={multiValue}
             onChange={(val) => {
-              console.log('Multi Change:', val);
               setMultiValue(val as string[]);
             }}
           />
-          <div style={{ marginTop: '1rem', padding: '1rem', background: '#f9f9f9', borderRadius: '4px', border: '1px solid #eee' }}>
+          <div
+            style={{
+              marginTop: '1rem',
+              padding: '1rem',
+              background: '#f9f9f9',
+              borderRadius: '4px',
+              border: '1px solid #eee',
+            }}
+          >
             <h4 style={{ margin: '0 0 0.5rem 0' }}>Controlled State Management</h4>
             <p style={{ margin: '0 0 1rem 0', fontSize: '13px', color: '#666' }}>
               Current multi-select value: <code>{JSON.stringify(multiValue)}</code>
             </p>
-            <button 
+            <button
               onClick={() => setMultiValue(['apple', 'carrot'])}
               style={{ padding: '4px 12px', cursor: 'pointer' }}
             >
@@ -126,8 +132,9 @@ function App() {
             placeholder="Framework..."
           />
           <div style={{ fontSize: '11px', color: '#666', marginTop: '8px' }}>
-            Notice: The native <code>&lt;select&gt;</code> is present in the DOM but visually hidden (using <code>hideNative</code>). 
-            Synchronization and validation still work perfectly in the background.
+            Notice: The native <code>&lt;select&gt;</code> is present in the DOM but visually hidden
+            (using <code>hideNative</code>). Synchronization and validation still work perfectly in
+            the background.
           </div>
         </div>
 
@@ -182,7 +189,6 @@ function App() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }
