@@ -48,5 +48,8 @@
   },
   "peerDependencies": {
     "jquery": ">=3"
+  },
+  "devDependencies": {
+    "@types/jquery": "^4.0.0"
   }
 }

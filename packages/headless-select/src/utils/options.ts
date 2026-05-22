@@ -1,8 +1,12 @@
 import { DataItem, SelectOption, isGroup, SelectConfig } from '@/core/types';
 
 /**
- * Flattens grouped options into a flat array of options.
- * Injects groupLabel into each option for UI rendering.
+ * Flattens a list of options that may contain groups into a single flat array.
+ * @group utilities
+ * @title flattenOptions
+ * @description Processes a mixed array of options and groups, injecting group metadata and inheriting disabled states.
+ * @param {DataItem[]} items - The array of options or groups to flatten.
+ * @returns {SelectOption[]} - A flat array of SelectOption objects.
  */
 export function flattenOptions(items: DataItem[]): SelectOption[] {
   return items.reduce((acc, item) => {
@@ -21,7 +25,13 @@ export function flattenOptions(items: DataItem[]): SelectOption[] {
 }
 
 /**
- * Default filter function.
+ * The default filtering logic used when no custom filter is provided.
+ * @group utilities
+ * @title defaultFilterOption
+ * @description Performs a case-insensitive search against both the label and value of an option.
+ * @param {SelectOption} option - The option to test.
+ * @param {string} search - The search term to match against.
+ * @returns {boolean} - True if the option matches the search term.
  */
 export function defaultFilterOption(option: SelectOption, search: string): boolean {
   const lowSearch = search.toLowerCase();
@@ -31,7 +41,16 @@ export function defaultFilterOption(option: SelectOption, search: string): boole
 }
 
 /**
- * Filters a flat list of options.
+ * Filters a flat list of options based on a search term and filter function.
+ * @group utilities
+ * @title filterOptions
+ * @description Orchestrates the filtering process for a list of options.
+ * @param {SelectOption[]} options - The flat list of options to filter.
+ * @param {string} search - The current search term.
+ * @param {Function} filterFn - The function used to test each option.
+ * @param {string[]} _selectedValues - Current selected values (reserved for future use).
+ * @param {boolean} _multiple - Whether multiple selection is enabled (reserved for future use).
+ * @returns {SelectOption[]} - The filtered list of options.
  */
 export function filterOptions(
   options: SelectOption[],
@@ -45,7 +64,13 @@ export function filterOptions(
 }
 
 /**
- * Merges new options into an existing pool without duplicates.
+ * Merges new options into an existing array while preventing duplicate values.
+ * @group utilities
+ * @title mergeOptions
+ * @description Combines two sets of options, ensuring that values already present in the existing set are not duplicated.
+ * @param {SelectOption[]} existing - The current set of options.
+ * @param {SelectOption[]} incoming - The new options to be merged.
+ * @returns {SelectOption[]} - The combined unique set of options.
  */
 export function mergeOptions(existing: SelectOption[], incoming: SelectOption[]): SelectOption[] {
   const existingValues = new Set(existing.map((o) => o.value));
@@ -54,7 +79,15 @@ export function mergeOptions(existing: SelectOption[], incoming: SelectOption[])
 }
 
 /**
- * Shared logic for computing visible options based on current state and config.
+ * Computes the final set of visible options based on the current configuration and state.
+ * @group utilities
+ * @title computeVisibleOptions
+ * @description A high-level utility that resolves the filter function and applies it to the current options.
+ * @param {SelectConfig} config - The select configuration.
+ * @param {SelectOption[]} resolved - The full set of resolved options.
+ * @param {string} search - The current search term.
+ * @param {string[]} selectedValues - The currently selected values.
+ * @returns {SelectOption[]} - The options that should be visible in the dropdown.
  */
 export function computeVisibleOptions(
   config: SelectConfig,
@@ -68,7 +101,14 @@ export function computeVisibleOptions(
 }
 
 /**
- * Shared logic for determining if a new option can be created.
+ * Determines if a new custom option can be created based on the current search input.
+ * @group utilities
+ * @title computeCanCreate
+ * @description Validates the search term against existing options and configuration rules to decide if creation is allowed.
+ * @param {SelectConfig} config - The select configuration.
+ * @param {string} search - The current search term.
+ * @param {SelectOption[]} resolved - The current set of resolved options.
+ * @returns {boolean} - True if a new option can be created.
  */
 export function computeCanCreate(
   config: SelectConfig,
@@ -88,8 +128,14 @@ export function computeCanCreate(
 }
 
 /**
- * Calculates the next/previous focusable option value.
- * Skips disabled options and handles wrapping.
+ * Calculates the next or previous focusable index in the options list.
+ * @group utilities
+ * @title nextFocusableIndex
+ * @description Navigates through the options list to find the next available option that is not disabled, supporting circular wrapping.
+ * @param {SelectOption[]} options - The list of options to navigate.
+ * @param {string | null} currentValue - The value of the currently focused option.
+ * @param {1 | -1} direction - The direction to move (1 for next, -1 for previous).
+ * @returns {string | null} - The value of the next focusable option.
  */
 export function nextFocusableIndex(
   options: SelectOption[],
@@ -101,12 +147,10 @@ export function nextFocusableIndex(
   const currentIndex = options.findIndex((o) => o.value === currentValue);
   let nextIndex = currentIndex + direction;
 
-  // Handle initial focus or wrapping
   if (currentIndex === -1) {
     nextIndex = direction === 1 ? 0 : options.length - 1;
   }
 
-  // Iterate to find non-disabled option
   for (let i = 0; i < options.length; i++) {
     const wrappedIndex = (nextIndex + options.length) % options.length;
     const opt = options[wrappedIndex];

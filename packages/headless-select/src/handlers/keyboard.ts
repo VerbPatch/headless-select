@@ -1,5 +1,16 @@
 import type { SelectContext, SelectActions } from '@/core/context';
+import { updateLastKeyboardEventTime } from '@/utils/common';
 
+/**
+ * Factory for the central keyboard event handler.
+ * @group handlers
+ * @title createKeyboardHandler
+ * @description Manages all keyboard interactions, including navigation (arrows, home/end), selection (enter, space), and type-ahead searching.
+ * @param {SelectContext} ctx - The internal select context.
+ * @param {SelectActions} actions - Core instance actions.
+ * @param {FocusActions} focus - Focus-specific actions.
+ * @returns {KeyboardHandler} - Object containing the handleKeyDown method.
+ */
 export function createKeyboardHandler(
   ctx: SelectContext,
   actions: SelectActions,
@@ -14,6 +25,10 @@ export function createKeyboardHandler(
   let typeAheadQuery = '';
   let typeAheadTimer: ReturnType<typeof setTimeout> | null = null;
 
+  /**
+   * Processes keyboard events for the select component.
+   * @param {KeyboardEvent} e - The native keyboard event.
+   */
   function handleKeyDown(e: KeyboardEvent): void {
     const config = ctx.getConfig();
     const state = ctx.getState();

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "Headless Select",
+  "entryPointStrategy": "packages",
+  "entryPoints": ["./packages/headless-select"],
+  "packageOptions": {
+    "entryPoints": ["src/index.ts"]
+  },
+  "includeVersion": false,
+  "exclude": ["node_modules", "examples"],
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-frontmatter",
+    "./scripts/setup-api-doc.mjs"
+  ],
+  "router": "group",
+  "out": "./docs/api",
+  "headings": {
+    "readme": false,
+    "document": false
+  },
+  "basePath": "/select/docs/api",
+  "publicPath": "/select/docs/api",
+  "navigationJson": "docs/navigation.json",
+  "entryFileName": "select",
+  "hidePageHeader": true,
+  "hidePageTitle": false,
+  "hideBreadcrumbs": true,
+  "readme": "none",
+  "mergeReadme": false,
+  "frontmatterCommentTags": ["title", "description"],
+  "blockTags": ["@title", "@description", "@sortStrategy"],
+  "pageTitleTemplates": {
+    "member": "{name}"
+  }
+}

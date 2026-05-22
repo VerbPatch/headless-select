@@ -2,7 +2,19 @@ import type { SelectOption, SelectChange } from '@/core/types';
 import { mergeOptions, computeVisibleOptions } from '@/utils/index';
 import type { SelectContext } from '@/core/context';
 
+/**
+ * Factory for creatable-related actions.
+ * @group logic
+ * @title createCreatableActions
+ * @description Provides the logic for dynamically creating and selecting new options from user input.
+ * @param {SelectContext} ctx - The internal select context.
+ * @returns {CreatableActions} - Object containing the createOption action.
+ */
 export function createCreatableActions(ctx: SelectContext) {
+  /**
+   * Creates a new option and selects it.
+   * @param {string} input - The text input used to create the new option.
+   */
   function createOption(input: string): void {
     const config = ctx.getConfig();
     const state = ctx.getState();

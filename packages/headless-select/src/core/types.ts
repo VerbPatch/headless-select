@@ -1,54 +1,116 @@
-// ─── Option & Group Types ────────────────────────────────────────────────────
-
+/**
+ * Represents a single selectable option in the dropdown.
+ * @group types
+ * @title SelectOption
+ * @description Defines the structure for a standard select option, including its value, label, and metadata.
+ */
 export type SelectOption = {
-  value: string; // machine value stored & emitted
-  label: string; // human-readable display text
-  disabled?: boolean; // greys out & blocks selection of this option
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  [key: string]: any; // arbitrary metadata (select2-style), e.g. avatarUrl, subtitle
+  /**
+   * The machine-readable value stored and emitted by the select.
+   */
+  value: string;
+  /**
+   * The human-readable label displayed in the UI.
+   */
+  label: string;
+  /**
+   * Whether the option is disabled and cannot be selected.
+   */
+  disabled?: boolean;
+  /**
+   * Arbitrary metadata associated with the option.
+   */
+
+  [key: string]: any;
 };
 
+/**
+ * Represents a group of options in the dropdown.
+ * @group types
+ * @title SelectGroup
+ * @description Defines a group of options with a shared label and optional group-level disabled state.
+ */
 export type SelectGroup = {
-  label: string; // group heading shown in the dropdown
-  options: SelectOption[]; // options belonging to this group
-  disabled?: boolean; // disables every option in the group at once
+  /**
+   * The heading label for the group.
+   */
+  label: string;
+  /**
+   * The list of options belonging to this group.
+   */
+  options: SelectOption[];
+  /**
+   * Whether the entire group and its options are disabled.
+   */
+  disabled?: boolean;
 };
 
-// Union used everywhere options are accepted — keeps API surface consistent
+/**
+ * A union type representing either a single option or a group of options.
+ * @group types
+ * @title DataItem
+ * @description Used to define the list of items provided to the select component.
+ */
 export type DataItem = SelectOption | SelectGroup;
 
-// Discriminator helper — guards at runtime without an extra "type" field
+/**
+ * Type guard to check if a DataItem is a SelectGroup.
+ * @group utilities
+ * @title isGroup
+ * @description Returns true if the item contains an options array.
+ * @param {DataItem} item - The item to check.
+ * @returns {boolean} - True if the item is a group.
+ */
 export function isGroup(item: DataItem): item is SelectGroup {
   return 'options' in item;
 }
 
-// ─── Internal State ───────────────────────────────────────────────────────────
-
+/**
+ * Represents the internal state of a select instance.
+ * @group types
+ * @title SelectState
+ * @description Holds all reactive state for the select, including visibility, search term, and selections.
+ */
 export interface SelectState {
+  /**
+   * Whether the dropdown menu is currently open.
+   */
   isOpen: boolean;
+  /**
+   * The current search string typed by the user.
+   */
   search: string;
+  /**
+   * The list of currently selected values.
+   */
   selectedValues: string[];
-
-  // All options after static config + async load + groups flattened.
-  // Source of truth for lookups (value → label, etc.).
+  /**
+   * All resolved options after processing groups and asynchronous loading.
+   */
   resolvedOptions: SelectOption[];
-
-  // Subset of resolvedOptions currently shown — post-search-filter.
-  // Drives what the dropdown renders.
+  /**
+   * The subset of options currently visible in the dropdown (filtered by search).
+   */
   visibleOptions: SelectOption[];
-
-  // Tracks keyboard focus by value (not index) so it survives
-  // re-filtering and group reordering without going stale.
+  /**
+   * The value of the option currently focused via keyboard navigation.
+   */
   focusedOptionValue: string | null;
-
-  // Derived: search.length > 0 && isValidNewOption(search) — controls
-  // whether the "Create …" option is rendered.
+  /**
+   * Whether the "Create" option should be displayed based on current search.
+   */
   canCreate: boolean;
-
+  /**
+   * Whether an asynchronous load operation is currently in progress.
+   */
   isLoading: boolean;
+  /**
+   * Any error that occurred during data fetching or state transitions.
+   */
   error: Error | null;
-
-  // Virtualization state (only populated if config.virtualize is true)
+  /**
+   * Current virtualization window and calculations.
+   */
   virtualization?: {
     startIndex: number;
     endIndex: number;
@@ -58,156 +120,194 @@ export interface SelectState {
   };
 }
 
-// ─── Change Metadata (emitted with onChange) ──────────────────────────────────
-
+/**
+ * Metadata emitted during a selection change event.
+ * @group types
+ * @title SelectChange
+ * @description Provides details about the type of change and the specific option involved.
+ */
 export type SelectChange = {
+  /**
+   * The type of change action performed.
+   */
   type: 'select' | 'deselect' | 'clear' | 'create';
-  // null on 'clear'
+  /**
+   * The option involved in the change, or null if it was a clear action.
+   */
   option: SelectOption | null;
 };
 
-// ─── Main Config ──────────────────────────────────────────────────────────────
-
+/**
+ * Configuration options for initializing a select instance.
+ * @group types
+ * @title SelectConfig
+ * @description Defines all behavior, data source, and visual options for the select component.
+ */
 export interface SelectConfig {
-  // ── Value control ─────────────────────────────────────────────────────
-
-  // Controlled mode — parent owns the value, must update on onChange.
+  /**
+   * The currently selected value(s) for controlled mode.
+   */
   value?: string | string[];
-
-  // Uncontrolled mode — component owns state internally.
+  /**
+   * The initial selected value(s) for uncontrolled mode.
+   */
   defaultValue?: string | string[];
-
-  // ── Data ──────────────────────────────────────────────────────────────
-
-  // Static option list. Accepts flat options or grouped options (DataItem[]).
+  /**
+   * Static list of options or groups.
+   */
   options?: DataItem[];
-
-  // Async loader — called with the current search string.
-  // If omitted, filtering happens client-side against `options`.
+  /**
+   * Function to load options asynchronously based on search input.
+   */
   loadOptions?: (search: string) => Promise<SelectOption[]>;
-
-  // true → call loadOptions on open (before user types).
-  // SelectOption[] → pre-populate dropdown, still call loadOptions on search.
+  /**
+   * Initial options to show, or true to trigger an immediate load on open.
+   */
   defaultOptions?: boolean | SelectOption[];
-
-  // Memoises loadOptions results keyed by search string.
-  // Avoids duplicate network calls for the same query.
+  /**
+   * Whether to cache results from loadOptions based on the search term.
+   */
   cacheOptions?: boolean;
-
-  // Hydrate initial options + selectedValues from an existing <select> element.
-  // Useful for progressive enhancement of server-rendered forms.
+  /**
+   * An existing HTMLSelectElement to hydrate initial state from.
+   */
   hydrateFrom?: HTMLSelectElement;
-
-  // ── Behaviour ─────────────────────────────────────────────────────────
-
-  // Allow selecting more than one option at a time.
+  /**
+   * Whether multiple options can be selected simultaneously.
+   */
   multiple?: boolean;
-
-  // Show a search input inside the dropdown. Default: true.
+  /**
+   * Whether to display a search input for filtering options.
+   */
   searchable?: boolean;
-
-  // Show a clear/reset button to deselect everything.
+  /**
+   * Whether to show a clear button to deselect all items.
+   */
   clearable?: boolean;
-
-  // Disables the entire control — no interaction, visually dimmed.
+  /**
+   * Whether the select component is disabled.
+   */
   disabled?: boolean;
-
-  // Allow the user to create an option that doesn't exist in the list.
+  /**
+   * Whether users can create new options from the search input.
+   */
   creatable?: boolean;
-
-  // Close dropdown after selecting an option.
-  // Default: true for single, false for multiple.
+  /**
+   * Whether to close the dropdown immediately after a selection is made.
+   */
   closeOnSelect?: boolean;
-
-  // ── Search & filtering ────────────────────────────────────────────────
-
-  // Custom client-side filter. Return true to keep the option.
-  // Overrides default label-match filtering.
+  /**
+   * Custom filter function for client-side search.
+   */
   filterOption?: (option: SelectOption, search: string) => boolean;
-
-  // Debounce delay in ms before loadOptions is called. Default: 300.
+  /**
+   * Delay in milliseconds before executing asynchronous searches.
+   */
   searchDelay?: number;
-
-  // Minimum characters typed before search fires (select2 pattern).
+  /**
+   * Minimum search string length required to trigger a search.
+   */
   minSearchLength?: number;
-
-  // ── Display ───────────────────────────────────────────────────────────
-
-  // Ghost text shown when nothing is selected.
+  /**
+   * Placeholder text shown when no value is selected.
+   */
   placeholder?: string;
-
-  // Text shown in the dropdown while loadOptions is in-flight.
+  /**
+   * Message shown while loading options.
+   */
   loadingMessage?: string;
-
-  // Text (or factory) shown when filtering returns zero results.
+  /**
+   * Message shown when no matching options are found.
+   */
   noOptionsMessage?: string | ((search: string) => string);
-
-  // ── Creatable ─────────────────────────────────────────────────────────
-
-  // Return true to allow creating an option with this input value.
-  // Default: () => true (any non-empty input is valid).
+  /**
+   * Validation function for new options in creatable mode.
+   */
   isValidNewOption?: (input: string, currentOptions: SelectOption[]) => boolean;
-
-  // Called when the user confirms a new option.
-  // Return a SelectOption to override the auto-built one (e.g. to persist to API first).
+  /**
+   * Callback triggered when a new option is created.
+   */
   onCreate?: (input: string) => void | SelectOption;
-
-  // Label rendered on the "Create …" row in the dropdown.
-  // Default: (v) => `Create "${v}"`
+  /**
+   * Factory function for the label of the "Create" option.
+   */
   createOptionLabel?: (input: string) => string;
-
-  // ── Virtualization ────────────────────────────────────────────────────
+  /**
+   * Whether to enable list virtualization for high-performance rendering.
+   */
   virtualize?: boolean;
+  /**
+   * Fixed height for each list item in pixels (required for virtualization).
+   */
   itemHeight?: number;
+  /**
+   * Total height of the scrollable list container (required for virtualization).
+   */
   containerHeight?: number;
-
-  // ── Accessibility ─────────────────────────────────────────────────────
-
-  // id placed on the internal search <input> so <label for="…"> works.
+  /**
+   * ID for the internal search input element.
+   */
   inputId?: string;
-
-  // aria-label for the combobox when no visible <label> element exists.
+  /**
+   * Accessibility label for the select component.
+   */
   ariaLabel?: string;
-
-  // aria-labelledby pointing to an external element's id.
+  /**
+   * ID of the element that labels the select component.
+   */
   ariaLabelledBy?: string;
-
-  // ── Events ────────────────────────────────────────────────────────────
-
-  // Primary change handler. Includes what changed and which option triggered it.
+  /**
+   * Callback triggered when the selected value(s) change.
+   */
   onChange?: (value: string | string[], change: SelectChange) => void;
-
-  // Fires when the dropdown opens.
+  /**
+   * Callback triggered when the dropdown is opened.
+   */
   onOpen?: () => void;
-
-  // Fires when the dropdown closes.
+  /**
+   * Callback triggered when the dropdown is closed.
+   */
   onClose?: () => void;
-
-  // Fires on every keystroke in the search input.
+  /**
+   * Callback triggered on every search input change.
+   */
   onSearch?: (term: string) => void;
-
-  // Imperative loading hooks — useful for vanilla JS consumers.
-  // Reactive consumers can derive this from SelectState.isLoading instead.
+  /**
+   * Callback triggered when an asynchronous load starts.
+   */
   onLoadStart?: () => void;
+  /**
+   * Callback triggered when an asynchronous load completes.
+   */
   onLoadEnd?: (options: SelectOption[]) => void;
 }
 
-// ─── Prop Getters ─────────────────────────────────────────────────────────────
-
+/**
+ * Attributes and handlers for the select trigger element.
+ * @group getters
+ * @title TriggerProps
+ * @description Standard ARIA attributes and events required for a button that opens the select menu.
+ */
 export interface TriggerProps {
   role: string;
   'aria-expanded': boolean;
-  'aria-haspopup': string;
+  'aria-haspopup': 'listbox';
   'aria-controls': string;
   'aria-label'?: string;
   'aria-labelledby'?: string;
   'aria-disabled': boolean;
   tabIndex: number;
   onClick: () => void;
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+
   onKeyDown: (e: any) => void;
 }
 
+/**
+ * Attributes for the listbox container element.
+ * @group getters
+ * @title ListboxProps
+ * @description Standard ARIA attributes required for the scrollable list of options.
+ */
 export interface ListboxProps {
   id: string;
   role: string;
@@ -215,70 +315,181 @@ export interface ListboxProps {
   'aria-label'?: string;
 }
 
+/**
+ * Attributes and handlers for an individual option element.
+ * @group getters
+ * @title OptionProps
+ * @description Standard ARIA attributes and events required for selectable items within the listbox.
+ */
 export interface OptionProps {
   id: string;
   role: string;
   'aria-selected': boolean;
   'aria-disabled': boolean;
   'data-focused': boolean;
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+
   onClick: (e: any) => void;
   onMouseEnter: () => void;
 }
 
+/**
+ * Attributes and handlers for the search input element.
+ * @group getters
+ * @title SearchInputProps
+ * @description Standard attributes and events required for filtering options via text input.
+ */
 export interface SearchInputProps {
   id?: string;
   type: string;
   role: string;
   autoComplete: string;
-  'aria-autocomplete': string;
+  'aria-autocomplete': 'list';
   'aria-controls': string;
   'aria-activedescendant'?: string;
   value: string;
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+
   onInput: (e: any) => void;
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+
   onKeyDown: (e: any) => void;
 }
 
-// ─── Instance ────────────────────────────────────────────────────────────────
-
+/**
+ * Function to unsubscribe from state changes.
+ * @group types
+ * @title Unsubscribe
+ * @description Stops the listener from receiving further updates.
+ */
 export type Unsubscribe = () => void;
 
+/**
+ * The main instance object for managing a select component.
+ * @group types
+ * @title SelectInstance
+ * @description Provides direct access to state, configuration, and imperative actions.
+ */
 export interface SelectInstance {
+  /**
+   * Returns the current internal state.
+   */
   getState: () => SelectState;
+  /**
+   * Returns the current configuration options.
+   */
   getConfig: () => SelectConfig;
+  /**
+   * Subscribes to state changes and returns an unsubscribe function.
+   */
   subscribe: (listener: (s: SelectState) => void) => Unsubscribe;
+  /**
+   * Opens the dropdown menu.
+   */
   open: () => void;
+  /**
+   * Closes the dropdown menu.
+   */
   close: () => void;
+  /**
+   * Toggles the open/closed state of the dropdown menu.
+   */
   toggle: () => void;
+  /**
+   * Selects an option by its value.
+   */
   selectOption: (value: string) => void;
+  /**
+   * Deselects an option by its value.
+   */
   deselectOption: (value: string) => void;
+  /**
+   * Toggles the selection state of an option by its value.
+   */
   toggleOption: (value: string) => void;
+  /**
+   * Deselects all currently selected values.
+   */
   clearAll: () => void;
+  /**
+   * Sets the current search term and filters options.
+   */
   setSearch: (term: string) => void;
+  /**
+   * Manually sets the focus to an option by value.
+   */
   focusOption: (value: string | null) => void;
+  /**
+   * Moves focus to the next visible option.
+   */
   focusNext: () => void;
+  /**
+   * Moves focus to the previous visible option.
+   */
   focusPrev: () => void;
+  /**
+   * Moves focus to the first visible option.
+   */
   focusFirst: () => void;
+  /**
+   * Moves focus to the last visible option.
+   */
   focusLast: () => void;
+  /**
+   * Creates a new option from the provided input string.
+   */
   createOption: (input: string) => void;
+  /**
+   * Ensures the currently focused option is visible within its container.
+   */
   scrollToFocused: (container: HTMLElement) => void;
+  /**
+   * Forces a synchronization of internal state (useful for manual configuration changes).
+   */
   sync: () => void;
+  /**
+   * Updates virtualization calculations based on scroll position.
+   */
   onScroll: (scrollTop: number) => void;
+  /**
+   * Patches the current configuration with new values.
+   */
   setConfig: (patch: Partial<SelectConfig>) => void;
+  /**
+   * Cleans up the instance and destroys all internal subscriptions.
+   */
   destroy: () => void;
-
-  // Prop Getters
+  /**
+   * Generates props for the trigger element.
+   */
   getTriggerProps: () => TriggerProps;
+  /**
+   * Generates props for the listbox element.
+   */
   getListboxProps: () => ListboxProps;
+  /**
+   * Generates props for a specific option element.
+   */
   getOptionProps: (value: string) => OptionProps;
+  /**
+   * Generates props for the search input element.
+   */
   getSearchInputProps: () => SearchInputProps;
+  /**
+   * Generates props for a native select element (progressive enhancement).
+   */
   getNativeSelectProps: () => any;
+  /**
+   * Generates props for the "Create" option row.
+   */
   getCreateOptionProps: () => any;
+  /**
+   * Generates props for a clear button specific to an option (multi-select tags).
+   */
   getClearOptionProps: (value: string) => any;
-
-  // Legacy/Helpers (compatible with existing code)
+  /**
+   * Helper to retrieve the label for a given option value.
+   */
   getOptionLabel: (value: string) => string;
+  /**
+   * Returns the list of currently selected SelectOption objects.
+   */
   getSelectedOptions: () => SelectOption[];
 }

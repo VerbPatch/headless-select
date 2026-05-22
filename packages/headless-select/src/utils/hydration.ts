@@ -1,8 +1,12 @@
 import { DataItem } from '@/core/types';
 
 /**
- * Hydrates options and values from a native <select> element.
- * Supports <optgroup> and maintains the tree structure.
+ * Hydrates options and values from a native HTML select element.
+ * @group utilities
+ * @title hydrateFromElement
+ * @description Scans a native `<select>` element for its options and `<optgroup>` children, extracting values, labels, and disabled states.
+ * @param {HTMLSelectElement} element - The native select element to hydrate from.
+ * @returns {Object} - An object containing the extracted options, selected values, and multiple-selection mode.
  */
 export function hydrateFromElement(element: HTMLSelectElement): {
   options: DataItem[];

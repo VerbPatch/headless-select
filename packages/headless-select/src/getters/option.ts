@@ -1,7 +1,18 @@
-import { getOptionId } from '@/utils/index';
+import { getOptionId, getLastKeyboardEventTime } from '@/utils/index';
 import type { OptionProps } from '@/core/types';
 import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
 
+/**
+ * Returns the props for an option element.
+ * @group getters
+ * @title getOptionProps
+ * @description Returns the props for an option element, including accessibility attributes and event handlers.
+ * @param {SelectContext} ctx - The select context.
+ * @param {SelectActions} actions - The select actions.
+ * @param {KeyboardActions} keyboard - The keyboard actions.
+ * @param {string} value - The value of the option.
+ * @returns {OptionProps} - The props for the option element.
+ */
 export function getOptionProps(
   ctx: SelectContext,
   actions: SelectActions,

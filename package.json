@@ -16,6 +16,7 @@
     "publish": "pnpm --filter \"./packages/**\" -r publish  --no-git-checks --access public --publish-branch main",
     "docs": "typedoc",
     "changeset": "changeset",
+    "test": "pnpm --filter \"@verbpatch/headless-select\" test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

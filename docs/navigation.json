@@ -1,0 +1,262 @@
+[
+  {
+    "title": "Introduction",
+    "group": "doc",
+    "children": [
+      {
+        "title": "Headless Select?",
+        "path": "/Select/docs/introduction"
+      },
+      {
+        "title": "Getting Started",
+        "path": "/Select/docs/getting-started"
+      }
+    ]
+  },
+  {
+    "title": "Core Concepts",
+    "group": "doc",
+    "children": [
+      {
+        "title": "Architecture",
+        "path": "/Select/docs/core-concepts/architecture"
+      },
+      {
+        "title": "Select Options",
+        "path": "/Select/docs/core-concepts/select-options"
+      },
+      {
+        "title": "Select State",
+        "path": "/Select/docs/core-concepts/select-state"
+      },
+      {
+        "title": "Progressive Enhancement",
+        "path": "/Select/docs/core-concepts/progressive-enhancement"
+      }
+    ]
+  },
+  {
+    "title": "Cookbook",
+    "group": "doc",
+    "children": [
+      {
+        "title": "Autocomplete Component",
+        "path": "/Select/docs/cookbook/autocomplete-component"
+      }
+    ]
+  },
+  {
+    "title": "hooks",
+    "children": [
+      {
+        "title": "useSelect",
+        "kind": 64,
+        "path": "/select/docs/api/hooks/useSelect",
+        "isDeprecated": false
+      }
+    ],
+    "group": "api"
+  },
+  {
+    "title": "getters",
+    "children": [
+      {
+        "title": "ListboxProps",
+        "kind": 256,
+        "path": "/select/docs/api/getters/ListboxProps",
+        "isDeprecated": false
+      },
+      {
+        "title": "OptionProps",
+        "kind": 256,
+        "path": "/select/docs/api/getters/OptionProps",
+        "isDeprecated": false
+      },
+      {
+        "title": "SearchInputProps",
+        "kind": 256,
+        "path": "/select/docs/api/getters/SearchInputProps",
+        "isDeprecated": false
+      },
+      {
+        "title": "TriggerProps",
+        "kind": 256,
+        "path": "/select/docs/api/getters/TriggerProps",
+        "isDeprecated": false
+      }
+    ],
+    "group": "api"
+  },
+  {
+    "title": "types",
+    "children": [
+      {
+        "title": "Position",
+        "kind": 256,
+        "path": "/select/docs/api/types/Position",
+        "isDeprecated": false
+      },
+      {
+        "title": "SelectConfig",
+        "kind": 256,
+        "path": "/select/docs/api/types/SelectConfig",
+        "isDeprecated": false
+      },
+      {
+        "title": "SelectInstance",
+        "kind": 256,
+        "path": "/select/docs/api/types/SelectInstance",
+        "isDeprecated": false
+      },
+      {
+        "title": "SelectState",
+        "kind": 256,
+        "path": "/select/docs/api/types/SelectState",
+        "isDeprecated": false
+      },
+      {
+        "title": "VirtualizationState",
+        "kind": 256,
+        "path": "/select/docs/api/types/VirtualizationState",
+        "isDeprecated": false
+      },
+      {
+        "title": "DataItem",
+        "kind": 2097152,
+        "path": "/select/docs/api/types/DataItem",
+        "isDeprecated": false
+      },
+      {
+        "title": "SelectChange",
+        "kind": 2097152,
+        "path": "/select/docs/api/types/SelectChange",
+        "isDeprecated": false
+      },
+      {
+        "title": "SelectGroup",
+        "kind": 2097152,
+        "path": "/select/docs/api/types/SelectGroup",
+        "isDeprecated": false
+      },
+      {
+        "title": "SelectOption",
+        "kind": 2097152,
+        "path": "/select/docs/api/types/SelectOption",
+        "isDeprecated": false
+      },
+      {
+        "title": "Unsubscribe",
+        "kind": 2097152,
+        "path": "/select/docs/api/types/Unsubscribe",
+        "isDeprecated": false
+      }
+    ],
+    "group": "api"
+  },
+  {
+    "title": "utilities",
+    "children": [
+      {
+        "title": "calculatePosition",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/calculatePosition",
+        "isDeprecated": false
+      },
+      {
+        "title": "calculateVirtualization",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/calculateVirtualization",
+        "isDeprecated": false
+      },
+      {
+        "title": "computeCanCreate",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/computeCanCreate",
+        "isDeprecated": false
+      },
+      {
+        "title": "computeVisibleOptions",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/computeVisibleOptions",
+        "isDeprecated": false
+      },
+      {
+        "title": "debounce",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/debounce",
+        "isDeprecated": false
+      },
+      {
+        "title": "defaultFilterOption",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/defaultFilterOption",
+        "isDeprecated": false
+      },
+      {
+        "title": "filterOptions",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/filterOptions",
+        "isDeprecated": false
+      },
+      {
+        "title": "flattenOptions",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/flattenOptions",
+        "isDeprecated": false
+      },
+      {
+        "title": "getOptionId",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/getOptionId",
+        "isDeprecated": false
+      },
+      {
+        "title": "hydrateFromElement",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/hydrateFromElement",
+        "isDeprecated": false
+      },
+      {
+        "title": "isGroup",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/isGroup",
+        "isDeprecated": false
+      },
+      {
+        "title": "mergeOptions",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/mergeOptions",
+        "isDeprecated": false
+      },
+      {
+        "title": "nextFocusableIndex",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/nextFocusableIndex",
+        "isDeprecated": false
+      },
+      {
+        "title": "scrollIntoView",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/scrollIntoView",
+        "isDeprecated": false
+      },
+      {
+        "title": "uid",
+        "kind": 64,
+        "path": "/select/docs/api/utilities/uid",
+        "isDeprecated": false
+      }
+    ],
+    "group": "api"
+  },
+  {
+    "title": "react-all",
+    "group": "example",
+    "path": "/select\\examples\\react-all"
+  },
+  {
+    "title": "vanilla-all",
+    "group": "example",
+    "path": "/select\\examples\\vanilla-all"
+  }
+]

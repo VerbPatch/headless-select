@@ -1,0 +1,78 @@
+---
+title: "Progressive Enhancement"
+description: "How to use Headless Select with existing native select elements."
+---
+
+# Progressive Enhancement
+
+One of the unique features of Headless Select is its ability to "hydrate" from an existing native `<select>` element. This allows you to serve a functional, accessible form to users without JavaScript, and then seamlessly enhance it into a rich, custom select component once the library loads.
+
+## Why Progressive Enhancement?
+
+* **SEO Friendly**: Search engines can easily read the native select and its options.
+* **Accessibility**: Screen readers and assistive technologies have a native fallback if JavaScript fails.
+* **Faster First Paint**: Users can see and interact with the form before the full application bundle is parsed.
+
+## How it Works
+
+You provide the `hydrateFrom` option to `useSelect`, passing a reference to the native DOM element. Headless Select will:
+
+1. Extract all `<option>` and `<optgroup>` data.
+2. Sync the initial selection state.
+3. Detect if the native element has the `multiple` attribute.
+4. Establish a two-way sync: changes in the headless instance update the native element, and changes to the native element (e.g., via other scripts or browser autofill) update the headless state.
+
+## Example (Vanilla JS)
+
+<CodeBlock>
+```html
+<select id="my-native-select">
+  <option value="1">Option 1</option>
+  <option value="2" selected>Option 2</option>
+</select>
+
+<script>
+  import { useSelect } from '@verbpatch/headless-select';
+
+  const el = document.getElementById('my-native-select');
+  const select = useSelect({
+    hydrateFrom: el,
+  });
+
+  // The instance is now populated with data from 'el'
+  console.log(select.getState().selectedValues); // ['2']
+</script>
+```
+</CodeBlock>
+
+## Example (React)
+
+<CodeBlock>
+```tsx
+import { useRef, useEffect } from 'react';
+import { useSelect } from '@verbpatch/react-select';
+
+function EnhancedSelect() {
+  const selectRef = useRef<HTMLSelectElement>(null);
+  
+  const { getState, getTriggerProps } = useSelect({
+    hydrateFrom: selectRef.current,
+  });
+
+  return (
+    <div>
+      {/* This element is hidden but kept in sync */}
+      <select ref={selectRef} name="my-field" defaultValue="2">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+      </select>
+
+      {/* Your custom UI */}
+      <button {...getTriggerProps()}>
+        {getState().selectedValues[0] || 'Select...'}
+      </button>
+    </div>
+  );
+}
+```
+</CodeBlock>

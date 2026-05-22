@@ -2,11 +2,24 @@ import { computeVisibleOptions, computeCanCreate, debounce, mergeOptions } from 
 import type { SelectContext } from '@/core/context';
 import type { OptionsCache } from '@/core/cache';
 
+/**
+ * Factory for search and asynchronous loading actions.
+ * @group logic
+ * @title createSearchActions
+ * @description Manages internal search state, client-side filtering, and debounced asynchronous option loading.
+ * @param {SelectContext} ctx - The internal select context.
+ * @param {OptionsCache} cache - Cache instance for storing async results.
+ * @returns {SearchActions} - Object containing search actions.
+ */
 export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
   const debouncedLoad = debounce((search: string) => {
     void runLoadOptions(search);
   }, ctx.getConfig().searchDelay ?? 300);
 
+  /**
+   * Executes the loadOptions configuration function.
+   * @param {string} search - The search term to pass to the loader.
+   */
   async function runLoadOptions(search: string): Promise<void> {
     const config = ctx.getConfig();
     const state = ctx.getState();
@@ -39,6 +52,10 @@ export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
     }
   }
 
+  /**
+   * Updates the current search term and triggers filtering or loading.
+   * @param {string} term - The new search string.
+   */
   function setSearch(term: string): void {
     const config = ctx.getConfig();
     const state = ctx.getState();

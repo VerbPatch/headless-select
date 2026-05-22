@@ -1,10 +1,38 @@
+/**
+ * Represents the calculated position for the dropdown menu.
+ * @group types
+ * @title Position
+ * @description Holds the coordinates and placement direction for a positioned element.
+ */
 export interface Position {
+  /**
+   * Vertical coordinate in pixels.
+   */
   top: number;
+  /**
+   * Horizontal coordinate in pixels.
+   */
   left: number;
+  /**
+   * Width of the element in pixels.
+   */
   width: number;
+  /**
+   * Whether the menu is placed above or below the trigger.
+   */
   placement: 'top' | 'bottom';
 }
 
+/**
+ * Calculates the optimal position for the dropdown menu relative to its trigger.
+ * @group utilities
+ * @title calculatePosition
+ * @description Computes top, left, and width while handling viewport collisions and flipping placement if space is restricted.
+ * @param {HTMLElement} trigger - The reference element (trigger).
+ * @param {HTMLElement} menu - The element to be positioned (dropdown).
+ * @param {Object} [options] - Configuration for placement, strategy, and offset.
+ * @returns {Position} - The calculated position and placement metadata.
+ */
 export function calculatePosition(
   trigger: HTMLElement,
   menu: HTMLElement,
@@ -23,7 +51,6 @@ export function calculatePosition(
 
   let placement = options.placement || 'bottom';
 
-  // Vertical boundary detection
   const spaceBelow = viewportHeight - triggerRect.bottom;
   const spaceAbove = triggerRect.top;
 
@@ -36,7 +63,6 @@ export function calculatePosition(
   const scrollX = strategy === 'absolute' ? window.scrollX : 0;
   const scrollY = strategy === 'absolute' ? window.scrollY : 0;
 
-  // Horizontal boundary detection
   let left = triggerRect.left + scrollX;
   if (left + menuRect.width > viewportWidth + scrollX) {
     left = viewportWidth + scrollX - menuRect.width - offset;

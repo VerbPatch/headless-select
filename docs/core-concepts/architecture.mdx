@@ -1,0 +1,39 @@
+---
+title: "Architecture"
+description: "An overview of the Headless Select architecture and how it manages state and logic."
+---
+
+# Architecture
+
+Headless Select is built with a modular and framework-agnostic architecture. This ensures that the core logic is highly reusable, testable, and maintainable.
+
+## The Core Engine
+
+The heart of Headless Select is the core engine, written in pure TypeScript. It manages the internal state of the select component, handles user interactions, and provides a set of "prop getters" to apply to your UI elements.
+
+### State Management
+
+The core engine uses a reactive state management system. Any change to the state (e.g., selection, search term, focus) triggers a notification to all subscribers, ensuring that the UI stays in sync.
+
+### Prop Getters
+
+Prop getters are functions that return an object containing the necessary ARIA attributes and event handlers for a specific UI element. This pattern allows you to maintain full control over the markup while the library handles the complex logic and accessibility requirements.
+
+Available prop getters include:
+* `getTriggerProps()`: For the button or input that opens the dropdown.
+* `getListboxProps()`: For the scrollable container of options.
+* `getOptionProps(value)`: For each individual option in the list.
+* `getSearchInputProps()`: For the search input field.
+
+## Framework Wrappers
+
+Framework wrappers are thin layers built on top of the core engine. They provide a native-feeling API for a specific framework (e.g., a React hook or a Vue composition function) and handle the synchronization between the core engine's state and the framework's reactivity system.
+
+## Communication Flow
+
+1. **User Interaction**: The user interacts with a UI element (e.g., clicks the trigger, types in the search input).
+2. **Event Handler**: The event handler (provided by a prop getter) is triggered.
+3. **Action**: The event handler calls an action on the core instance (e.g., `open()`, `setSearch()`).
+4. **State Update**: The action updates the internal state of the core engine.
+5. **Notification**: The core engine notifies all subscribers (including the framework wrapper) about the state change.
+6. **UI Re-render**: The framework wrapper triggers a re-render of the UI components with the updated state and props.

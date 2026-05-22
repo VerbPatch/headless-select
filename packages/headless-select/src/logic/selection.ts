@@ -2,7 +2,19 @@ import type { SelectChange } from '@/core/types';
 import { computeVisibleOptions } from '@/utils/index';
 import type { SelectContext } from '@/core/context';
 
+/**
+ * Factory for selection-related actions.
+ * @group logic
+ * @title createSelectionActions
+ * @description Provides methods to select, deselect, toggle, and clear options within the select instance.
+ * @param {SelectContext} ctx - The internal select context.
+ * @returns {SelectionActions} - Object containing selection actions.
+ */
 export function createSelectionActions(ctx: SelectContext) {
+  /**
+   * Selects an option by its value.
+   * @param {string} value - The unique value of the option to select.
+   */
   function selectOption(value: string): void {
     const config = ctx.getConfig();
     const state = ctx.getState();
@@ -45,6 +57,10 @@ export function createSelectionActions(ctx: SelectContext) {
     if (closeOnSelect) config.onClose?.();
   }
 
+  /**
+   * Deselects an option by its value.
+   * @param {string} value - The unique value of the option to deselect.
+   */
   function deselectOption(value: string): void {
     const config = ctx.getConfig();
     const state = ctx.getState();
@@ -63,6 +79,10 @@ export function createSelectionActions(ctx: SelectContext) {
     );
   }
 
+  /**
+   * Toggles the selection state of an option.
+   * @param {string} value - The unique value of the option to toggle.
+   */
   function toggleOption(value: string): void {
     const state = ctx.getState();
     const config = ctx.getConfig();
@@ -87,6 +107,9 @@ export function createSelectionActions(ctx: SelectContext) {
     }
   }
 
+  /**
+   * Clears all current selections.
+   */
   function clearAll(): void {
     const config = ctx.getConfig();
     if (config.disabled) return;

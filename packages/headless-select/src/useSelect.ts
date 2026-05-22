@@ -23,24 +23,30 @@ import { createActions } from '@/logic/index';
 import { createHandlers } from '@/handlers/index';
 import { createGetters } from '@/getters/index';
 
-// ─── useSelect ─────────────────────────────────────────────────────────────
-
 /**
- * Creates a headless select instance.
+ * Creates and manages a headless select instance.
+ * @group hooks
+ * @title useSelect
+ * @description The core engine of the library. It manages internal state, provides imperative actions, and generates ARIA-compliant props for UI elements.
+ * @param {SelectConfig} initialConfig - The initial configuration for the select instance.
+ * @returns {SelectInstance} - An object containing state accessors, actions, and prop getters.
+ * @example
+ * ```typescript
+ * const select = useSelect({
+ *   options: [{ value: '1', label: 'Option 1' }],
+ *   onChange: (value) => console.log(value),
+ * });
  *
- * The instance manages all state internally and notifies subscribers on every
- * change. Consumers wire up their own HTML via the prop getter methods.
+ * const triggerProps = select.getTriggerProps();
+ * ```
  */
 export function useSelect(initialConfig: SelectConfig): SelectInstance {
-  // ── Internal IDs ────────────────────────────────────────────────────────────
   const instanceId = uid('hselect');
   const listboxId = `${instanceId}-listbox`;
 
-  // ── Config & State ──────────────────────────────────────────────────────────
   let config: SelectConfig = { ...initialConfig };
   const cache = new OptionsCache();
 
-  // ── Hydration (Internal Tracking) ───────────────────────────────────────────
   let hydratedOptions: SelectOption[] = [];
   let hydratedSelectedValues: string[] = [];
 
@@ -76,7 +82,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     error: null,
   };
 
-  // ── Subscribers ──────────────────────────────────────────────────────────────
   const listeners = new Set<(s: SelectState) => void>();
   let isInternalSync = false;
   let lastScrollTop = 0;
@@ -89,8 +94,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
   function setState(patch: Partial<SelectState>, change?: SelectChange, forceSync = false): void {
     const nextState = { ...state, ...patch };
 
-    // Controlled mode override: if parent owns the value, internal state
-    // must always reflect config.value.
     if (config.value !== undefined) {
       nextState.selectedValues = Array.isArray(config.value) ? config.value : [config.value];
     }
@@ -100,7 +103,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       const val = nextState[key];
       const current = state[key];
 
-      // Special handling for arrays to avoid reference-only change loops
       if (Array.isArray(val) && Array.isArray(current)) {
         if (val.length !== current.length) return true;
         for (let i = 0; i < val.length; i++) {
@@ -112,10 +114,8 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       return val !== current;
     });
 
-    // Always proceed if there's an explicit change metadata (event-driven) or forceSync
     if (!hasChanges && !change && !forceSync && !config.virtualize) return;
 
-    // ── Virtualization Calculation ────────────────────────────────────────────
     if (config.virtualize) {
       const visible = nextState.visibleOptions;
       const nextVirtualization = calculateVirtualization(
@@ -125,7 +125,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
         lastScrollTop,
       );
 
-      // Only proceed if virtualization actually changed OR there were other changes
       const currentVirt = state.virtualization;
       const virtChanged =
         !currentVirt ||
@@ -142,8 +141,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
 
     state = nextState;
 
-    // ── Notify ────────────────────────────────────────────────────────────────
-    // We notify after updating the internal state to avoid re-entrancy issues
     if (change && config.onChange) {
       const multiple = config.multiple ?? false;
       const patchValue = patch.selectedValues;
@@ -158,17 +155,14 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       config.onChange(intendedEmit, change);
     }
 
-    // ── Sync to Native ────────────────────────────────────────────────────────
     if (config.hydrateFrom) {
       isInternalSync = true;
       try {
         const el = config.hydrateFrom;
 
-        // 1. Update options list if they've changed
         const nativeOptions = el.options;
         const resolvedOptions = state.resolvedOptions;
 
-        // Check if we need a full refresh of options
         const hasGroups = resolvedOptions.some((o) => !!o.groupLabel);
         const nativeHasGroups = el.getElementsByTagName('optgroup').length > 0;
 
@@ -187,7 +181,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
         }
 
         if (needsFullRefresh || forceSync) {
-          // Clear and repopulate while preserving groups
           el.innerHTML = '';
           const fragment = document.createDocumentFragment();
 
@@ -216,7 +209,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
           el.appendChild(fragment);
         }
 
-        // 2. Update selection state
         const currentValues = new Set(state.selectedValues);
         Array.from(el.options).forEach((opt) => {
           const shouldBeSelected = currentValues.has(opt.value);
@@ -225,7 +217,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
           }
         });
 
-        // For single select, also ensure el.value is correct
         if (!config.multiple && state.selectedValues.length > 0) {
           if (el.value !== state.selectedValues[0]) {
             el.value = state.selectedValues[0];
@@ -239,8 +230,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     emit();
   }
 
-  // ── Context Wiring ──────────────────────────────────────────────────────────
-
   const ctx: SelectContext = {
     getState: () => state,
     setState,
@@ -253,7 +242,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
   const handlers = createHandlers(ctx, actions);
   const getters = createGetters(ctx, actions, handlers);
 
-  // ── Two-way Sync (Runtime) ──────────────────────────────────────────────────
   const { call: debouncedNativeChange, cancel: cancelNativeChange } = debounce<[]>(() => {
     const el = config.hydrateFrom;
     if (!el || isInternalSync) return;
@@ -261,7 +249,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     const nextValues = Array.from(el.selectedOptions).map((opt) => opt.value);
     const currentValues = ctx.getState().selectedValues;
 
-    // 1. Check if options changed (structural change)
     const currentOptions = ctx.getState().resolvedOptions;
     const nativeOptions = el.options;
 
@@ -291,7 +278,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
         { type: 'select', option: null },
       );
     } else {
-      // 2. Check if selection changed
       const selectionChanged =
         nextValues.length !== currentValues.length ||
         nextValues.some((v, i) => v !== currentValues[i]);
@@ -322,7 +308,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
 
   const handleNativeChange = () => debouncedNativeChange();
 
-  // Watch for structural changes (adding/removing <option> elements)
   let observer: MutationObserver | null = null;
 
   function setupHydrationListeners(el: HTMLSelectElement | undefined) {
@@ -350,8 +335,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
 
   setupHydrationListeners(config.hydrateFrom);
 
-  // ── Initial Sync ───────────────────────────────────────────────────────────
-  // Ensure the native select is in sync with the initial state
   setState(state, undefined, true);
 
   const originalDestroy = actions.destroy;
@@ -361,8 +344,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     originalDestroy();
   };
 
-  // ── Public Instance ─────────────────────────────────────────────────────────
-
   return {
     getState: () => state,
     getConfig: () => config,
@@ -371,7 +352,6 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       return () => listeners.delete(listener);
     },
 
-    // Core Actions
     open: actions.open,
     close: actions.close,
     toggle: actions.toggle,
@@ -401,14 +381,12 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       }
     },
 
-    // Keyboard/Focus
     focusOption: handlers.focusOption,
     focusNext: handlers.focusNext,
     focusPrev: handlers.focusPrev,
     focusFirst: handlers.focusFirst,
     focusLast: handlers.focusLast,
 
-    // Lifecycle
     setConfig: (patch: Partial<SelectConfig>) => {
       const prevOptions = config.options;
       const prevHydrateFrom = config.hydrateFrom;
@@ -460,10 +438,8 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       listeners.clear();
     },
 
-    // Prop Getters
     ...getters,
 
-    // Helpers
     getOptionLabel: (value: string) =>
       state.resolvedOptions.find((o) => o.value === value)?.label ?? value,
     getSelectedOptions: () =>

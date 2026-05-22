@@ -1,0 +1,54 @@
+---
+title: "Autocomplete Component"
+description: "How to build an autocomplete component using Headless Select."
+---
+
+# Autocomplete Component
+
+An autocomplete component is a specialized select that filters options as the user types. This is easily achieved with Headless Select by combining the search functionality with the dropdown logic.
+
+## Implementation Steps
+
+1. **Initialize useSelect**: Set `searchable: true` and optionally `loadOptions` for remote data.
+2. **Bind Input**: Use `getSearchInputProps()` on your text input.
+3. **Render Results**: Map over `visibleOptions` from the state to render your dropdown list.
+4. **Handle Selection**: Ensure clicking an option or pressing Enter selects the item and closes the menu.
+
+## Example (React)
+
+<CodeBlock>
+```tsx
+import { useSelect } from '@verbpatch/react-select';
+
+function Autocomplete() {
+  const { 
+    getState, 
+    getSearchInputProps, 
+    getListboxProps, 
+    getOptionProps 
+  } = useSelect({
+    options: myOptions,
+    searchable: true,
+  });
+
+  const { isOpen, visibleOptions, search } = getState();
+
+  return (
+    <div className="autocomplete">
+      <input {...getSearchInputProps()} placeholder="Search..." />
+      
+      {isOpen && (
+        <ul {...getListboxProps()}>
+          {visibleOptions.map((opt) => (
+            <li key={opt.value} {...getOptionProps(opt.value)}>
+              {opt.label}
+            </li>
+          ))}
+          {visibleOptions.length === 0 && <li>No results found for "{search}"</li>}
+        </ul>
+      )}
+    </div>
+  );
+}
+```
+</CodeBlock>

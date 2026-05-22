@@ -2,6 +2,22 @@ import { Injectable } from '@angular/core';
 import { useSelect, SelectConfig, SelectState, SelectInstance } from '@verbpatch/headless-select';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+/**
+ * HeadlessSelectService manages the headless select instance in Angular.
+ *
+ * IMPORTANT: To avoid singleton conflicts when using multiple select components,
+ * do NOT provide this service in the root injector. Instead, configure it locally in the
+ * component's `providers` array:
+ *
+ * ```typescript
+ * @Component({
+ *   selector: 'app-custom-select',
+ *   templateUrl: './custom-select.component.html',
+ *   providers: [HeadlessSelectService]
+ * })
+ * export class CustomSelectComponent { ... }
+ * ```
+ */
 @Injectable()
 export class HeadlessSelectService {
   private instance?: SelectInstance;
@@ -13,6 +29,10 @@ export class HeadlessSelectService {
     this.instance.subscribe((state) => {
       this.stateSubject.next(state);
     });
+  }
+
+  setConfig(config: Partial<SelectConfig>) {
+    this.instance?.setConfig(config);
   }
 
   get state$(): Observable<SelectState | null> {

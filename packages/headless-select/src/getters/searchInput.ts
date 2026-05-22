@@ -2,6 +2,16 @@ import { getOptionId } from '@/utils/index';
 import type { SearchInputProps } from '@/core/types';
 import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
 
+/**
+ * Returns the props for the search input element.
+ * @group getters
+ * @title getSearchInputProps
+ * @description Returns the props for the search input element, including accessibility attributes and event handlers.
+ * @param {SelectContext} ctx - The select context.
+ * @param {SelectActions} actions - The select actions.
+ * @param {KeyboardActions} keyboard - The keyboard actions.
+ * @returns {SearchInputProps} - The props for the search input element.
+ */
 export function getSearchInputProps(
   ctx: SelectContext,
   actions: SelectActions,

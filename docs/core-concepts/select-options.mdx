@@ -1,0 +1,88 @@
+---
+title: "Select Options"
+description: "How to define and manage options and groups in Headless Select."
+---
+
+# Select Options
+
+Options are the core data of a select component. Headless Select provides a flexible way to define flat lists or grouped options.
+
+## Option Structure
+
+A standard option is a `SelectOption` object with the following properties:
+
+* `value`: A unique string identifying the option.
+* `label`: The human-readable text displayed in the UI.
+* `disabled` (optional): Whether the option can be selected.
+* `groupLabel` (optional): Internal metadata added during flattening.
+* Any other custom metadata you need for rendering.
+
+<CodeBlock>
+```typescript
+const options = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana', disabled: true },
+];
+```
+</CodeBlock>
+
+## Grouped Options
+
+You can group options using the `SelectGroup` structure:
+
+* `label`: The heading for the group.
+* `options`: An array of `SelectOption` objects.
+* `disabled` (optional): Disables all options in the group.
+
+<CodeBlock>
+```typescript
+const groups = [
+  {
+    label: 'Fruits',
+    options: [
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ],
+  },
+  {
+    label: 'Vegetables',
+    options: [
+      { value: 'carrot', label: 'Carrot' },
+    ],
+  },
+];
+```
+</CodeBlock>
+
+## Async Loading
+
+Headless Select supports loading options asynchronously. Use the `loadOptions` configuration to provide a function that returns a Promise of options.
+
+<CodeBlock>
+```typescript
+const select = useSelect({
+  loadOptions: async (search) => {
+    const response = await fetch(`/api/search?q=${search}`);
+    return response.json();
+  },
+  searchDelay: 500, // Debounce delay
+  cacheOptions: true, // Enable internal caching
+});
+```
+</CodeBlock>
+
+## Creatable Options
+
+Enable `creatable: true` to allow users to create options that don't exist in the initial list.
+
+<CodeBlock>
+```typescript
+const select = useSelect({
+  creatable: true,
+  onCreate: (input) => {
+    // Optionally persist to your backend first
+    return { value: input.toLowerCase(), label: input };
+  },
+});
+```
+</CodeBlock>

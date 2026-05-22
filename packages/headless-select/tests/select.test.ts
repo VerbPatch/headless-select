@@ -70,6 +70,12 @@ describe('useSelect - High Coverage', () => {
     expect(select.getState().isOpen).toBe(false);
   });
 
+  it('focuses first selected value when opening', () => {
+    const select = useSelect({ options, value: 'cherry', hydrateFrom: dummyEl });
+    select.open();
+    expect(select.getState().focusedOptionValue).toBe('cherry');
+  });
+
   it('handles selection, deselection and toggleOption', () => {
     const select = useSelect({ options, multiple: true, hydrateFrom: dummyEl });
     select.selectOption('apple');
@@ -146,6 +152,31 @@ describe('useSelect - High Coverage', () => {
     const virt = calculateVirtualization(100, 20, 200, 0);
     expect(virt.startIndex).toBe(0);
     expect(virt.items).toHaveLength(20);
+  });
+
+  it('scrolls to focused item with virtualization', () => {
+    const largeOptions = Array.from({ length: 100 }, (_, i) => ({
+      value: `option-${i}`,
+      label: `Option ${i}`,
+    }));
+    const select = useSelect({
+      options: largeOptions,
+      virtualize: true,
+      itemHeight: 20,
+      containerHeight: 100,
+    });
+    select.open();
+    select.focusOption('option-50');
+
+    const container = {
+      scrollTop: 0,
+    } as unknown as HTMLElement;
+
+    select.scrollToFocused(container);
+    // option-50 is at 50 * 20 = 1000px.
+    // itemBottom = 1020px. containerHeight = 100.
+    // scrollTop = 1020 - 100 = 920.
+    expect(container.scrollTop).toBe(920);
   });
 
   it('debounces and scrolls into view', () => {

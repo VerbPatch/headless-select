@@ -9,13 +9,14 @@ export function initJQuerySelect(element: HTMLElement, config: SelectConfig) {
 
   const $el = $(element);
 
-  instance.subscribe((state: SelectState) => {
+  const unsubscribe = instance.subscribe((state: SelectState) => {
     $el.trigger('headless-select:change', [state]);
   });
 
   return {
     instance,
     destroy: () => {
+      unsubscribe();
       instance.destroy();
     },
   };
