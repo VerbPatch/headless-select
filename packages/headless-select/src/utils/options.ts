@@ -9,19 +9,21 @@ import { DataItem, SelectOption, isGroup, SelectConfig } from '@/core/types';
  * @returns {SelectOption[]} - A flat array of SelectOption objects.
  */
 export function flattenOptions(items: DataItem[]): SelectOption[] {
-  return items.reduce((acc, item) => {
+  const result: SelectOption[] = [];
+  for (const item of items) {
     if (isGroup(item)) {
-      return [
-        ...acc,
-        ...item.options.map((o) => ({
+      for (const o of item.options) {
+        result.push({
           ...o,
           groupLabel: item.label,
           disabled: o.disabled || item.disabled,
-        })),
-      ];
+        });
+      }
+    } else {
+      result.push(item);
     }
-    return [...acc, item];
-  }, [] as SelectOption[]);
+  }
+  return result;
 }
 
 /**

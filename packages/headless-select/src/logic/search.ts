@@ -1,4 +1,4 @@
-import { computeVisibleOptions, computeCanCreate, debounce, mergeOptions } from '@/utils/index';
+import { computeVisibleOptions, computeCanCreate, mergeOptions } from '@/utils/index';
 import type { SelectContext } from '@/core/context';
 import type { OptionsCache } from '@/core/cache';
 
@@ -12,9 +12,21 @@ import type { OptionsCache } from '@/core/cache';
  * @returns {SearchActions} - Object containing search actions.
  */
 export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
-  const debouncedLoad = debounce((search: string) => {
-    void runLoadOptions(search);
-  }, ctx.getConfig().searchDelay ?? 300);
+  let latestSearchQuery = '';
+  let timer: ReturnType<typeof setTimeout> | null = null;
+
+  const debouncedLoad = {
+    call: (search: string) => {
+      if (timer) clearTimeout(timer);
+      const delay = ctx.getConfig().searchDelay ?? 300;
+      timer = setTimeout(() => {
+        void runLoadOptions(search);
+      }, delay);
+    },
+    cancel: () => {
+      if (timer) clearTimeout(timer);
+    },
+  };
 
   /**
    * Executes the loadOptions configuration function.
@@ -27,12 +39,15 @@ export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
 
     if (!loadOptions) return;
 
+    latestSearchQuery = search;
     config.onLoadStart?.();
     ctx.setState({ isLoading: true, error: null });
 
     try {
       const loader = () => loadOptions(search);
       const results = cacheOptions ? await cache.load(search, loader) : await loader();
+
+      if (search !== latestSearchQuery) return;
 
       const merged = mergeOptions(state.resolvedOptions, results);
       const visible = computeVisibleOptions(config, merged, search, state.selectedValues);
@@ -46,6 +61,7 @@ export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
 
       config.onLoadEnd?.(results);
     } catch (err) {
+      if (search !== latestSearchQuery) return;
       const error = err instanceof Error ? err : new Error(String(err));
       ctx.setState({ isLoading: false, error });
       config.onLoadEnd?.([]);

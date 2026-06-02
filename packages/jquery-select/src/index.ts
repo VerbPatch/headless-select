@@ -15,6 +15,13 @@ export function initJQuerySelect(element: HTMLElement, config: SelectConfig) {
 
   return {
     instance,
+    getTriggerProps: () => instance.getTriggerProps(),
+    getListboxProps: () => instance.getListboxProps(),
+    getOptionProps: (value: string) => instance.getOptionProps(value),
+    getSearchInputProps: () => instance.getSearchInputProps(),
+    getNativeSelectProps: () => instance.getNativeSelectProps(),
+    getCreateOptionProps: () => instance.getCreateOptionProps(),
+    getClearOptionProps: (value: string) => instance.getClearOptionProps(value),
     destroy: () => {
       unsubscribe();
       instance.destroy();

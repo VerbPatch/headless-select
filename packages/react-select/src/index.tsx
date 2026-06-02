@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useEffect, useMemo, useRef } from 'react';
+import { useState, useLayoutEffect, useMemo, useRef } from 'react';
 import {
   useSelect as headlessSelect,
   SelectConfig,
@@ -7,18 +7,6 @@ import {
 } from '@verbpatch/headless-select';
 
 export * from '@verbpatch/headless-select';
-
-const initialState: SelectState = {
-  isOpen: false,
-  search: '',
-  selectedValues: [],
-  resolvedOptions: [],
-  visibleOptions: [],
-  focusedOptionValue: null,
-  canCreate: false,
-  isLoading: false,
-  error: null,
-};
 
 export function useSelect(config: SelectConfig) {
   const instanceRef = useRef<SelectInstance | null>(null);

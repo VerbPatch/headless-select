@@ -8,7 +8,7 @@ export function useSelect(config: SelectConfig) {
   const state = ref<SelectState>(instance.getState());
 
   watch(
-    () => config,
+    () => ({ ...config }),
     (newConfig) => {
       instance.setConfig(newConfig);
     },
@@ -35,5 +35,9 @@ export function useSelect(config: SelectConfig) {
     getListboxProps: () => instance.getListboxProps(),
     getOptionProps: (value: string) => instance.getOptionProps(value),
     getSearchInputProps: () => instance.getSearchInputProps(),
+    getNativeSelectProps: () => instance.getNativeSelectProps(),
+    getCreateOptionProps: () => instance.getCreateOptionProps(),
+    getClearOptionProps: (value: string) => instance.getClearOptionProps(value),
+    setConfig: (patch: Partial<SelectConfig>) => instance.setConfig(patch),
   };
 }

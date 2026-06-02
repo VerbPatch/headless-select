@@ -151,7 +151,7 @@ describe('useSelect - High Coverage', () => {
 
     const virt = calculateVirtualization(100, 20, 200, 0);
     expect(virt.startIndex).toBe(0);
-    expect(virt.items).toHaveLength(20);
+    expect(virt.endIndex).toBe(20);
   });
 
   it('scrolls to focused item with virtualization', () => {

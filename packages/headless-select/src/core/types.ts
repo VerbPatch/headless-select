@@ -62,7 +62,7 @@ export type DataItem = SelectOption | SelectGroup;
  * @returns {boolean} - True if the item is a group.
  */
 export function isGroup(item: DataItem): item is SelectGroup {
-  return 'options' in item;
+  return !!item && typeof item === 'object' && 'options' in item;
 }
 
 /**
@@ -116,7 +116,6 @@ export interface SelectState {
     endIndex: number;
     totalHeight: number;
     offsetY: number;
-    items: { index: number; top: number }[];
   };
 }
 

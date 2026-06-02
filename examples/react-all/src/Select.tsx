@@ -20,6 +20,10 @@ export default function Select({
   hideNative = false,
   ...config
 }: SelectProps) {
+  const renderCount = useRef(0);
+  renderCount.current++;
+  console.log(`Select rendered: ${renderCount.current} times`);
+
   const {
     state,
     instance,
@@ -44,9 +48,8 @@ export default function Select({
     if (state.isOpen && listboxRef.current) {
       instance.scrollToFocused(listboxRef.current);
     }
-  }, [state.isOpen, state.focusedOptionValue, instance]);
+  }, [state.isOpen, instance]);
 
-  // ── Render Helpers ────────────────────────────────────────────────────────
   const renderOption = (option: any, style: React.CSSProperties = {}) => {
     const props = getOptionProps(option.value);
     const isFocused = props['data-focused'];
@@ -56,27 +59,18 @@ export default function Select({
       <div
         key={option.value}
         {...props}
-        className="option-item"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor: isFocused ? '#f0f7ff' : 'transparent',
-          fontWeight: isSelected ? 'bold' : 'normal',
-          opacity: option.disabled ? 0.4 : 1,
-          ...style,
-        }}
+        className={['option-item', isFocused && 'focused', isSelected && 'selected', option.disabled && 'disabled'].filter(Boolean).join(' ')}
+        style={style}
       >
-        <span style={{ marginRight: '8px', width: '16px' }}>{isSelected ? '●' : '○'}</span>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <span className="option-icon">{isSelected ? '●' : '○'}</span>
+        <div className="option-label-container">
           <span>{option.label}</span>
           {option.groupLabel && !virtualize && (
-            <span style={{ fontSize: '9px', color: '#999' }}>{option.groupLabel}</span>
+            <span className="option-group-label">{option.groupLabel}</span>
           )}
         </div>
         {isFocused && (
-          <span
-            style={{ marginLeft: 'auto', fontSize: '9px', color: '#007bff', fontWeight: 'normal' }}
-          >
+          <span className="option-focus-badge">
             [FOCUS]
           </span>
         )}
@@ -85,40 +79,25 @@ export default function Select({
   };
 
   return (
-    <div className="select-container" style={{ display: 'flex', alignItems: 'flex-start' }}>
+    <div className="select-container">
+      <div className="render-count-badge">
+        Render Count: {renderCount.current}
+      </div>
       {showNative && (
-        <div
-          style={{
-            flex: hideNative ? 0 : 1,
-            borderRight: hideNative ? 'none' : '1px solid #eee',
-            paddingRight: hideNative ? '0' : '2rem',
-            marginRight: hideNative ? '0' : '2rem',
-            display: hideNative ? 'contents' : 'block',
-          }}
-        >
+        <div className={`native-interface-container ${hideNative ? 'hidden' : ''}`}>
           {!hideNative && <label>Native Select Interface</label>}
           <select
             ref={nativeRef}
             {...getNativeSelectProps()}
+            className={['native-select', hideNative && 'hidden', !hideNative && 'visible'].filter(Boolean).join(' ')}
             style={{
-              width: hideNative ? '1px' : '100%',
-              marginTop: hideNative ? '0' : '8px',
-              padding: hideNative ? '0' : '4px',
               height: hideNative ? '1px' : config.multiple || virtualize ? '120px' : 'auto',
-              // Toggle between library's "visually hidden" and showcase "visible" styles
-              ...(hideNative
-                ? {}
-                : {
-                    position: 'static',
-                    clip: 'auto',
-                    overflow: 'visible',
-                  }),
             }}
           >
             {children}
           </select>
           {!hideNative && (
-            <div style={{ fontSize: '10px', color: '#999', marginTop: '8px' }}>
+            <div className="native-note">
               ↑ Native &lt;select&gt; element. 2-way sync active.
               {virtualize && ' (10k items sync might be heavy)'}
             </div>
@@ -126,33 +105,26 @@ export default function Select({
         </div>
       )}
 
-      <div style={{ flex: 1, position: 'relative' }}>
+      <div className="custom-ui-wrapper">
         <label>Headless Custom UI {virtualize && '(Virtualized)'}</label>
         {!showNative && (
-          <div style={{ fontSize: '10px', color: '#999', marginBottom: '4px' }}>
+          <div className="custom-ui-note">
             (Pure Headless - No Native Sync)
           </div>
         )}
-        <button {...getTriggerProps()} className="select-trigger" style={{ marginTop: '8px' }}>
+        <button {...getTriggerProps()} className="select-trigger">
           {state.selectedValues.length > 0 ? (
             config.multiple ? (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+              <div className="selected-values-container">
                 {instance?.getSelectedOptions().map((opt) => (
                   <span
                     key={opt.value}
-                    style={{
-                      border: '1px solid #ccc',
-                      padding: '0 6px',
-                      fontSize: '13px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      background: '#fff',
-                    }}
+                    className="selected-value-pill"
                   >
                     {opt.label}
                     <span
                       {...getClearOptionProps(opt.value)}
-                      style={{ marginLeft: '6px', cursor: 'pointer', color: '#999' }}
+                      className="selected-value-clear"
                     >
                       ×
                     </span>
@@ -170,10 +142,7 @@ export default function Select({
         {state.isOpen && (
           <div className="select-dropdown">
             {config.searchable !== false && (
-              <div
-                className="search-container"
-                style={{ padding: '8px', borderBottom: '1px solid #eee' }}
-              >
+              <div className="search-container">
                 <input
                   {...getSearchInputProps()}
                   className="search-input"
@@ -191,29 +160,28 @@ export default function Select({
               style={{
                 maxHeight: virtualize ? `${containerHeight}px` : '250px',
                 height: virtualize ? `${containerHeight}px` : 'auto',
-                overflowY: 'auto',
-                position: 'relative',
               }}
             >
               {state.isLoading ? (
-                <div style={{ padding: '12px', textAlign: 'center', color: '#999' }}>
+                <div className="loading-state">
                   Loading...
                 </div>
               ) : (
                 <>
                   {virtualize && state.virtualization ? (
                     <div style={{ height: state.virtualization.totalHeight, width: '100%' }}>
-                      {state.virtualization.items.map((item) => {
-                        const option = state.visibleOptions[item.index];
-                        if (!option) return null;
-                        return renderOption(option, {
-                          position: 'absolute',
-                          top: item.top,
-                          height: itemHeight,
-                          width: '100%',
-                          boxSizing: 'border-box',
-                        });
-                      })}
+                      {state.visibleOptions
+                        .slice(state.virtualization.startIndex, state.virtualization.endIndex)
+                        .map((option, idx) => {
+                          const actualIndex = state.virtualization!.startIndex + idx;
+                          return renderOption(option, {
+                            position: 'absolute',
+                            top: actualIndex * itemHeight,
+                            height: itemHeight,
+                            width: '100%',
+                            boxSizing: 'border-box',
+                          });
+                        })}
                     </div>
                   ) : (
                     state.visibleOptions.map((option) => renderOption(option))
@@ -222,27 +190,14 @@ export default function Select({
                   {state.canCreate && (
                     <div
                       {...getCreateOptionProps()}
-                      style={{
-                        padding: '10px 12px',
-                        cursor: 'pointer',
-                        color: '#007bff',
-                        borderTop: '1px solid #eee',
-                        fontSize: '14px',
-                      }}
+                      className="create-option"
                     >
                       + Create "{state.search}"
                     </div>
                   )}
 
                   {state.visibleOptions.length === 0 && !state.canCreate && (
-                    <div
-                      style={{
-                        padding: '12px',
-                        textAlign: 'center',
-                        color: '#999',
-                        fontSize: '14px',
-                      }}
-                    >
+                    <div className="empty-state">
                       No results found
                     </div>
                   )}

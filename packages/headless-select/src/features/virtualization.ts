@@ -21,10 +21,6 @@ export interface VirtualizationState {
    * Vertical offset for the rendered items container.
    */
   offsetY: number;
-  /**
-   * List of items currently in the virtualization window with their calculated top positions.
-   */
-  items: { index: number; top: number }[];
 }
 
 /**
@@ -50,19 +46,10 @@ export function calculateVirtualization(
   const visibleCount = Math.ceil(containerHeight / itemHeight);
   const endIndex = Math.min(itemCount, startIndex + visibleCount + 2 * overscan);
 
-  const items = [];
-  for (let i = startIndex; i < endIndex; i++) {
-    items.push({
-      index: i,
-      top: i * itemHeight,
-    });
-  }
-
   return {
     startIndex,
     endIndex,
     totalHeight: itemCount * itemHeight,
     offsetY: startIndex * itemHeight,
-    items,
   };
 }

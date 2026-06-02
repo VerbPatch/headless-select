@@ -5,13 +5,34 @@ import { useSelect as headlessSelect, SelectConfig, SelectState } from '@verbpat
 export * from '@verbpatch/headless-select';
 
 export function useSelect(initialConfig: SelectConfig) {
-  const instance = headlessSelect(initialConfig);
+  let currentConfig: SelectConfig | undefined;
+  let unsubscribeConfig: (() => void) | undefined;
+  const instanceRef: { current: any } = { current: null };
+
+  const isStore = initialConfig && typeof (initialConfig as any).subscribe === 'function';
+
+  if (isStore) {
+    unsubscribeConfig = (initialConfig as any).subscribe((val: SelectConfig) => {
+      currentConfig = val;
+      if (instanceRef.current) {
+        instanceRef.current.setConfig(val);
+      }
+    });
+  } else {
+    currentConfig = initialConfig;
+  }
+
+  const instance = headlessSelect(currentConfig!);
+  instanceRef.current = instance;
 
   const state = readable<SelectState>(instance.getState(), (set) => {
     return instance.subscribe(set);
   });
 
   onDestroy(() => {
+    if (unsubscribeConfig) {
+      unsubscribeConfig();
+    }
     instance.destroy();
   });
 
@@ -22,5 +43,9 @@ export function useSelect(initialConfig: SelectConfig) {
     getListboxProps: () => instance.getListboxProps(),
     getOptionProps: (value: string) => instance.getOptionProps(value),
     getSearchInputProps: () => instance.getSearchInputProps(),
+    getNativeSelectProps: () => instance.getNativeSelectProps(),
+    getCreateOptionProps: () => instance.getCreateOptionProps(),
+    getClearOptionProps: (value: string) => instance.getClearOptionProps(value),
+    setConfig: (patch: Partial<SelectConfig>) => instance.setConfig(patch),
   };
 }

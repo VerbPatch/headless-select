@@ -189,7 +189,7 @@ export function setupSelectUI(
             CONTAINER_HEIGHT,
             scrollTop,
           );
-          optionsToRender = v.items.map((item) => state.visibleOptions[item.index]);
+          optionsToRender = state.visibleOptions.slice(v.startIndex, v.endIndex);
           offsetY = v.offsetY;
           totalHeight = v.totalHeight;
         }

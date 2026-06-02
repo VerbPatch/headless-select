@@ -103,6 +103,8 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       const val = nextState[key];
       const current = state[key];
 
+      if (val === current) return false;
+
       if (Array.isArray(val) && Array.isArray(current)) {
         if (val.length !== current.length) return true;
         for (let i = 0; i < val.length; i++) {
@@ -139,6 +141,11 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       nextState.virtualization = undefined;
     }
 
+    const needsNativeSync =
+      forceSync ||
+      nextState.selectedValues !== state.selectedValues ||
+      nextState.resolvedOptions !== state.resolvedOptions;
+
     state = nextState;
 
     if (change && config.onChange) {
@@ -155,7 +162,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       config.onChange(intendedEmit, change);
     }
 
-    if (config.hydrateFrom) {
+    if (config.hydrateFrom && needsNativeSync) {
       isInternalSync = true;
       try {
         const el = config.hydrateFrom;
@@ -184,7 +191,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
           el.innerHTML = '';
           const fragment = document.createDocumentFragment();
 
-          const groups = new Map<string | undefined, any[]>();
+          const groups = new Map<string | undefined, SelectOption[]>();
           resolvedOptions.forEach((opt) => {
             const group = opt.groupLabel;
             if (!groups.has(group)) groups.set(group, []);

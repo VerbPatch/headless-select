@@ -87,6 +87,18 @@ export class HeadlessSelectService {
     return this.instance?.getSearchInputProps();
   }
 
+  getNativeSelectProps() {
+    return this.instance?.getNativeSelectProps();
+  }
+
+  getCreateOptionProps() {
+    return this.instance?.getCreateOptionProps();
+  }
+
+  getClearOptionProps(value: string) {
+    return this.instance?.getClearOptionProps(value);
+  }
+
   destroy() {
     this.instance?.destroy();
   }

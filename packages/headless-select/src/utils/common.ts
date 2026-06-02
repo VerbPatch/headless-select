@@ -67,13 +67,3 @@ export function scrollIntoView(container: HTMLElement, element: HTMLElement) {
     container.scrollTop += elementRect.bottom - containerRect.bottom;
   }
 }
-
-let lastKeyboardEventTime = 0;
-
-export function getLastKeyboardEventTime(): number {
-  return lastKeyboardEventTime;
-}
-
-export function updateLastKeyboardEventTime(): void {
-  lastKeyboardEventTime = Date.now();
-}
