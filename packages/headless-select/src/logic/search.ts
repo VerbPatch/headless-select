@@ -15,12 +15,12 @@ export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
   let latestSearchQuery = '';
   let timer: ReturnType<typeof setTimeout> | null = null;
 
-  const debouncedLoad = {
+  const debouncedRemoteFetch = {
     call: (search: string) => {
       if (timer) clearTimeout(timer);
       const delay = ctx.getConfig().searchDelay ?? 300;
       timer = setTimeout(() => {
-        void runLoadOptions(search);
+        void runRemoteOptions(search);
       }, delay);
     },
     cancel: () => {
@@ -29,22 +29,22 @@ export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
   };
 
   /**
-   * Executes the loadOptions configuration function.
+   * Executes the fetchRemoteOptions configuration function.
    * @param {string} search - The search term to pass to the loader.
    */
-  async function runLoadOptions(search: string): Promise<void> {
+  async function runRemoteOptions(search: string): Promise<void> {
     const config = ctx.getConfig();
     const state = ctx.getState();
-    const { loadOptions, cacheOptions } = config;
+    const { fetchRemoteOptions, cacheOptions } = config;
 
-    if (!loadOptions) return;
+    if (!fetchRemoteOptions) return;
 
     latestSearchQuery = search;
-    config.onLoadStart?.();
+    config.onFetchStart?.();
     ctx.setState({ isLoading: true, error: null });
 
     try {
-      const loader = () => loadOptions(search);
+      const loader = () => fetchRemoteOptions(search);
       const results = cacheOptions ? await cache.load(search, loader) : await loader();
 
       if (search !== latestSearchQuery) return;
@@ -59,12 +59,13 @@ export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
         canCreate: computeCanCreate(config, search, merged),
       });
 
-      config.onLoadEnd?.(results);
+      config.onFetchSuccess?.(results);
     } catch (err) {
       if (search !== latestSearchQuery) return;
       const error = err instanceof Error ? err : new Error(String(err));
       ctx.setState({ isLoading: false, error });
-      config.onLoadEnd?.([]);
+      config.onFetchError?.(error);
+      config.onFetchSuccess?.([]);
     }
   }
 
@@ -92,10 +93,10 @@ export function createSearchActions(ctx: SelectContext, cache: OptionsCache) {
 
     config.onSearch?.(term);
 
-    if (config.loadOptions && term.length >= min) {
-      debouncedLoad.call(term);
+    if (config.fetchRemoteOptions && term.length >= min) {
+      debouncedRemoteFetch.call(term);
     }
   }
 
-  return { setSearch, runLoadOptions, debouncedLoad };
+  return { setSearch, runRemoteOptions, debouncedRemoteFetch };
 }

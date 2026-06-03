@@ -117,6 +117,10 @@ export interface SelectState {
     totalHeight: number;
     offsetY: number;
   };
+  /**
+   * The scroll position of the options list container.
+   */
+  scrollTop: number;
 }
 
 /**
@@ -158,13 +162,13 @@ export interface SelectConfig {
   /**
    * Function to load options asynchronously based on search input.
    */
-  loadOptions?: (search: string) => Promise<SelectOption[]>;
+  fetchRemoteOptions?: (search: string) => Promise<SelectOption[]>;
   /**
    * Initial options to show, or true to trigger an immediate load on open.
    */
   defaultOptions?: boolean | SelectOption[];
   /**
-   * Whether to cache results from loadOptions based on the search term.
+   * Whether to cache results from fetchRemoteOptions based on the search term.
    */
   cacheOptions?: boolean;
   /**
@@ -274,11 +278,15 @@ export interface SelectConfig {
   /**
    * Callback triggered when an asynchronous load starts.
    */
-  onLoadStart?: () => void;
+  onFetchStart?: () => void;
   /**
    * Callback triggered when an asynchronous load completes.
    */
-  onLoadEnd?: (options: SelectOption[]) => void;
+  onFetchSuccess?: (options: SelectOption[]) => void;
+  /**
+   * Callback triggered when an asynchronous load fails.
+   */
+  onFetchError?: (error: Error) => void;
 }
 
 /**

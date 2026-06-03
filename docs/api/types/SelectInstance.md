@@ -5,7 +5,7 @@ description: Provides direct access to state, configuration, and imperative acti
 
 # SelectInstance
 
-Defined in: [core/types.ts:370](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L370)
+Defined in: [core/types.ts:377](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L377)
 
 The main instance object for managing a select component.
 
@@ -15,7 +15,7 @@ The main instance object for managing a select component.
 
 > **clearAll**: () => `void`
 
-Defined in: [core/types.ts:410](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L410)
+Defined in: [core/types.ts:417](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L417)
 
 Deselects all currently selected values.
 
@@ -29,7 +29,7 @@ Deselects all currently selected values.
 
 > **close**: () => `void`
 
-Defined in: [core/types.ts:390](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L390)
+Defined in: [core/types.ts:397](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L397)
 
 Closes the dropdown menu.
 
@@ -43,7 +43,7 @@ Closes the dropdown menu.
 
 > **createOption**: (`input`) => `void`
 
-Defined in: [core/types.ts:438](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L438)
+Defined in: [core/types.ts:445](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L445)
 
 Creates a new option from the provided input string.
 
@@ -63,7 +63,7 @@ Creates a new option from the provided input string.
 
 > **deselectOption**: (`value`) => `void`
 
-Defined in: [core/types.ts:402](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L402)
+Defined in: [core/types.ts:409](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L409)
 
 Deselects an option by its value.
 
@@ -83,7 +83,7 @@ Deselects an option by its value.
 
 > **destroy**: () => `void`
 
-Defined in: [core/types.ts:458](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L458)
+Defined in: [core/types.ts:465](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L465)
 
 Cleans up the instance and destroys all internal subscriptions.
 
@@ -97,7 +97,7 @@ Cleans up the instance and destroys all internal subscriptions.
 
 > **focusFirst**: () => `void`
 
-Defined in: [core/types.ts:430](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L430)
+Defined in: [core/types.ts:437](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L437)
 
 Moves focus to the first visible option.
 
@@ -111,7 +111,7 @@ Moves focus to the first visible option.
 
 > **focusLast**: () => `void`
 
-Defined in: [core/types.ts:434](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L434)
+Defined in: [core/types.ts:441](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L441)
 
 Moves focus to the last visible option.
 
@@ -125,7 +125,7 @@ Moves focus to the last visible option.
 
 > **focusNext**: () => `void`
 
-Defined in: [core/types.ts:422](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L422)
+Defined in: [core/types.ts:429](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L429)
 
 Moves focus to the next visible option.
 
@@ -139,7 +139,7 @@ Moves focus to the next visible option.
 
 > **focusOption**: (`value`) => `void`
 
-Defined in: [core/types.ts:418](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L418)
+Defined in: [core/types.ts:425](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L425)
 
 Manually sets the focus to an option by value.
 
@@ -159,7 +159,7 @@ Manually sets the focus to an option by value.
 
 > **focusPrev**: () => `void`
 
-Defined in: [core/types.ts:426](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L426)
+Defined in: [core/types.ts:433](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L433)
 
 Moves focus to the previous visible option.
 
@@ -173,7 +173,7 @@ Moves focus to the previous visible option.
 
 > **getClearOptionProps**: (`value`) => `any`
 
-Defined in: [core/types.ts:486](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L486)
+Defined in: [core/types.ts:493](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L493)
 
 Generates props for a clear button specific to an option (multi-select tags).
 
@@ -193,7 +193,7 @@ Generates props for a clear button specific to an option (multi-select tags).
 
 > **getConfig**: () => [`SelectConfig`](/select/docs/api/types/SelectConfig)
 
-Defined in: [core/types.ts:378](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L378)
+Defined in: [core/types.ts:385](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L385)
 
 Returns the current configuration options.
 
@@ -207,7 +207,7 @@ Returns the current configuration options.
 
 > **getCreateOptionProps**: () => `any`
 
-Defined in: [core/types.ts:482](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L482)
+Defined in: [core/types.ts:489](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L489)
 
 Generates props for the "Create" option row.
 
@@ -221,7 +221,7 @@ Generates props for the "Create" option row.
 
 > **getListboxProps**: () => [`ListboxProps`](/select/docs/api/getters/ListboxProps)
 
-Defined in: [core/types.ts:466](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L466)
+Defined in: [core/types.ts:473](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L473)
 
 Generates props for the listbox element.
 
@@ -235,7 +235,7 @@ Generates props for the listbox element.
 
 > **getNativeSelectProps**: () => `any`
 
-Defined in: [core/types.ts:478](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L478)
+Defined in: [core/types.ts:485](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L485)
 
 Generates props for a native select element (progressive enhancement).
 
@@ -249,7 +249,7 @@ Generates props for a native select element (progressive enhancement).
 
 > **getOptionLabel**: (`value`) => `string`
 
-Defined in: [core/types.ts:490](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L490)
+Defined in: [core/types.ts:497](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L497)
 
 Helper to retrieve the label for a given option value.
 
@@ -269,7 +269,7 @@ Helper to retrieve the label for a given option value.
 
 > **getOptionProps**: (`value`) => [`OptionProps`](/select/docs/api/getters/OptionProps)
 
-Defined in: [core/types.ts:470](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L470)
+Defined in: [core/types.ts:477](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L477)
 
 Generates props for a specific option element.
 
@@ -289,7 +289,7 @@ Generates props for a specific option element.
 
 > **getSearchInputProps**: () => [`SearchInputProps`](/select/docs/api/getters/SearchInputProps)
 
-Defined in: [core/types.ts:474](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L474)
+Defined in: [core/types.ts:481](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L481)
 
 Generates props for the search input element.
 
@@ -303,7 +303,7 @@ Generates props for the search input element.
 
 > **getSelectedOptions**: () => [`SelectOption`](/select/docs/api/types/SelectOption)[]
 
-Defined in: [core/types.ts:494](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L494)
+Defined in: [core/types.ts:501](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L501)
 
 Returns the list of currently selected SelectOption objects.
 
@@ -317,7 +317,7 @@ Returns the list of currently selected SelectOption objects.
 
 > **getState**: () => [`SelectState`](/select/docs/api/types/SelectState)
 
-Defined in: [core/types.ts:374](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L374)
+Defined in: [core/types.ts:381](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L381)
 
 Returns the current internal state.
 
@@ -331,7 +331,7 @@ Returns the current internal state.
 
 > **getTriggerProps**: () => [`TriggerProps`](/select/docs/api/getters/TriggerProps)
 
-Defined in: [core/types.ts:462](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L462)
+Defined in: [core/types.ts:469](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L469)
 
 Generates props for the trigger element.
 
@@ -345,7 +345,7 @@ Generates props for the trigger element.
 
 > **onScroll**: (`scrollTop`) => `void`
 
-Defined in: [core/types.ts:450](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L450)
+Defined in: [core/types.ts:457](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L457)
 
 Updates virtualization calculations based on scroll position.
 
@@ -365,7 +365,7 @@ Updates virtualization calculations based on scroll position.
 
 > **open**: () => `void`
 
-Defined in: [core/types.ts:386](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L386)
+Defined in: [core/types.ts:393](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L393)
 
 Opens the dropdown menu.
 
@@ -379,7 +379,7 @@ Opens the dropdown menu.
 
 > **scrollToFocused**: (`container`) => `void`
 
-Defined in: [core/types.ts:442](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L442)
+Defined in: [core/types.ts:449](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L449)
 
 Ensures the currently focused option is visible within its container.
 
@@ -399,7 +399,7 @@ Ensures the currently focused option is visible within its container.
 
 > **selectOption**: (`value`) => `void`
 
-Defined in: [core/types.ts:398](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L398)
+Defined in: [core/types.ts:405](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L405)
 
 Selects an option by its value.
 
@@ -419,7 +419,7 @@ Selects an option by its value.
 
 > **setConfig**: (`patch`) => `void`
 
-Defined in: [core/types.ts:454](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L454)
+Defined in: [core/types.ts:461](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L461)
 
 Patches the current configuration with new values.
 
@@ -439,7 +439,7 @@ Patches the current configuration with new values.
 
 > **setSearch**: (`term`) => `void`
 
-Defined in: [core/types.ts:414](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L414)
+Defined in: [core/types.ts:421](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L421)
 
 Sets the current search term and filters options.
 
@@ -459,7 +459,7 @@ Sets the current search term and filters options.
 
 > **subscribe**: (`listener`) => [`Unsubscribe`](/select/docs/api/types/Unsubscribe)
 
-Defined in: [core/types.ts:382](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L382)
+Defined in: [core/types.ts:389](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L389)
 
 Subscribes to state changes and returns an unsubscribe function.
 
@@ -479,7 +479,7 @@ Subscribes to state changes and returns an unsubscribe function.
 
 > **sync**: () => `void`
 
-Defined in: [core/types.ts:446](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L446)
+Defined in: [core/types.ts:453](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L453)
 
 Forces a synchronization of internal state (useful for manual configuration changes).
 
@@ -493,7 +493,7 @@ Forces a synchronization of internal state (useful for manual configuration chan
 
 > **toggle**: () => `void`
 
-Defined in: [core/types.ts:394](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L394)
+Defined in: [core/types.ts:401](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L401)
 
 Toggles the open/closed state of the dropdown menu.
 
@@ -507,7 +507,7 @@ Toggles the open/closed state of the dropdown menu.
 
 > **toggleOption**: (`value`) => `void`
 
-Defined in: [core/types.ts:406](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L406)
+Defined in: [core/types.ts:413](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L413)
 
 Toggles the selection state of an option by its value.
 

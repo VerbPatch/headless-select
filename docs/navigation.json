@@ -255,8 +255,28 @@
     "path": "/select\\examples\\react-all"
   },
   {
+    "title": "shared-styles",
+    "group": "example",
+    "children": []
+  },
+  {
+    "title": "solid-simple",
+    "group": "example",
+    "path": "/select\\examples\\solid-simple"
+  },
+  {
+    "title": "svelte-simple",
+    "group": "example",
+    "path": "/select\\examples\\svelte-simple"
+  },
+  {
     "title": "vanilla-all",
     "group": "example",
     "path": "/select\\examples\\vanilla-all"
+  },
+  {
+    "title": "vue-simple",
+    "group": "example",
+    "path": "/select\\examples\\vue-simple"
   }
 ]

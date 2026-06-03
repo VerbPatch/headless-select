@@ -5,7 +5,7 @@ description: Holds the coordinates and placement direction for a positioned elem
 
 # Position
 
-Defined in: [features/positioning.ts:7](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/features/positioning.ts#L7)
+Defined in: [features/positioning.ts:7](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/features/positioning.ts#L7)
 
 Represents the calculated position for the dropdown menu.
 
@@ -15,7 +15,7 @@ Represents the calculated position for the dropdown menu.
 
 > **left**: `number`
 
-Defined in: [features/positioning.ts:15](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/features/positioning.ts#L15)
+Defined in: [features/positioning.ts:15](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/features/positioning.ts#L15)
 
 Horizontal coordinate in pixels.
 
@@ -25,7 +25,7 @@ Horizontal coordinate in pixels.
 
 > **placement**: `"top"` \| `"bottom"`
 
-Defined in: [features/positioning.ts:23](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/features/positioning.ts#L23)
+Defined in: [features/positioning.ts:23](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/features/positioning.ts#L23)
 
 Whether the menu is placed above or below the trigger.
 
@@ -35,7 +35,7 @@ Whether the menu is placed above or below the trigger.
 
 > **top**: `number`
 
-Defined in: [features/positioning.ts:11](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/features/positioning.ts#L11)
+Defined in: [features/positioning.ts:11](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/features/positioning.ts#L11)
 
 Vertical coordinate in pixels.
 
@@ -45,6 +45,6 @@ Vertical coordinate in pixels.
 
 > **width**: `number`
 
-Defined in: [features/positioning.ts:19](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/features/positioning.ts#L19)
+Defined in: [features/positioning.ts:19](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/features/positioning.ts#L19)
 
 Width of the element in pixels.

@@ -5,7 +5,7 @@ description: Standard attributes and events required for filtering options via t
 
 # SearchInputProps
 
-Defined in: [core/types.ts:341](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L341)
+Defined in: [core/types.ts:348](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L348)
 
 Attributes and handlers for the search input element.
 
@@ -15,15 +15,15 @@ Attributes and handlers for the search input element.
 
 > `optional` **aria-activedescendant?**: `string`
 
-Defined in: [core/types.ts:348](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L348)
+Defined in: [core/types.ts:355](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L355)
 
 ***
 
 ### aria-autocomplete
 
-> **aria-autocomplete**: `string`
+> **aria-autocomplete**: `"list"`
 
-Defined in: [core/types.ts:346](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L346)
+Defined in: [core/types.ts:353](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L353)
 
 ***
 
@@ -31,7 +31,7 @@ Defined in: [core/types.ts:346](https://github.com/VerbPatch/headless-select/blo
 
 > **aria-controls**: `string`
 
-Defined in: [core/types.ts:347](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L347)
+Defined in: [core/types.ts:354](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L354)
 
 ***
 
@@ -39,7 +39,7 @@ Defined in: [core/types.ts:347](https://github.com/VerbPatch/headless-select/blo
 
 > **autoComplete**: `string`
 
-Defined in: [core/types.ts:345](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L345)
+Defined in: [core/types.ts:352](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L352)
 
 ***
 
@@ -47,7 +47,7 @@ Defined in: [core/types.ts:345](https://github.com/VerbPatch/headless-select/blo
 
 > `optional` **id?**: `string`
 
-Defined in: [core/types.ts:342](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L342)
+Defined in: [core/types.ts:349](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L349)
 
 ***
 
@@ -55,7 +55,7 @@ Defined in: [core/types.ts:342](https://github.com/VerbPatch/headless-select/blo
 
 > **onInput**: (`e`) => `void`
 
-Defined in: [core/types.ts:351](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L351)
+Defined in: [core/types.ts:358](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L358)
 
 #### Parameters
 
@@ -73,7 +73,7 @@ Defined in: [core/types.ts:351](https://github.com/VerbPatch/headless-select/blo
 
 > **onKeyDown**: (`e`) => `void`
 
-Defined in: [core/types.ts:353](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L353)
+Defined in: [core/types.ts:360](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L360)
 
 #### Parameters
 
@@ -91,7 +91,7 @@ Defined in: [core/types.ts:353](https://github.com/VerbPatch/headless-select/blo
 
 > **role**: `string`
 
-Defined in: [core/types.ts:344](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L344)
+Defined in: [core/types.ts:351](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L351)
 
 ***
 
@@ -99,7 +99,7 @@ Defined in: [core/types.ts:344](https://github.com/VerbPatch/headless-select/blo
 
 > **type**: `string`
 
-Defined in: [core/types.ts:343](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L343)
+Defined in: [core/types.ts:350](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L350)
 
 ***
 
@@ -107,4 +107,4 @@ Defined in: [core/types.ts:343](https://github.com/VerbPatch/headless-select/blo
 
 > **value**: `string`
 
-Defined in: [core/types.ts:349](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L349)
+Defined in: [core/types.ts:356](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L356)

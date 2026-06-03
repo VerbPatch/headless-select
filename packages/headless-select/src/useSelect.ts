@@ -80,6 +80,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     canCreate: false,
     isLoading: false,
     error: null,
+    scrollTop: 0,
   };
 
   const listeners = new Set<(s: SelectState) => void>();
@@ -97,6 +98,41 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     if (config.value !== undefined) {
       nextState.selectedValues = Array.isArray(config.value) ? config.value : [config.value];
     }
+
+    let currentScrollTop =
+      nextState.scrollTop !== undefined ? nextState.scrollTop : state.scrollTop;
+
+    if (!nextState.isOpen) {
+      currentScrollTop = 0;
+    } else {
+      const isOpening = patch.isOpen === true && !state.isOpen;
+      const isFocusChanging =
+        patch.focusedOptionValue !== undefined &&
+        patch.focusedOptionValue !== state.focusedOptionValue;
+      const visibleOptionsChanged = patch.visibleOptions !== undefined;
+
+      if (isOpening || isFocusChanging || visibleOptionsChanged) {
+        const focusedValue = nextState.focusedOptionValue;
+        if (focusedValue) {
+          const idx = nextState.visibleOptions.findIndex((o) => o.value === focusedValue);
+          if (idx !== -1) {
+            const itemHeight = config.itemHeight ?? 35;
+            const containerHeight = config.containerHeight ?? 300;
+            const itemTop = idx * itemHeight;
+            const itemBottom = itemTop + itemHeight;
+
+            if (itemTop < currentScrollTop) {
+              currentScrollTop = itemTop;
+            } else if (itemBottom > currentScrollTop + containerHeight) {
+              currentScrollTop = itemBottom - containerHeight;
+            }
+          }
+        }
+      }
+    }
+
+    nextState.scrollTop = currentScrollTop;
+    lastScrollTop = currentScrollTop;
 
     // ── Check for changes ─────────────────────────────────────────────────────
     const hasChanges = (Object.keys(nextState) as Array<keyof SelectState>).some((key) => {
@@ -400,7 +436,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
       if (config.virtualize) {
         if (scrollRaf) cancelAnimationFrame(scrollRaf);
         scrollRaf = requestAnimationFrame(() => {
-          setState({});
+          setState({ scrollTop });
         });
       }
     },
@@ -412,7 +448,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     focusLast: handlers.focusLast,
 
     setConfig: (patch: Partial<SelectConfig>) => {
-      // const prevOptions = config.options;
+      const prevOptions = config.options;
       const prevHydrateFrom = config.hydrateFrom;
       config = { ...config, ...patch };
 
@@ -437,8 +473,33 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
         }
       }
 
-      const currentStaticOptions = flattenOptions(config.options ?? []);
-      nextState.resolvedOptions = mergeOptions(hydratedOptions, currentStaticOptions);
+      let optionsChanged = false;
+      if (patch.options !== undefined) {
+        if (Array.isArray(patch.options) && Array.isArray(prevOptions)) {
+          if (patch.options.length !== prevOptions.length) {
+            optionsChanged = true;
+          } else {
+            for (let i = 0; i < patch.options.length; i++) {
+              if (patch.options[i] !== prevOptions[i]) {
+                optionsChanged = true;
+                break;
+              }
+            }
+          }
+        } else if (patch.options !== prevOptions) {
+          optionsChanged = true;
+        }
+      }
+
+      const hydrateChanged =
+        patch.hydrateFrom !== undefined && patch.hydrateFrom !== prevHydrateFrom;
+
+      if (optionsChanged || hydrateChanged) {
+        const currentStaticOptions = flattenOptions(config.options ?? []);
+        nextState.resolvedOptions = mergeOptions(hydratedOptions, currentStaticOptions);
+      } else {
+        nextState.resolvedOptions = state.resolvedOptions;
+      }
 
       if (config.value !== undefined) {
         nextState.selectedValues = Array.isArray(config.value) ? config.value : [config.value];

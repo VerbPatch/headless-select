@@ -63,13 +63,9 @@ export function setupSelectUI(
   const isVirtualized = anchorId === 'anchor-virtual';
   const ITEM_HEIGHT = 28;
   const CONTAINER_HEIGHT = 200;
-  let scrollTop = 0;
 
   list.onscroll = () => {
-    if (isVirtualized) {
-      scrollTop = list.scrollTop;
-      render();
-    }
+    select.onScroll(list.scrollTop);
   };
 
   // ── Stable Event Bindings ──────────────────────────────────────────────────
@@ -117,7 +113,6 @@ export function setupSelectUI(
   // ── Surgical Renderer ─────────────────────────────────────────────────────
 
   let lastState: SelectState | null = null;
-  let lastScrollTop = -1;
 
   function render() {
     const state = select.getState();
@@ -172,7 +167,7 @@ export function setupSelectUI(
       state.focusedOptionValue !== lastState.focusedOptionValue ||
       state.isLoading !== lastState.isLoading ||
       state.canCreate !== lastState.canCreate ||
-      (isVirtualized && scrollTop !== lastScrollTop);
+      (isVirtualized && state.scrollTop !== lastState.scrollTop);
 
     if (state.isOpen && listNeedsUpdate) {
       if (state.isLoading) {
@@ -182,13 +177,8 @@ export function setupSelectUI(
         let offsetY = 0;
         let totalHeight = state.visibleOptions.length * ITEM_HEIGHT;
 
-        if (isVirtualized) {
-          const v = calculateVirtualization(
-            state.visibleOptions.length,
-            ITEM_HEIGHT,
-            CONTAINER_HEIGHT,
-            scrollTop,
-          );
+        if (isVirtualized && state.virtualization) {
+          const v = state.virtualization;
           optionsToRender = state.visibleOptions.slice(v.startIndex, v.endIndex);
           offsetY = v.offsetY;
           totalHeight = v.totalHeight;
@@ -228,7 +218,9 @@ export function setupSelectUI(
           list.innerHTML = finalHtml;
         }
       }
-      lastScrollTop = scrollTop;
+      if (list.scrollTop !== state.scrollTop) {
+        list.scrollTop = state.scrollTop;
+      }
     }
 
     lastState = state;

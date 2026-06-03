@@ -7,7 +7,7 @@ description: Provides details about the type of change and the specific option i
 
 > **SelectChange** = `object`
 
-Defined in: [core/types.ts:129](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L129)
+Defined in: [core/types.ts:132](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L132)
 
 Metadata emitted during a selection change event.
 
@@ -17,7 +17,7 @@ Metadata emitted during a selection change event.
 
 > **option**: [`SelectOption`](/select/docs/api/types/SelectOption) \| `null`
 
-Defined in: [core/types.ts:137](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L137)
+Defined in: [core/types.ts:140](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L140)
 
 The option involved in the change, or null if it was a clear action.
 
@@ -27,6 +27,6 @@ The option involved in the change, or null if it was a clear action.
 
 > **type**: `"select"` \| `"deselect"` \| `"clear"` \| `"create"`
 
-Defined in: [core/types.ts:133](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L133)
+Defined in: [core/types.ts:136](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L136)
 
 The type of change action performed.

@@ -7,7 +7,7 @@ description: Computes top, left, and width while handling viewport collisions an
 
 > **calculatePosition**(`trigger`, `menu`, `options?`): [`Position`](/select/docs/api/types/Position)
 
-Defined in: [features/positioning.ts:36](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/features/positioning.ts#L36)
+Defined in: [features/positioning.ts:36](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/features/positioning.ts#L36)
 
 Calculates the optimal position for the dropdown menu relative to its trigger.
 

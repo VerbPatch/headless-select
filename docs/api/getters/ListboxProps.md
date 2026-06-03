@@ -5,7 +5,7 @@ description: Standard ARIA attributes required for the scrollable list of option
 
 # ListboxProps
 
-Defined in: [core/types.ts:311](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L311)
+Defined in: [core/types.ts:318](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L318)
 
 Attributes for the listbox container element.
 
@@ -15,7 +15,7 @@ Attributes for the listbox container element.
 
 > `optional` **aria-label?**: `string`
 
-Defined in: [core/types.ts:315](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L315)
+Defined in: [core/types.ts:322](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L322)
 
 ***
 
@@ -23,7 +23,7 @@ Defined in: [core/types.ts:315](https://github.com/VerbPatch/headless-select/blo
 
 > **aria-multiselectable**: `boolean`
 
-Defined in: [core/types.ts:314](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L314)
+Defined in: [core/types.ts:321](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L321)
 
 ***
 
@@ -31,7 +31,7 @@ Defined in: [core/types.ts:314](https://github.com/VerbPatch/headless-select/blo
 
 > **id**: `string`
 
-Defined in: [core/types.ts:312](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L312)
+Defined in: [core/types.ts:319](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L319)
 
 ***
 
@@ -39,4 +39,4 @@ Defined in: [core/types.ts:312](https://github.com/VerbPatch/headless-select/blo
 
 > **role**: `string`
 
-Defined in: [core/types.ts:313](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L313)
+Defined in: [core/types.ts:320](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L320)

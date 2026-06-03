@@ -5,7 +5,7 @@ description: Defines all behavior, data source, and visual options for the selec
 
 # SelectConfig
 
-Defined in: [core/types.ts:146](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L146)
+Defined in: [core/types.ts:149](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L149)
 
 Configuration options for initializing a select instance.
 
@@ -15,7 +15,7 @@ Configuration options for initializing a select instance.
 
 > `optional` **ariaLabel?**: `string`
 
-Defined in: [core/types.ts:254](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L254)
+Defined in: [core/types.ts:257](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L257)
 
 Accessibility label for the select component.
 
@@ -25,7 +25,7 @@ Accessibility label for the select component.
 
 > `optional` **ariaLabelledBy?**: `string`
 
-Defined in: [core/types.ts:258](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L258)
+Defined in: [core/types.ts:261](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L261)
 
 ID of the element that labels the select component.
 
@@ -35,9 +35,9 @@ ID of the element that labels the select component.
 
 > `optional` **cacheOptions?**: `boolean`
 
-Defined in: [core/types.ts:170](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L170)
+Defined in: [core/types.ts:173](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L173)
 
-Whether to cache results from loadOptions based on the search term.
+Whether to cache results from fetchRemoteOptions based on the search term.
 
 ***
 
@@ -45,7 +45,7 @@ Whether to cache results from loadOptions based on the search term.
 
 > `optional` **clearable?**: `boolean`
 
-Defined in: [core/types.ts:186](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L186)
+Defined in: [core/types.ts:189](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L189)
 
 Whether to show a clear button to deselect all items.
 
@@ -55,7 +55,7 @@ Whether to show a clear button to deselect all items.
 
 > `optional` **closeOnSelect?**: `boolean`
 
-Defined in: [core/types.ts:198](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L198)
+Defined in: [core/types.ts:201](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L201)
 
 Whether to close the dropdown immediately after a selection is made.
 
@@ -65,7 +65,7 @@ Whether to close the dropdown immediately after a selection is made.
 
 > `optional` **containerHeight?**: `number`
 
-Defined in: [core/types.ts:246](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L246)
+Defined in: [core/types.ts:249](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L249)
 
 Total height of the scrollable list container (required for virtualization).
 
@@ -75,7 +75,7 @@ Total height of the scrollable list container (required for virtualization).
 
 > `optional` **creatable?**: `boolean`
 
-Defined in: [core/types.ts:194](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L194)
+Defined in: [core/types.ts:197](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L197)
 
 Whether users can create new options from the search input.
 
@@ -85,7 +85,7 @@ Whether users can create new options from the search input.
 
 > `optional` **createOptionLabel?**: (`input`) => `string`
 
-Defined in: [core/types.ts:234](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L234)
+Defined in: [core/types.ts:237](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L237)
 
 Factory function for the label of the "Create" option.
 
@@ -105,7 +105,7 @@ Factory function for the label of the "Create" option.
 
 > `optional` **defaultOptions?**: `boolean` \| [`SelectOption`](/select/docs/api/types/SelectOption)[]
 
-Defined in: [core/types.ts:166](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L166)
+Defined in: [core/types.ts:169](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L169)
 
 Initial options to show, or true to trigger an immediate load on open.
 
@@ -115,7 +115,7 @@ Initial options to show, or true to trigger an immediate load on open.
 
 > `optional` **defaultValue?**: `string` \| `string`[]
 
-Defined in: [core/types.ts:154](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L154)
+Defined in: [core/types.ts:157](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L157)
 
 The initial selected value(s) for uncontrolled mode.
 
@@ -125,9 +125,29 @@ The initial selected value(s) for uncontrolled mode.
 
 > `optional` **disabled?**: `boolean`
 
-Defined in: [core/types.ts:190](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L190)
+Defined in: [core/types.ts:193](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L193)
 
 Whether the select component is disabled.
+
+***
+
+### fetchRemoteOptions?
+
+> `optional` **fetchRemoteOptions?**: (`search`) => `Promise`\<[`SelectOption`](/select/docs/api/types/SelectOption)[]\>
+
+Defined in: [core/types.ts:165](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L165)
+
+Function to load options asynchronously based on search input.
+
+#### Parameters
+
+##### search
+
+`string`
+
+#### Returns
+
+`Promise`\<[`SelectOption`](/select/docs/api/types/SelectOption)[]\>
 
 ***
 
@@ -135,7 +155,7 @@ Whether the select component is disabled.
 
 > `optional` **filterOption?**: (`option`, `search`) => `boolean`
 
-Defined in: [core/types.ts:202](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L202)
+Defined in: [core/types.ts:205](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L205)
 
 Custom filter function for client-side search.
 
@@ -159,7 +179,7 @@ Custom filter function for client-side search.
 
 > `optional` **hydrateFrom?**: `HTMLSelectElement`
 
-Defined in: [core/types.ts:174](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L174)
+Defined in: [core/types.ts:177](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L177)
 
 An existing HTMLSelectElement to hydrate initial state from.
 
@@ -169,7 +189,7 @@ An existing HTMLSelectElement to hydrate initial state from.
 
 > `optional` **inputId?**: `string`
 
-Defined in: [core/types.ts:250](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L250)
+Defined in: [core/types.ts:253](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L253)
 
 ID for the internal search input element.
 
@@ -179,7 +199,7 @@ ID for the internal search input element.
 
 > `optional` **isValidNewOption?**: (`input`, `currentOptions`) => `boolean`
 
-Defined in: [core/types.ts:226](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L226)
+Defined in: [core/types.ts:229](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L229)
 
 Validation function for new options in creatable mode.
 
@@ -203,7 +223,7 @@ Validation function for new options in creatable mode.
 
 > `optional` **itemHeight?**: `number`
 
-Defined in: [core/types.ts:242](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L242)
+Defined in: [core/types.ts:245](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L245)
 
 Fixed height for each list item in pixels (required for virtualization).
 
@@ -213,29 +233,9 @@ Fixed height for each list item in pixels (required for virtualization).
 
 > `optional` **loadingMessage?**: `string`
 
-Defined in: [core/types.ts:218](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L218)
+Defined in: [core/types.ts:221](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L221)
 
 Message shown while loading options.
-
-***
-
-### loadOptions?
-
-> `optional` **loadOptions?**: (`search`) => `Promise`\<[`SelectOption`](/select/docs/api/types/SelectOption)[]\>
-
-Defined in: [core/types.ts:162](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L162)
-
-Function to load options asynchronously based on search input.
-
-#### Parameters
-
-##### search
-
-`string`
-
-#### Returns
-
-`Promise`\<[`SelectOption`](/select/docs/api/types/SelectOption)[]\>
 
 ***
 
@@ -243,7 +243,7 @@ Function to load options asynchronously based on search input.
 
 > `optional` **minSearchLength?**: `number`
 
-Defined in: [core/types.ts:210](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L210)
+Defined in: [core/types.ts:213](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L213)
 
 Minimum search string length required to trigger a search.
 
@@ -253,7 +253,7 @@ Minimum search string length required to trigger a search.
 
 > `optional` **multiple?**: `boolean`
 
-Defined in: [core/types.ts:178](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L178)
+Defined in: [core/types.ts:181](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L181)
 
 Whether multiple options can be selected simultaneously.
 
@@ -263,7 +263,7 @@ Whether multiple options can be selected simultaneously.
 
 > `optional` **noOptionsMessage?**: `string` \| ((`search`) => `string`)
 
-Defined in: [core/types.ts:222](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L222)
+Defined in: [core/types.ts:225](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L225)
 
 Message shown when no matching options are found.
 
@@ -273,7 +273,7 @@ Message shown when no matching options are found.
 
 > `optional` **onChange?**: (`value`, `change`) => `void`
 
-Defined in: [core/types.ts:262](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L262)
+Defined in: [core/types.ts:265](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L265)
 
 Callback triggered when the selected value(s) change.
 
@@ -297,7 +297,7 @@ Callback triggered when the selected value(s) change.
 
 > `optional` **onClose?**: () => `void`
 
-Defined in: [core/types.ts:270](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L270)
+Defined in: [core/types.ts:273](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L273)
 
 Callback triggered when the dropdown is closed.
 
@@ -311,7 +311,7 @@ Callback triggered when the dropdown is closed.
 
 > `optional` **onCreate?**: (`input`) => `void` \| [`SelectOption`](/select/docs/api/types/SelectOption)
 
-Defined in: [core/types.ts:230](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L230)
+Defined in: [core/types.ts:233](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L233)
 
 Callback triggered when a new option is created.
 
@@ -327,11 +327,45 @@ Callback triggered when a new option is created.
 
 ***
 
-### onLoadEnd?
+### onFetchError?
 
-> `optional` **onLoadEnd?**: (`options`) => `void`
+> `optional` **onFetchError?**: (`error`) => `void`
 
-Defined in: [core/types.ts:282](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L282)
+Defined in: [core/types.ts:289](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L289)
+
+Callback triggered when an asynchronous load fails.
+
+#### Parameters
+
+##### error
+
+`Error`
+
+#### Returns
+
+`void`
+
+***
+
+### onFetchStart?
+
+> `optional` **onFetchStart?**: () => `void`
+
+Defined in: [core/types.ts:281](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L281)
+
+Callback triggered when an asynchronous load starts.
+
+#### Returns
+
+`void`
+
+***
+
+### onFetchSuccess?
+
+> `optional` **onFetchSuccess?**: (`options`) => `void`
+
+Defined in: [core/types.ts:285](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L285)
 
 Callback triggered when an asynchronous load completes.
 
@@ -347,25 +381,11 @@ Callback triggered when an asynchronous load completes.
 
 ***
 
-### onLoadStart?
-
-> `optional` **onLoadStart?**: () => `void`
-
-Defined in: [core/types.ts:278](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L278)
-
-Callback triggered when an asynchronous load starts.
-
-#### Returns
-
-`void`
-
-***
-
 ### onOpen?
 
 > `optional` **onOpen?**: () => `void`
 
-Defined in: [core/types.ts:266](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L266)
+Defined in: [core/types.ts:269](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L269)
 
 Callback triggered when the dropdown is opened.
 
@@ -379,7 +399,7 @@ Callback triggered when the dropdown is opened.
 
 > `optional` **onSearch?**: (`term`) => `void`
 
-Defined in: [core/types.ts:274](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L274)
+Defined in: [core/types.ts:277](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L277)
 
 Callback triggered on every search input change.
 
@@ -399,7 +419,7 @@ Callback triggered on every search input change.
 
 > `optional` **options?**: [`DataItem`](/select/docs/api/types/DataItem)[]
 
-Defined in: [core/types.ts:158](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L158)
+Defined in: [core/types.ts:161](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L161)
 
 Static list of options or groups.
 
@@ -409,7 +429,7 @@ Static list of options or groups.
 
 > `optional` **placeholder?**: `string`
 
-Defined in: [core/types.ts:214](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L214)
+Defined in: [core/types.ts:217](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L217)
 
 Placeholder text shown when no value is selected.
 
@@ -419,7 +439,7 @@ Placeholder text shown when no value is selected.
 
 > `optional` **searchable?**: `boolean`
 
-Defined in: [core/types.ts:182](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L182)
+Defined in: [core/types.ts:185](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L185)
 
 Whether to display a search input for filtering options.
 
@@ -429,7 +449,7 @@ Whether to display a search input for filtering options.
 
 > `optional` **searchDelay?**: `number`
 
-Defined in: [core/types.ts:206](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L206)
+Defined in: [core/types.ts:209](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L209)
 
 Delay in milliseconds before executing asynchronous searches.
 
@@ -439,7 +459,7 @@ Delay in milliseconds before executing asynchronous searches.
 
 > `optional` **value?**: `string` \| `string`[]
 
-Defined in: [core/types.ts:150](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L150)
+Defined in: [core/types.ts:153](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L153)
 
 The currently selected value(s) for controlled mode.
 
@@ -449,6 +469,6 @@ The currently selected value(s) for controlled mode.
 
 > `optional` **virtualize?**: `boolean`
 
-Defined in: [core/types.ts:238](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L238)
+Defined in: [core/types.ts:241](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L241)
 
 Whether to enable list virtualization for high-performance rendering.

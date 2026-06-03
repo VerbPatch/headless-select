@@ -46,9 +46,11 @@ export default function Select({
 
   useEffect(() => {
     if (state.isOpen && listboxRef.current) {
-      instance.scrollToFocused(listboxRef.current);
+      if (listboxRef.current.scrollTop !== state.scrollTop) {
+        listboxRef.current.scrollTop = state.scrollTop;
+      }
     }
-  }, [state.isOpen, instance]);
+  }, [state.isOpen, state.scrollTop]);
 
   const renderOption = (option: any, style: React.CSSProperties = {}) => {
     const props = getOptionProps(option.value);
@@ -59,7 +61,14 @@ export default function Select({
       <div
         key={option.value}
         {...props}
-        className={['option-item', isFocused && 'focused', isSelected && 'selected', option.disabled && 'disabled'].filter(Boolean).join(' ')}
+        className={[
+          'option-item',
+          isFocused && 'focused',
+          isSelected && 'selected',
+          option.disabled && 'disabled',
+        ]
+          .filter(Boolean)
+          .join(' ')}
         style={style}
       >
         <span className="option-icon">{isSelected ? '●' : '○'}</span>
@@ -69,27 +78,23 @@ export default function Select({
             <span className="option-group-label">{option.groupLabel}</span>
           )}
         </div>
-        {isFocused && (
-          <span className="option-focus-badge">
-            [FOCUS]
-          </span>
-        )}
+        {isFocused && <span className="option-focus-badge">[FOCUS]</span>}
       </div>
     );
   };
 
   return (
     <div className="select-container">
-      <div className="render-count-badge">
-        Render Count: {renderCount.current}
-      </div>
+      <div className="render-count-badge">Render Count: {renderCount.current}</div>
       {showNative && (
         <div className={`native-interface-container ${hideNative ? 'hidden' : ''}`}>
           {!hideNative && <label>Native Select Interface</label>}
           <select
             ref={nativeRef}
             {...getNativeSelectProps()}
-            className={['native-select', hideNative && 'hidden', !hideNative && 'visible'].filter(Boolean).join(' ')}
+            className={['native-select', hideNative && 'hidden', !hideNative && 'visible']
+              .filter(Boolean)
+              .join(' ')}
             style={{
               height: hideNative ? '1px' : config.multiple || virtualize ? '120px' : 'auto',
             }}
@@ -107,25 +112,15 @@ export default function Select({
 
       <div className="custom-ui-wrapper">
         <label>Headless Custom UI {virtualize && '(Virtualized)'}</label>
-        {!showNative && (
-          <div className="custom-ui-note">
-            (Pure Headless - No Native Sync)
-          </div>
-        )}
+        {!showNative && <div className="custom-ui-note">(Pure Headless - No Native Sync)</div>}
         <button {...getTriggerProps()} className="select-trigger">
           {state.selectedValues.length > 0 ? (
             config.multiple ? (
               <div className="selected-values-container">
                 {instance?.getSelectedOptions().map((opt) => (
-                  <span
-                    key={opt.value}
-                    className="selected-value-pill"
-                  >
+                  <span key={opt.value} className="selected-value-pill">
                     {opt.label}
-                    <span
-                      {...getClearOptionProps(opt.value)}
-                      className="selected-value-clear"
-                    >
+                    <span {...getClearOptionProps(opt.value)} className="selected-value-clear">
                       ×
                     </span>
                   </span>
@@ -163,9 +158,7 @@ export default function Select({
               }}
             >
               {state.isLoading ? (
-                <div className="loading-state">
-                  Loading...
-                </div>
+                <div className="loading-state">Loading...</div>
               ) : (
                 <>
                   {virtualize && state.virtualization ? (
@@ -188,18 +181,13 @@ export default function Select({
                   )}
 
                   {state.canCreate && (
-                    <div
-                      {...getCreateOptionProps()}
-                      className="create-option"
-                    >
+                    <div {...getCreateOptionProps()} className="create-option">
                       + Create "{state.search}"
                     </div>
                   )}
 
                   {state.visibleOptions.length === 0 && !state.canCreate && (
-                    <div className="empty-state">
-                      No results found
-                    </div>
+                    <div className="empty-state">No results found</div>
                   )}
                 </>
               )}

@@ -10,7 +10,7 @@ description: |-
 
 > **hydrateFromElement**(`element`): `object`
 
-Defined in: [utils/hydration.ts:11](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/utils/hydration.ts#L11)
+Defined in: [utils/hydration.ts:11](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/utils/hydration.ts#L11)
 
 Hydrates options and values from a native HTML select element.
 

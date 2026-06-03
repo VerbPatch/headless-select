@@ -7,25 +7,25 @@ import type { SelectContext } from '@/core/context';
  * @title createBaseActions
  * @description Provides core visibility actions like opening, closing, and toggling the dropdown menu.
  * @param {SelectContext} ctx - The internal select context.
- * @param {Function} runLoadOptions - Function to trigger asynchronous loading.
+ * @param {Function} runRemoteOptions - Function to trigger asynchronous loading.
  * @returns {BaseActions} - Object containing base actions.
  */
 export function createBaseActions(
   ctx: SelectContext,
-  runLoadOptions: (search: string) => Promise<void>,
+  runRemoteOptions: (search: string) => Promise<void>,
 ) {
   /**
    * Loads default options if configured.
    */
-  async function maybeLoadDefaultOptions(): Promise<void> {
+  async function maybeFetchDefaultOptions(): Promise<void> {
     const config = ctx.getConfig();
     const state = ctx.getState();
-    const { defaultOptions, loadOptions } = config;
+    const { defaultOptions, fetchRemoteOptions } = config;
 
-    if (!loadOptions) return;
+    if (!fetchRemoteOptions) return;
 
     if (defaultOptions === true) {
-      await runLoadOptions('');
+      await runRemoteOptions('');
     } else if (Array.isArray(defaultOptions)) {
       const merged = mergeOptions(state.resolvedOptions, defaultOptions);
       ctx.setState({
@@ -58,7 +58,7 @@ export function createBaseActions(
 
     ctx.setState({ isOpen: true, focusedOptionValue: focusVal });
     config.onOpen?.();
-    void maybeLoadDefaultOptions();
+    void maybeFetchDefaultOptions();
   }
 
   /**

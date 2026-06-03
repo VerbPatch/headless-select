@@ -5,7 +5,7 @@ description: Standard ARIA attributes and events required for selectable items w
 
 # OptionProps
 
-Defined in: [core/types.ts:324](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L324)
+Defined in: [core/types.ts:331](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L331)
 
 Attributes and handlers for an individual option element.
 
@@ -15,7 +15,7 @@ Attributes and handlers for an individual option element.
 
 > **aria-disabled**: `boolean`
 
-Defined in: [core/types.ts:328](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L328)
+Defined in: [core/types.ts:335](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L335)
 
 ***
 
@@ -23,7 +23,7 @@ Defined in: [core/types.ts:328](https://github.com/VerbPatch/headless-select/blo
 
 > **aria-selected**: `boolean`
 
-Defined in: [core/types.ts:327](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L327)
+Defined in: [core/types.ts:334](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L334)
 
 ***
 
@@ -31,7 +31,7 @@ Defined in: [core/types.ts:327](https://github.com/VerbPatch/headless-select/blo
 
 > **data-focused**: `boolean`
 
-Defined in: [core/types.ts:329](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L329)
+Defined in: [core/types.ts:336](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L336)
 
 ***
 
@@ -39,7 +39,7 @@ Defined in: [core/types.ts:329](https://github.com/VerbPatch/headless-select/blo
 
 > **id**: `string`
 
-Defined in: [core/types.ts:325](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L325)
+Defined in: [core/types.ts:332](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L332)
 
 ***
 
@@ -47,7 +47,7 @@ Defined in: [core/types.ts:325](https://github.com/VerbPatch/headless-select/blo
 
 > **onClick**: (`e`) => `void`
 
-Defined in: [core/types.ts:331](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L331)
+Defined in: [core/types.ts:338](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L338)
 
 #### Parameters
 
@@ -65,7 +65,7 @@ Defined in: [core/types.ts:331](https://github.com/VerbPatch/headless-select/blo
 
 > **onMouseEnter**: () => `void`
 
-Defined in: [core/types.ts:332](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L332)
+Defined in: [core/types.ts:339](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L339)
 
 #### Returns
 
@@ -77,4 +77,4 @@ Defined in: [core/types.ts:332](https://github.com/VerbPatch/headless-select/blo
 
 > **role**: `string`
 
-Defined in: [core/types.ts:326](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L326)
+Defined in: [core/types.ts:333](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L333)

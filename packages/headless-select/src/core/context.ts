@@ -55,7 +55,7 @@ export interface SelectActions {
   /** Creates a new option. */
   createOption: (input: string) => void;
   /** Manually triggers an async load. */
-  runLoadOptions: (search: string) => Promise<void>;
+  runRemoteOptions: (search: string) => Promise<void>;
   /** Cleans up the instance. */
   destroy: () => void;
 }

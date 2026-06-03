@@ -1,4 +1,12 @@
-import { useStore, useTask$, useVisibleTask$, $, noSerialize, type NoSerialize, useSignal } from '@builder.io/qwik';
+import {
+  useStore,
+  useTask$,
+  useVisibleTask$,
+  $,
+  noSerialize,
+  type NoSerialize,
+  useSignal,
+} from '@builder.io/qwik';
 import {
   useSelect as headlessSelect,
   type SelectConfig,

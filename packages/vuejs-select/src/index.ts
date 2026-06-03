@@ -3,12 +3,13 @@ import { useSelect as headlessSelect, SelectConfig, SelectState } from '@verbpat
 
 export * from '@verbpatch/headless-select';
 
-export function useSelect(config: SelectConfig) {
-  const instance = headlessSelect(config);
+export function useSelect(configInput: SelectConfig | (() => SelectConfig)) {
+  const getConfig = () => (typeof configInput === 'function' ? configInput() : configInput);
+  const instance = headlessSelect(getConfig());
   const state = ref<SelectState>(instance.getState());
 
   watch(
-    () => ({ ...config }),
+    getConfig,
     (newConfig) => {
       instance.setConfig(newConfig);
     },

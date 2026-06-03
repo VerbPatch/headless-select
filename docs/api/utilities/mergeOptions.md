@@ -7,7 +7,7 @@ description: Combines two sets of options, ensuring that values already present 
 
 > **mergeOptions**(`existing`, `incoming`): [`SelectOption`](/select/docs/api/types/SelectOption)[]
 
-Defined in: [utils/options.ts:75](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/utils/options.ts#L75)
+Defined in: [utils/options.ts:77](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/utils/options.ts#L77)
 
 Merges new options into an existing array while preventing duplicate values.
 

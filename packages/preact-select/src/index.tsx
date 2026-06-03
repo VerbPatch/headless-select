@@ -45,7 +45,10 @@ export function useSelect(config: SelectConfig) {
     getSearchInputProps: useCallback(() => instance.getSearchInputProps(), [instance]),
     getNativeSelectProps: useCallback(() => instance.getNativeSelectProps(), [instance]),
     getCreateOptionProps: useCallback(() => instance.getCreateOptionProps(), [instance]),
-    getClearOptionProps: useCallback((value: string) => instance.getClearOptionProps(value), [instance]),
+    getClearOptionProps: useCallback(
+      (value: string) => instance.getClearOptionProps(value),
+      [instance],
+    ),
     setConfig: useCallback((patch: Partial<SelectConfig>) => instance.setConfig(patch), [instance]),
   };
 }

@@ -145,7 +145,7 @@ function App() {
           <Select
             searchable
             cacheOptions
-            loadOptions={async (search) => {
+            fetchRemoteOptions={async (search) => {
               if (!search) return [];
               const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
               const users = await res.json();

@@ -5,7 +5,7 @@ description: Holds all reactive state for the select, including visibility, sear
 
 # SelectState
 
-Defined in: [core/types.ts:74](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L74)
+Defined in: [core/types.ts:74](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L74)
 
 Represents the internal state of a select instance.
 
@@ -15,7 +15,7 @@ Represents the internal state of a select instance.
 
 > **canCreate**: `boolean`
 
-Defined in: [core/types.ts:102](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L102)
+Defined in: [core/types.ts:102](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L102)
 
 Whether the "Create" option should be displayed based on current search.
 
@@ -25,7 +25,7 @@ Whether the "Create" option should be displayed based on current search.
 
 > **error**: `Error` \| `null`
 
-Defined in: [core/types.ts:110](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L110)
+Defined in: [core/types.ts:110](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L110)
 
 Any error that occurred during data fetching or state transitions.
 
@@ -35,7 +35,7 @@ Any error that occurred during data fetching or state transitions.
 
 > **focusedOptionValue**: `string` \| `null`
 
-Defined in: [core/types.ts:98](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L98)
+Defined in: [core/types.ts:98](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L98)
 
 The value of the option currently focused via keyboard navigation.
 
@@ -45,7 +45,7 @@ The value of the option currently focused via keyboard navigation.
 
 > **isLoading**: `boolean`
 
-Defined in: [core/types.ts:106](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L106)
+Defined in: [core/types.ts:106](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L106)
 
 Whether an asynchronous load operation is currently in progress.
 
@@ -55,7 +55,7 @@ Whether an asynchronous load operation is currently in progress.
 
 > **isOpen**: `boolean`
 
-Defined in: [core/types.ts:78](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L78)
+Defined in: [core/types.ts:78](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L78)
 
 Whether the dropdown menu is currently open.
 
@@ -65,9 +65,19 @@ Whether the dropdown menu is currently open.
 
 > **resolvedOptions**: [`SelectOption`](/select/docs/api/types/SelectOption)[]
 
-Defined in: [core/types.ts:90](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L90)
+Defined in: [core/types.ts:90](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L90)
 
 All resolved options after processing groups and asynchronous loading.
+
+***
+
+### scrollTop
+
+> **scrollTop**: `number`
+
+Defined in: [core/types.ts:123](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L123)
+
+The scroll position of the options list container.
 
 ***
 
@@ -75,7 +85,7 @@ All resolved options after processing groups and asynchronous loading.
 
 > **search**: `string`
 
-Defined in: [core/types.ts:82](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L82)
+Defined in: [core/types.ts:82](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L82)
 
 The current search string typed by the user.
 
@@ -85,7 +95,7 @@ The current search string typed by the user.
 
 > **selectedValues**: `string`[]
 
-Defined in: [core/types.ts:86](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L86)
+Defined in: [core/types.ts:86](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L86)
 
 The list of currently selected values.
 
@@ -95,17 +105,13 @@ The list of currently selected values.
 
 > `optional` **virtualization?**: `object`
 
-Defined in: [core/types.ts:114](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L114)
+Defined in: [core/types.ts:114](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L114)
 
 Current virtualization window and calculations.
 
 #### endIndex
 
 > **endIndex**: `number`
-
-#### items
-
-> **items**: `object`[]
 
 #### offsetY
 
@@ -125,6 +131,6 @@ Current virtualization window and calculations.
 
 > **visibleOptions**: [`SelectOption`](/select/docs/api/types/SelectOption)[]
 
-Defined in: [core/types.ts:94](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/core/types.ts#L94)
+Defined in: [core/types.ts:94](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/core/types.ts#L94)
 
 The subset of options currently visible in the dropdown (filtered by search).

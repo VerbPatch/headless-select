@@ -16,7 +16,7 @@ import type { OptionsCache } from '@/core/cache';
  */
 export function createActions(ctx: SelectContext, cache: OptionsCache): SelectActions {
   const searchActions = createSearchActions(ctx, cache);
-  const baseActions = createBaseActions(ctx, searchActions.runLoadOptions);
+  const baseActions = createBaseActions(ctx, searchActions.runRemoteOptions);
   const selectionActions = createSelectionActions(ctx);
   const creatableActions = createCreatableActions(ctx);
 
@@ -26,7 +26,7 @@ export function createActions(ctx: SelectContext, cache: OptionsCache): SelectAc
     ...searchActions,
     ...creatableActions,
     destroy: () => {
-      searchActions.debouncedLoad.cancel();
+      searchActions.debouncedRemoteFetch.cancel();
     },
   };
 }

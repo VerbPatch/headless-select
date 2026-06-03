@@ -7,7 +7,7 @@ description: A high-level utility that resolves the filter function and applies 
 
 > **computeVisibleOptions**(`config`, `resolved`, `search`, `selectedValues`): [`SelectOption`](/select/docs/api/types/SelectOption)[]
 
-Defined in: [utils/options.ts:92](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/utils/options.ts#L92)
+Defined in: [utils/options.ts:94](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/utils/options.ts#L94)
 
 Computes the final set of visible options based on the current configuration and state.
 

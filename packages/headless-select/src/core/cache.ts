@@ -4,7 +4,7 @@ import { SelectOption } from '@/core/types';
  * Simple in-memory cache for asynchronous option loading.
  * @ignore
  * @title OptionsCache
- * @description Stores and retrieves results from `loadOptions` calls based on the search term to prevent redundant network requests.
+ * @description Stores and retrieves results from `fetchRemoteOptions` calls based on the search term to prevent redundant network requests.
  */
 export class OptionsCache {
   private cache = new Map<string, SelectOption[]>();

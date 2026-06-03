@@ -7,7 +7,7 @@ description: Determines which subset of items should be rendered based on scroll
 
 > **calculateVirtualization**(`itemCount`, `itemHeight`, `containerHeight`, `scrollTop`, `overscan?`): [`VirtualizationState`](/select/docs/api/types/VirtualizationState)
 
-Defined in: [features/virtualization.ts:42](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/features/virtualization.ts#L42)
+Defined in: [features/virtualization.ts:38](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/features/virtualization.ts#L38)
 
 Calculates the virtualization window for a scrollable list.
 

@@ -76,7 +76,7 @@ setupSelectUI('anchor-multi', {
 setupSelectUI('anchor-remote', {
   searchable: true,
   cacheOptions: true,
-  loadOptions: async (search) => {
+  fetchRemoteOptions: async (search) => {
     if (!search) return [];
     const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
     const users = await res.json();
@@ -101,12 +101,15 @@ setupSelectUI('anchor-hydration', {
   placeholder: 'Hydrated...',
 });
 
-const largeList = Array.from({ length: 1000 }, (_, i) => ({
+const largeList = Array.from({ length: 10000 }, (_, i) => ({
   value: `item-${i}`,
   label: `Item ${i + 1}`,
 }));
 
 setupSelectUI('anchor-virtual', {
+  virtualize: true,
+  itemHeight: 28,
+  containerHeight: 200,
   options: largeList,
   placeholder: 'Scroll 1,000 items...',
 });

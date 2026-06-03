@@ -2,8 +2,9 @@ import { createSignal, createEffect, onCleanup } from 'solid-js';
 import { useSelect as headlessSelect, SelectConfig, SelectState } from '@verbpatch/headless-select';
 export * from '@verbpatch/headless-select';
 
-export function useSelect(config: SelectConfig) {
-  const instance = headlessSelect(config);
+export function useSelect(configInput: SelectConfig | (() => SelectConfig)) {
+  const getConfig = () => (typeof configInput === 'function' ? configInput() : configInput);
+  const instance = headlessSelect(getConfig());
   const [state, setState] = createSignal<SelectState>(instance.getState());
 
   const unsubscribe = instance.subscribe(setState);
@@ -12,35 +13,67 @@ export function useSelect(config: SelectConfig) {
     instance.destroy();
   });
 
+  let nativeElement: HTMLSelectElement | null = null;
+
   createEffect(() => {
-    const keys: Array<keyof SelectConfig> = [
-      'value', 'defaultValue', 'options', 'loadOptions', 'defaultOptions',
-      'cacheOptions', 'hydrateFrom', 'multiple', 'searchable', 'clearable',
-      'disabled', 'creatable', 'closeOnSelect', 'filterOption', 'searchDelay',
-      'minSearchLength', 'placeholder', 'loadingMessage', 'noOptionsMessage',
-      'isValidNewOption', 'onCreate', 'createOptionLabel', 'virtualize',
-      'itemHeight', 'containerHeight', 'inputId', 'ariaLabel', 'ariaLabelledBy',
-      'onChange', 'onOpen', 'onClose', 'onSearch', 'onLoadStart', 'onLoadEnd'
-    ];
+    const currentConfig = getConfig();
     const resolvedConfig = {} as SelectConfig;
+    const keys = Object.keys(currentConfig) as Array<keyof SelectConfig>;
     for (const key of keys) {
-      if (config[key] !== undefined) {
-        resolvedConfig[key] = config[key] as any;
-      }
+      resolvedConfig[key] = currentConfig[key] as any;
+    }
+    if (!resolvedConfig.hydrateFrom && nativeElement) {
+      resolvedConfig.hydrateFrom = nativeElement;
     }
     instance.setConfig(resolvedConfig);
   });
 
+  const nativeRef = (el: HTMLSelectElement) => {
+    nativeElement = el;
+    const currentConfig = getConfig();
+    if (!currentConfig.hydrateFrom) {
+      instance.setConfig({ hydrateFrom: el });
+    }
+  };
+
   return {
     state,
     instance,
-    getTriggerProps: () => instance.getTriggerProps(),
-    getListboxProps: () => instance.getListboxProps(),
-    getOptionProps: (value: string) => instance.getOptionProps(value),
-    getSearchInputProps: () => instance.getSearchInputProps(),
-    getNativeSelectProps: () => instance.getNativeSelectProps(),
-    getCreateOptionProps: () => instance.getCreateOptionProps(),
-    getClearOptionProps: (value: string) => instance.getClearOptionProps(value),
+    nativeRef,
+    getTriggerProps: () => {
+      state(); // register reactivity
+      return instance.getTriggerProps();
+    },
+    getListboxProps: () => {
+      state(); // register reactivity
+      return instance.getListboxProps();
+    },
+    getOptionProps: (value: string) => {
+      state(); // register reactivity
+      return instance.getOptionProps(value);
+    },
+    getSearchInputProps: () => {
+      state(); // register reactivity
+      return instance.getSearchInputProps();
+    },
+    getNativeSelectProps: () => {
+      state(); // register reactivity
+      return instance.getNativeSelectProps();
+    },
+    getCreateOptionProps: () => {
+      state(); // register reactivity
+      return instance.getCreateOptionProps();
+    },
+    getClearOptionProps: (value: string) => {
+      state(); // register reactivity
+      return instance.getClearOptionProps(value);
+    },
+    getOptionLabel: (value: string) => {
+      return state().resolvedOptions.find((o) => o.value === value)?.label ?? value;
+    },
+    getSelectedOptions: () => {
+      return state().resolvedOptions.filter((o) => state().selectedValues.includes(o.value));
+    },
     setConfig: (patch: Partial<SelectConfig>) => instance.setConfig(patch),
   };
 }

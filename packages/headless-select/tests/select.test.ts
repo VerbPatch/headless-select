@@ -126,8 +126,8 @@ describe('useSelect - High Coverage', () => {
   // ── Async ───────────────────────────────────────────────────────────────────
 
   it('handles async loading and cache', async () => {
-    const loadOptions = vi.fn().mockResolvedValue([{ value: 'async', label: 'Async' }]);
-    const select = useSelect({ loadOptions, cacheOptions: true, hydrateFrom: dummyEl });
+    const fetchRemoteOptions = vi.fn().mockResolvedValue([{ value: 'async', label: 'Async' }]);
+    const select = useSelect({ fetchRemoteOptions, cacheOptions: true, hydrateFrom: dummyEl });
     select.setSearch('test');
     vi.runAllTimers();
     await vi.waitFor(() => expect(select.getState().isLoading).toBe(false));
@@ -136,7 +136,7 @@ describe('useSelect - High Coverage', () => {
     select.setSearch('');
     select.setSearch('test');
     vi.runAllTimers();
-    expect(loadOptions).toHaveBeenCalledTimes(1);
+    expect(fetchRemoteOptions).toHaveBeenCalledTimes(1);
   });
 
   // ── Utils & Features ────────────────────────────────────────────────────────
@@ -216,5 +216,21 @@ describe('useSelect - High Coverage', () => {
     expect(state.resolvedOptions).toHaveLength(2);
     expect(state.resolvedOptions[0].groupLabel).toBe('Fruits');
     expect(select.getConfig().multiple).toBe(true);
+  });
+
+  it('preserves dynamically loaded options on setConfig when static options/hydrateFrom are unchanged', async () => {
+    const fetchRemoteOptions = vi.fn().mockResolvedValue([{ value: 'async-1', label: 'Async 1' }]);
+    const select = useSelect({ fetchRemoteOptions, options: [], hydrateFrom: dummyEl });
+
+    select.setSearch('test');
+    vi.runAllTimers();
+    await vi.waitFor(() => expect(select.getState().isLoading).toBe(false));
+    expect(select.getState().resolvedOptions).toHaveLength(1);
+    expect(select.getState().resolvedOptions[0].value).toBe('async-1');
+
+    // Call setConfig with same empty options array and same hydrateFrom element
+    select.setConfig({ options: [], hydrateFrom: dummyEl });
+    expect(select.getState().resolvedOptions).toHaveLength(1);
+    expect(select.getState().resolvedOptions[0].value).toBe('async-1');
   });
 });

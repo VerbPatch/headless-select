@@ -7,7 +7,7 @@ description: Navigates through the options list to find the next available optio
 
 > **nextFocusableIndex**(`options`, `currentValue`, `direction`): `string` \| `null`
 
-Defined in: [utils/options.ts:140](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/utils/options.ts#L140)
+Defined in: [utils/options.ts:142](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/utils/options.ts#L142)
 
 Calculates the next or previous focusable index in the options list.
 

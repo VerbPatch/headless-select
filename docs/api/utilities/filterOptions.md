@@ -7,7 +7,7 @@ description: Orchestrates the filtering process for a list of options.
 
 > **filterOptions**(`options`, `search`, `filterFn`, `_selectedValues`, `_multiple`): [`SelectOption`](/select/docs/api/types/SelectOption)[]
 
-Defined in: [utils/options.ts:55](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/utils/options.ts#L55)
+Defined in: [utils/options.ts:57](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/utils/options.ts#L57)
 
 Filters a flat list of options based on a search term and filter function.
 

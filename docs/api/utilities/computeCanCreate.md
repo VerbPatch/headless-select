@@ -7,7 +7,7 @@ description: Validates the search term against existing options and configuratio
 
 > **computeCanCreate**(`config`, `search`, `resolved`): `boolean`
 
-Defined in: [utils/options.ts:113](https://github.com/VerbPatch/headless-select/blob/85f1448fcd20f7bef067bfd4e4f36ac142b65c42/packages/headless-select/src/utils/options.ts#L113)
+Defined in: [utils/options.ts:115](https://github.com/VerbPatch/headless-select/blob/05e0fc46fd0839bef7162ee6e03459cb6f77eafa/packages/headless-select/src/utils/options.ts#L115)
 
 Determines if a new custom option can be created based on the current search input.
 
