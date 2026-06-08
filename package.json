@@ -3,7 +3,7 @@
   "namespace": "@verbpatch",
   "description": "Headless select monorepo",
   "type": "module",
-  "version": "0.0.1-beta.3",
+  "version": "0.0.1-beta.4",
   "author": "Rameez Raja",
   "license": "LGPL-3.0-or-later",
   "packageManager": "pnpm@10.33.0",

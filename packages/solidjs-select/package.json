@@ -1,6 +1,6 @@
 {
   "name": "@verbpatch/solidjs-select",
-  "version": "0.0.1-beta.3",
+  "version": "0.0.1-beta.4",
   "description": "A headless select library for SolidJs applications with universal data engine and advanced interaction logic.",
   "author": "Rameez Raja <rameezrajapathan@live.com>",
   "license": "GPL-3.0-or-later",
