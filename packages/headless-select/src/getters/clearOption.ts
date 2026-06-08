@@ -1,4 +1,4 @@
-import type { SelectActions } from '@/core/context';
+import type { SelectActions } from '../core/context';
 
 /**
  * Generates props for a button that clears a specific selected option.

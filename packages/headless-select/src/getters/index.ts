@@ -1,11 +1,11 @@
-import { getTriggerProps } from '@/getters/trigger';
-import { getListboxProps } from '@/getters/listbox';
-import { getOptionProps } from '@/getters/option';
-import { getSearchInputProps } from '@/getters/searchInput';
-import { getNativeSelectProps } from '@/getters/nativeSelect';
-import { getCreateOptionProps } from '@/getters/createOption';
-import { getClearOptionProps } from '@/getters/clearOption';
-import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
+import { KeyboardActions, SelectActions, SelectContext } from "../core/context";
+import { getClearOptionProps } from "./clearOption";
+import { getCreateOptionProps } from "./createOption";
+import { getListboxProps } from "./listbox";
+import { getNativeSelectProps } from "./nativeSelect";
+import { getOptionProps } from "./option";
+import { getSearchInputProps } from "./searchInput";
+import { getTriggerProps } from "./trigger";
 
 /**
  * Factory for all prop getter functions.

@@ -1,6 +1,6 @@
-import { createFocusActions } from '@/handlers/focus';
-import { createKeyboardHandler } from '@/handlers/keyboard';
-import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
+import { SelectContext, SelectActions, KeyboardActions } from "../core/context";
+import { createFocusActions } from "./focus";
+import { createKeyboardHandler } from "./keyboard";
 
 /**
  * Orchestrates all interaction and focus management handlers.

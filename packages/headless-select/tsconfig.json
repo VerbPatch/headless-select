@@ -5,10 +5,6 @@
     "declarationDir": "./dist",
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "rollup.config.ts", "eslint.config.ts"]

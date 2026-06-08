@@ -1,5 +1,5 @@
-import type { SelectContext } from '@/core/context';
-import { nextFocusableIndex } from '@/utils/index';
+import type { SelectContext } from '../core/context';
+import { nextFocusableIndex } from '../utils/index';
 
 /**
  * Factory for focus-related actions.

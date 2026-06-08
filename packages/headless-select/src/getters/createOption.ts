@@ -1,4 +1,4 @@
-import type { SelectContext, SelectActions } from '@/core/context';
+import type { SelectContext, SelectActions } from '../core/context';
 
 /**
  * Generates props for the "Create" option element.

@@ -1,6 +1,6 @@
-import type { SelectChange } from '@/core/types';
-import { computeVisibleOptions } from '@/utils/index';
-import type { SelectContext } from '@/core/context';
+import type { SelectChange } from '../core/types';
+import { computeVisibleOptions } from '../utils/index';
+import type { SelectContext } from '../core/context';
 
 /**
  * Factory for selection-related actions.

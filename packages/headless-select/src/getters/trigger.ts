@@ -1,5 +1,5 @@
-import type { TriggerProps } from '@/core/types';
-import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
+import type { TriggerProps } from '../core/types';
+import type { SelectContext, SelectActions, KeyboardActions } from '../core/context';
 
 /**
  * Returns the props for the trigger element.

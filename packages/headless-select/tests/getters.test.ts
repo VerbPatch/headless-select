@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { useSelect } from '@/useSelect';
+import { useSelect } from '../src/useSelect';
 
 describe('Prop Getters tests', () => {
   const options = [

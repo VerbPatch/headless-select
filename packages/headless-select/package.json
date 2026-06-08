@@ -58,6 +58,9 @@
     "typescript",
     "gpl"
   ],
+  "dependencies": {
+    "@verbpatch/virtualization": "^1.0.0"
+  },
   "size-limit": [
     {
       "path": "dist/*.js"

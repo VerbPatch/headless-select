@@ -6,7 +6,6 @@
     "rootDir": "./src",
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["../headless-select/src/*"]
     }

@@ -1,6 +1,6 @@
-import type { SelectOption, SelectChange } from '@/core/types';
-import { mergeOptions, computeVisibleOptions } from '@/utils/index';
-import type { SelectContext } from '@/core/context';
+import type { SelectOption, SelectChange } from '../core/types';
+import { mergeOptions, computeVisibleOptions } from '../utils/index';
+import type { SelectContext } from '../core/context';
 
 /**
  * Factory for creatable-related actions.

@@ -6,7 +6,6 @@
     "declarationDir": "./dist",
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
     "paths": {
       "@/*": ["../headless-select/src/*"]
     }

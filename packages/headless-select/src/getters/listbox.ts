@@ -1,5 +1,5 @@
-import type { ListboxProps } from '@/core/types';
-import type { SelectContext } from '@/core/context';
+import type { ListboxProps } from '../core/types';
+import type { SelectContext } from '../core/context';
 
 /**
  * Generates props for the listbox container.

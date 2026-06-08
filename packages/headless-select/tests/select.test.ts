@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { useSelect } from '@/useSelect';
-import { calculatePosition } from '@/features/positioning';
-import { calculateVirtualization } from '@/features/virtualization';
-import { debounce, scrollIntoView } from '@/utils/common';
+import { useSelect } from '../src/useSelect';
+import { calculatePosition } from '../src/features/positioning';
+import { calculateVirtualization } from '../src/features/virtualization';
+import { debounce, scrollIntoView } from '../src/utils/common';
 
 describe('useSelect - High Coverage', () => {
   const options = [

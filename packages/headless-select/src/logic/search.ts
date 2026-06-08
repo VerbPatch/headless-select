@@ -1,6 +1,6 @@
-import { computeVisibleOptions, computeCanCreate, mergeOptions } from '@/utils/index';
-import type { SelectContext } from '@/core/context';
-import type { OptionsCache } from '@/core/cache';
+import { computeVisibleOptions, computeCanCreate, mergeOptions } from '../utils/index';
+import type { SelectContext } from '../core/context';
+import type { OptionsCache } from '../core/cache';
 
 /**
  * Factory for search and asynchronous loading actions.

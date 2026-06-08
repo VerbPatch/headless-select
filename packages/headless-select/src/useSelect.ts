@@ -5,7 +5,7 @@ import type {
   SelectState,
   Unsubscribe,
   SelectOption,
-} from '@/core/types';
+} from './core/types';
 import {
   computeVisibleOptions,
   debounce,
@@ -15,13 +15,13 @@ import {
   mergeOptions,
   scrollIntoView,
   uid,
-} from '@/utils/index';
-import { calculateVirtualization } from '@/features/virtualization';
-import { OptionsCache } from '@/core/cache';
-import { SelectContext } from '@/core/context';
-import { createActions } from '@/logic/index';
-import { createHandlers } from '@/handlers/index';
-import { createGetters } from '@/getters/index';
+} from './utils/index';
+import { calculateVirtualization } from './features/virtualization';
+import { OptionsCache } from './core/cache';
+import { SelectContext } from './core/context';
+import { createActions } from './logic/index';
+import { createHandlers } from './handlers/index';
+import { createGetters } from './getters/index';
 
 /**
  * Creates and manages a headless select instance.
@@ -211,7 +211,29 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
 
         let needsFullRefresh =
           nativeOptions.length !== resolvedOptions.length || hasGroups !== nativeHasGroups;
-        if (!needsFullRefresh && resolvedOptions.length > 0) {
+        
+        const optionsActuallyChanged = nextState.resolvedOptions !== state.resolvedOptions;
+
+        if (!needsFullRefresh && !forceSync) {
+          const nextSel = nextState.selectedValues ?? state.selectedValues;
+          const prevSel = state.selectedValues;
+
+          const removed = prevSel.filter((v) => !nextSel.includes(v));
+          const added = nextSel.filter((v) => !prevSel.includes(v));
+
+          if (removed.length > 0 || added.length > 0) {
+            for (let i = 0; i < resolvedOptions.length; i++) {
+              const val = resolvedOptions[i].value;
+              if (added.includes(val)) {
+                nativeOptions[i].selected = true;
+              } else if (removed.includes(val)) {
+                nativeOptions[i].selected = false;
+              }
+            }
+          }
+        }
+
+        if (!needsFullRefresh && optionsActuallyChanged && resolvedOptions.length > 0) {
           for (let i = 0; i < resolvedOptions.length; i++) {
             if (
               nativeOptions[i].value !== resolvedOptions[i].value ||
@@ -234,31 +256,27 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
             groups.get(group)!.push(opt);
           });
 
+          const currentValues = new Set(nextState.selectedValues ?? state.selectedValues);
+          
           groups.forEach((groupOptions, groupLabel) => {
             if (groupLabel) {
               const groupEl = document.createElement('optgroup');
               groupEl.label = groupLabel;
               groupOptions.forEach((opt) => {
-                groupEl.appendChild(new Option(opt.label, opt.value));
+                const isSelected = currentValues.has(opt.value);
+                groupEl.appendChild(new Option(opt.label, opt.value, isSelected, isSelected));
               });
               fragment.appendChild(groupEl);
             } else {
               groupOptions.forEach((opt) => {
-                fragment.appendChild(new Option(opt.label, opt.value));
+                const isSelected = currentValues.has(opt.value);
+                fragment.appendChild(new Option(opt.label, opt.value, isSelected, isSelected));
               });
             }
           });
 
           el.appendChild(fragment);
         }
-
-        const currentValues = new Set(state.selectedValues);
-        Array.from(el.options).forEach((opt) => {
-          const shouldBeSelected = currentValues.has(opt.value);
-          if (opt.selected !== shouldBeSelected) {
-            opt.selected = shouldBeSelected;
-          }
-        });
 
         if (!config.multiple && state.selectedValues.length > 0) {
           if (el.value !== state.selectedValues[0]) {

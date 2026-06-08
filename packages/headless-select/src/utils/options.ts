@@ -1,4 +1,4 @@
-import { DataItem, SelectOption, isGroup, SelectConfig } from '@/core/types';
+import { DataItem, SelectOption, isGroup, SelectConfig } from '../core/types';
 
 /**
  * Flattens a list of options that may contain groups into a single flat array.

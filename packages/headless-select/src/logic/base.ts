@@ -1,5 +1,5 @@
-import { computeVisibleOptions, mergeOptions } from '@/utils/index';
-import type { SelectContext } from '@/core/context';
+import { computeVisibleOptions, mergeOptions } from '../utils/index';
+import type { SelectContext } from '../core/context';
 
 /**
  * Factory for base lifecycle actions.

@@ -1,4 +1,4 @@
-import type { SelectContext, SelectActions } from '@/core/context';
+import type { SelectContext, SelectActions } from '../core/context';
 
 /**
  * Factory for the central keyboard event handler.

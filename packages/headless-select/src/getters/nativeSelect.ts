@@ -1,4 +1,4 @@
-import type { SelectContext } from '@/core/context';
+import type { SelectContext } from '../core/context';
 
 /**
  * Generates props for a hidden native select element.

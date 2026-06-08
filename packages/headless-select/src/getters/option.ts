@@ -1,6 +1,6 @@
-import { getOptionId } from '@/utils/index';
-import type { OptionProps } from '@/core/types';
-import type { SelectContext, SelectActions, KeyboardActions } from '@/core/context';
+import { getOptionId } from '../utils/index';
+import type { OptionProps } from '../core/types';
+import type { SelectContext, SelectActions, KeyboardActions } from '../core/context';
 
 /**
  * Returns the props for an option element.
