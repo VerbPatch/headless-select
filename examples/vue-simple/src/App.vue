@@ -43,7 +43,7 @@ const fetchRemoteOptions = async (search: string) => {
   return users
     .filter((u: any) => u.name.toLowerCase().includes(search.toLowerCase()))
     .map((u: any) => ({ value: String(u.id), label: u.name }));
-}
+};
 </script>
 
 <template>

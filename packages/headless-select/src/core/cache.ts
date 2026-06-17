@@ -1,4 +1,4 @@
-import { SelectOption } from "./types";
+import { SelectOption } from './types';
 
 /**
  * Simple in-memory cache for asynchronous option loading.

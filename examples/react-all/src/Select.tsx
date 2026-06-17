@@ -114,7 +114,7 @@ export default function Select({
               height: hideNative ? '1px' : config.multiple || virtualize ? '120px' : 'auto',
             }}
           >
-            {(config.options || config.fetchRemoteOptions || config.creatable)
+            {config.options || config.fetchRemoteOptions || config.creatable
               ? state.resolvedOptions?.map((opt: any) => (
                   <option key={opt.value} value={opt.value} disabled={opt.disabled}>
                     {opt.label}

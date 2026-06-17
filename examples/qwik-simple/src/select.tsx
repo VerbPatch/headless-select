@@ -1,4 +1,11 @@
-import { component$, Slot, useSignal, useTask$, useVisibleTask$, noSerialize } from '@builder.io/qwik';
+import {
+  component$,
+  Slot,
+  useSignal,
+  useTask$,
+  useVisibleTask$,
+  noSerialize,
+} from '@builder.io/qwik';
 import { useSelect, hydrateFromElement } from '@verbpatch/qwik-select';
 
 export interface SelectProps {
@@ -85,7 +92,11 @@ export const Select = component$((props: SelectProps) => {
     <div class="select-container">
       <div class="render-count-badge">Qwik Auto-Reactivity</div>
       {showNative && (
-        <div class={['native-interface-container', hideNative ? 'hidden' : ''].filter(Boolean).join(' ')}>
+        <div
+          class={['native-interface-container', hideNative ? 'hidden' : '']
+            .filter(Boolean)
+            .join(' ')}
+        >
           {!hideNative && <label>Native Select Interface</label>}
           <select
             ref={nativeRef}
@@ -116,7 +127,7 @@ export const Select = component$((props: SelectProps) => {
               }
             }}
           >
-            {(props.options || props.fetchRemoteOptions || props.creatable) ? (
+            {props.options || props.fetchRemoteOptions || props.creatable ? (
               state.resolvedOptions?.map((opt) => (
                 <option value={opt.value} key={opt.value} disabled={opt.disabled}>
                   {opt.label}
@@ -138,11 +149,7 @@ export const Select = component$((props: SelectProps) => {
       <div class="custom-ui-wrapper">
         <label>Headless Custom UI {virtualize && '(Virtualized)'}</label>
         {!showNative && <div class="custom-ui-note">(Pure Headless - No Native Sync)</div>}
-        <button 
-          {...(getTriggerProps() as any)} 
-          aria-expanded={state.isOpen}
-          class="select-trigger"
-        >
+        <button {...(getTriggerProps() as any)} aria-expanded={state.isOpen} class="select-trigger">
           {state.selectedValues?.length > 0 ? (
             props.multiple ? (
               <div class="selected-values-container">
@@ -151,14 +158,18 @@ export const Select = component$((props: SelectProps) => {
                   .map((opt) => (
                     <span class="selected-value-pill" key={opt.value}>
                       {opt.label}
-                      <span {...(getClearOptionProps(opt.value) as any)} class="selected-value-clear">
+                      <span
+                        {...(getClearOptionProps(opt.value) as any)}
+                        class="selected-value-clear"
+                      >
                         ×
                       </span>
                     </span>
                   ))}
               </div>
             ) : (
-              state.resolvedOptions?.find((o) => o.value === state.selectedValues[0])?.label ?? state.selectedValues[0]
+              (state.resolvedOptions?.find((o) => o.value === state.selectedValues[0])?.label ??
+              state.selectedValues[0])
             )
           ) : (
             props.placeholder || 'Select...'
@@ -212,7 +223,9 @@ export const Select = component$((props: SelectProps) => {
                             isFocused && 'focused',
                             isSelected && 'selected',
                             option.disabled && 'disabled',
-                          ].filter(Boolean).join(' ');
+                          ]
+                            .filter(Boolean)
+                            .join(' ');
 
                           return (
                             <div
@@ -248,14 +261,16 @@ export const Select = component$((props: SelectProps) => {
                         isFocused && 'focused',
                         isSelected && 'selected',
                         option.disabled && 'disabled',
-                      ].filter(Boolean).join(' ');
+                      ]
+                        .filter(Boolean)
+                        .join(' ');
 
                       return (
-                        <div 
-                          {...(optProps as any)} 
+                        <div
+                          {...(optProps as any)}
                           aria-selected={isSelected}
                           data-focused={isFocused}
-                          class={classes} 
+                          class={classes}
                           key={option.value}
                         >
                           <span class="option-icon">{isSelected ? '●' : '○'}</span>

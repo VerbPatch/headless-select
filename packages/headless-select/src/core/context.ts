@@ -1,5 +1,4 @@
-import { SelectState, SelectChange, SelectConfig } from "./types";
-
+import { SelectState, SelectChange, SelectConfig } from './types';
 
 /**
  * Provides access to the core engine's internal state and configuration.

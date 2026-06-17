@@ -1,5 +1,10 @@
 import { useState, useEffect, useLayoutEffect, useMemo, useCallback, useRef } from 'preact/hooks';
-import { useSelect as headlessSelect, SelectConfig, SelectState, SelectInstance } from '@verbpatch/headless-select';
+import {
+  useSelect as headlessSelect,
+  SelectConfig,
+  SelectState,
+  SelectInstance,
+} from '@verbpatch/headless-select';
 export * from '@verbpatch/headless-select';
 
 export function useSelect(config: SelectConfig) {
@@ -90,6 +95,9 @@ export function useSelect(config: SelectConfig) {
       (value: string) => instanceRef.current!.getClearOptionProps(value),
       [],
     ),
-    setConfig: useCallback((patch: Partial<SelectConfig>) => instanceRef.current!.setConfig(patch), []),
+    setConfig: useCallback(
+      (patch: Partial<SelectConfig>) => instanceRef.current!.setConfig(patch),
+      [],
+    ),
   };
 }

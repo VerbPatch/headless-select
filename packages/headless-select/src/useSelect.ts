@@ -211,7 +211,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
 
         let needsFullRefresh =
           nativeOptions.length !== resolvedOptions.length || hasGroups !== nativeHasGroups;
-        
+
         const optionsActuallyChanged = nextState.resolvedOptions !== state.resolvedOptions;
 
         if (!needsFullRefresh && !forceSync) {
@@ -257,7 +257,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
           });
 
           const currentValues = new Set(nextState.selectedValues ?? state.selectedValues);
-          
+
           groups.forEach((groupOptions, groupLabel) => {
             if (groupLabel) {
               const groupEl = document.createElement('optgroup');

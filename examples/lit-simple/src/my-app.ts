@@ -194,6 +194,7 @@ export class MyApp extends LitElement {
             </label>
             <headless-select
               .virtualize=${true}
+              .searchable=${true}
               .options=${largeList}
               placeholder="Scroll 10,000 items..."
             ></headless-select>

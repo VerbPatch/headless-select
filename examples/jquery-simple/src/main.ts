@@ -42,7 +42,7 @@ function mountSelect(
     virtualize?: boolean;
     itemHeight?: number;
     containerHeight?: number;
-  } = {}
+  } = {},
 ) {
   const { virtualize = false, itemHeight = 35, containerHeight = 300 } = opts;
 
@@ -84,7 +84,9 @@ function mountSelect(
     $listbox.on('scroll', (e) => {
       isScrolling = true;
       clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => { isScrolling = false; }, 150);
+      scrollTimer = setTimeout(() => {
+        isScrolling = false;
+      }, 150);
       instance.onScroll((e.target as HTMLElement).scrollTop);
     });
   }
@@ -151,13 +153,18 @@ function mountSelect(
         .slice(state.virtualization.startIndex, state.virtualization.endIndex)
         .forEach((option, idx) => {
           const actualIndex = state.virtualization!.startIndex + idx;
-          const $opt = buildOptionEl(option, instance, {
-            position: 'absolute',
-            top: `${actualIndex * itemHeight}px`,
-            height: `${itemHeight}px`,
-            width: '100%',
-            boxSizing: 'border-box',
-          }, isScrolling);
+          const $opt = buildOptionEl(
+            option,
+            instance,
+            {
+              position: 'absolute',
+              top: `${actualIndex * itemHeight}px`,
+              height: `${itemHeight}px`,
+              width: '100%',
+              boxSizing: 'border-box',
+            },
+            isScrolling,
+          );
           $scroller.append($opt);
         });
 
@@ -215,7 +222,7 @@ function buildOptionEl(
   option: any,
   instance: ReturnType<typeof useSelect>,
   style: Record<string, string | number> = {},
-  isScrolling = false
+  isScrolling = false,
 ) {
   const optProps = instance.getOptionProps(option.value);
   const isFocused = optProps['data-focused'];
@@ -230,7 +237,9 @@ function buildOptionEl(
     .filter(Boolean)
     .join(' ');
 
-  const $icon = $('<span>').addClass('option-icon').text(isSelected ? '●' : '○');
+  const $icon = $('<span>')
+    .addClass('option-icon')
+    .text(isSelected ? '●' : '○');
   const $label = $('<span>').text(option.label);
   const $labelWrap = $('<div>').addClass('option-label-container').append($label);
 
@@ -265,7 +274,6 @@ function buildOptionEl(
 
 // ── Mount all examples ─────────────────────────────────────────────────────
 $(function () {
-
   // 1. Native Hydration — progressive enhancement via <option> children
   const $hydrationNative = $('#select-hydration .native-select');
   // Pass hydrateFrom directly in initial config so the core reads pre-selected
@@ -290,14 +298,22 @@ $(function () {
     hydRenderCount++;
     $hydBadge.text(`Render Count: ${hydRenderCount}`);
 
-    if (state.isOpen) $hydDropdown.show(); else $hydDropdown.hide();
+    if (state.isOpen) $hydDropdown.show();
+    else $hydDropdown.hide();
 
     if (state.selectedValues.length > 0) {
-      const pills = instance_getSelectedOptions(hydrationInstance, state).map((opt: { value: string; label: string }) => {
-        const $clear = $('<span>').addClass('selected-value-clear').text('×')
-          .on('click', (e) => { e.stopPropagation(); hydrationInstance.deselectOption(opt.value); });
-        return $('<span>').addClass('selected-value-pill').text(opt.label).append($clear);
-      });
+      const pills = instance_getSelectedOptions(hydrationInstance, state).map(
+        (opt: { value: string; label: string }) => {
+          const $clear = $('<span>')
+            .addClass('selected-value-clear')
+            .text('×')
+            .on('click', (e) => {
+              e.stopPropagation();
+              hydrationInstance.deselectOption(opt.value);
+            });
+          return $('<span>').addClass('selected-value-pill').text(opt.label).append($clear);
+        },
+      );
       const $pc = $('<div>').addClass('selected-values-container');
       pills.forEach((p: JQuery<HTMLElement>) => $pc.append(p));
       $hydTrigger.empty().append($pc);
@@ -313,7 +329,9 @@ $(function () {
     // Sync native
     const nativeEl = $hydrationNative[0] as HTMLSelectElement;
     const selected = new Set(state.selectedValues);
-    Array.from(nativeEl.options).forEach((o) => { o.selected = selected.has(o.value); });
+    Array.from(nativeEl.options).forEach((o) => {
+      o.selected = selected.has(o.value);
+    });
   }
 
   hydrationInstance.subscribe(renderHydration);
@@ -335,18 +353,22 @@ $(function () {
 
   // 3. Multiple Select with Groups
   let multiValue = ['apple', 'banana'];
-  const multiInstance = mountSelect('select-multi', {
-    options: groupedOptions,
-    multiple: true,
-    value: multiValue,
-    placeholder: 'Select food...',
-    searchable: true,
-    onChange: (val) => {
-      multiValue = val as string[];
-      multiInstance.setConfig({ value: multiValue });
-      $('#multi-value-display').text(JSON.stringify(multiValue));
+  const multiInstance = mountSelect(
+    'select-multi',
+    {
+      options: groupedOptions,
+      multiple: true,
+      value: multiValue,
+      placeholder: 'Select food...',
+      searchable: true,
+      onChange: (val) => {
+        multiValue = val as string[];
+        multiInstance.setConfig({ value: multiValue });
+        $('#multi-value-display').text(JSON.stringify(multiValue));
+      },
     },
-  }, { multiple: true });
+    { multiple: true },
+  );
 
   // Expose force-set globally for the inline onclick button
   (window as any).forceSetMulti = () => {
@@ -383,14 +405,18 @@ $(function () {
   });
 
   // 6. Virtualized (10,000 items)
-  mountSelect('select-virtual', {
-    options: largeList,
-    searchable: true,
-    virtualize: true,
-    itemHeight: 35,
-    containerHeight: 300,
-    placeholder: 'Scroll 10,000 items...',
-  }, { virtualize: true });
+  mountSelect(
+    'select-virtual',
+    {
+      options: largeList,
+      searchable: true,
+      virtualize: true,
+      itemHeight: 35,
+      containerHeight: 300,
+      placeholder: 'Scroll 10,000 items...',
+    },
+    { virtualize: true },
+  );
 
   // 7. Pure Headless
   mountSelect('select-headless', {
@@ -406,9 +432,9 @@ $(function () {
 // Small helper to get selected options from an instance + state snapshot
 function instance_getSelectedOptions(
   _instance: ReturnType<typeof useSelect>,
-  state: any
+  state: any,
 ): Array<{ value: string; label: string }> {
-  return (state.resolvedOptions as Array<{ value: string; label: string }>).filter(
-    (o) => (state.selectedValues as string[]).includes(o.value)
+  return (state.resolvedOptions as Array<{ value: string; label: string }>).filter((o) =>
+    (state.selectedValues as string[]).includes(o.value),
   );
 }

@@ -72,8 +72,14 @@ export class HeadlessSelect extends LitElement {
     if (!this._ctrl) return;
 
     const configKeys = [
-      'options', 'multiple', 'searchable', 'creatable',
-      'placeholder', 'value', 'fetchRemoteOptions', 'cacheOptions',
+      'options',
+      'multiple',
+      'searchable',
+      'creatable',
+      'placeholder',
+      'value',
+      'fetchRemoteOptions',
+      'cacheOptions',
     ] as const;
 
     if (configKeys.some((k) => changed.has(k))) {
@@ -166,9 +172,16 @@ export class HeadlessSelect extends LitElement {
     const added = newValues.filter((v) => !current.includes(v));
     const removed = current.filter((v) => !newValues.includes(v));
 
-    // Apply changes through the instance so onChange callbacks fire correctly
-    added.forEach((v) => this._ctrl.instance.selectOption(v));
-    removed.forEach((v) => this._ctrl.instance.deselectOption(v));
+    if (!this.multiple) {
+      if (added.length > 0) {
+        this._ctrl.instance.selectOption(added[0]);
+      } else if (newValues.length === 0) {
+        this._ctrl.instance.clearAll();
+      }
+    } else {
+      added.forEach((v) => this._ctrl.instance.selectOption(v));
+      removed.forEach((v) => this._ctrl.instance.deselectOption(v));
+    }
   }
 
   private _handleScroll(e: Event) {
@@ -238,8 +251,8 @@ export class HeadlessSelect extends LitElement {
     const nativeHeight = this.hideNative
       ? '1px'
       : this.multiple || this.virtualize
-      ? '120px'
-      : 'auto';
+        ? '120px'
+        : 'auto';
 
     return html`
       <div class="select-container">
@@ -305,7 +318,7 @@ export class HeadlessSelect extends LitElement {
                               >×</span
                             >
                           </span>
-                        `
+                        `,
                       )}
                     </div>
                   `
@@ -348,43 +361,44 @@ export class HeadlessSelect extends LitElement {
                     ${state.isLoading
                       ? html`<div class="loading-state">Loading...</div>`
                       : this.virtualize && state.virtualization
-                      ? html`
-                          <div
-                            style="height:${state.virtualization.totalHeight}px;width:100%;position:relative;"
-                          >
-                            ${state.visibleOptions
-                              .slice(
-                                state.virtualization.startIndex,
-                                state.virtualization.endIndex
-                              )
-                              .map((option, idx) => {
-                                const actualIndex = state.virtualization!.startIndex + idx;
-                                return this._renderOption(option, {
-                                  position: 'absolute',
-                                  top: `${actualIndex * this.itemHeight}px`,
-                                  height: `${this.itemHeight}px`,
-                                  width: '100%',
-                                  'box-sizing': 'border-box',
-                                });
-                              })}
-                          </div>
-                        `
-                      : html`
-                          ${state.visibleOptions.map((option) => this._renderOption(option))}
-                          ${state.canCreate
-                            ? html`
-                                <div
-                                  class="create-option"
-                                  @click=${() => instance.createOption(state.search)}
-                                >
-                                  + Create "${state.search}"
-                                </div>
-                              `
-                            : ''}
-                          ${state.visibleOptions.length === 0 && !state.canCreate
-                            ? html`<div class="empty-state">No results found</div>`
-                            : ''}
-                        `}
+                        ? html`
+                            <div
+                              style="height:${state.virtualization
+                                .totalHeight}px;width:100%;position:relative;"
+                            >
+                              ${state.visibleOptions
+                                .slice(
+                                  state.virtualization.startIndex,
+                                  state.virtualization.endIndex,
+                                )
+                                .map((option, idx) => {
+                                  const actualIndex = state.virtualization!.startIndex + idx;
+                                  return this._renderOption(option, {
+                                    position: 'absolute',
+                                    top: `${actualIndex * this.itemHeight}px`,
+                                    height: `${this.itemHeight}px`,
+                                    width: '100%',
+                                    'box-sizing': 'border-box',
+                                  });
+                                })}
+                            </div>
+                          `
+                        : html`
+                            ${state.visibleOptions.map((option) => this._renderOption(option))}
+                            ${state.canCreate
+                              ? html`
+                                  <div
+                                    class="create-option"
+                                    @click=${() => instance.createOption(state.search)}
+                                  >
+                                    + Create "${state.search}"
+                                  </div>
+                                `
+                              : ''}
+                            ${state.visibleOptions.length === 0 && !state.canCreate
+                              ? html`<div class="empty-state">No results found</div>`
+                              : ''}
+                          `}
                   </div>
                 </div>
               `

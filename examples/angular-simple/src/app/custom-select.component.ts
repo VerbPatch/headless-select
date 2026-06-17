@@ -1,4 +1,19 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChanges, NgZone, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  OnInit,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+  NgZone,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeadlessSelectService } from '@verbpatch/angular-select';
 import { SelectState } from '@verbpatch/headless-select';
@@ -18,10 +33,12 @@ export interface OptionVM {
   template: `
     <div class="select-container">
       <div class="render-count-badge">Angular Auto-Reactivity</div>
-      
+
       @if (showNative) {
         <div class="native-interface-container" [class.hidden]="hideNative">
-          @if (!hideNative) { <label>Native Select Interface</label> }
+          @if (!hideNative) {
+            <label>Native Select Interface</label>
+          }
           <select
             #nativeSelect
             [attr.id]="nativeProps()?.id"
@@ -30,23 +47,32 @@ export interface OptionVM {
             class="native-select"
             [class.hidden]="hideNative"
             [class.visible]="!hideNative"
-            [style.height]="hideNative ? '1px' : (multiple || virtualize ? '120px' : 'auto')"
+            [style.height]="hideNative ? '1px' : multiple || virtualize ? '120px' : 'auto'"
           >
             <ng-content></ng-content>
           </select>
           @if (!hideNative) {
             <div class="native-note">
               ↑ Native &lt;select&gt; element. 2-way sync active.
-              @if (virtualize) { <span>(10k items sync might be heavy)</span> }
+              @if (virtualize) {
+                <span>(10k items sync might be heavy)</span>
+              }
             </div>
           }
         </div>
       }
 
       <div class="custom-ui-wrapper">
-        <label>Headless Custom UI @if (virtualize) { <span>(Virtualized)</span> }</label>
-        @if (!showNative) { <div class="custom-ui-note">(Pure Headless - No Native Sync)</div> }
-        
+        <label
+          >Headless Custom UI
+          @if (virtualize) {
+            <span>(Virtualized)</span>
+          }
+        </label>
+        @if (!showNative) {
+          <div class="custom-ui-note">(Pure Headless - No Native Sync)</div>
+        }
+
         <button
           [attr.role]="triggerProps()?.role"
           [attr.aria-haspopup]="triggerProps()?.['aria-haspopup']"
@@ -63,12 +89,7 @@ export interface OptionVM {
                 @for (val of state.selectedValues; track val) {
                   <span class="selected-value-pill">
                     {{ getOptionLabel(val) }}
-                    <span
-                      (click)="clearOption(val, $event)"
-                      class="selected-value-clear"
-                    >
-                      ×
-                    </span>
+                    <span (click)="clearOption(val, $event)" class="selected-value-clear"> × </span>
                   </span>
                 }
               </div>
@@ -112,7 +133,10 @@ export interface OptionVM {
                 <div class="loading-state">Loading...</div>
               } @else {
                 @if (virtualize && state.virtualization) {
-                  <div [style.height.px]="state.virtualization.totalHeight" style="width: 100%; position: relative;">
+                  <div
+                    [style.height.px]="state.virtualization.totalHeight"
+                    style="width: 100%; position: relative;"
+                  >
                     @for (vm of optionsVM; track vm.option.value) {
                       <div
                         [attr.id]="vm.props.id"
@@ -134,7 +158,9 @@ export interface OptionVM {
                         <div class="option-label-container">
                           <span>{{ vm.option.label }}</span>
                         </div>
-                        @if (vm.props['data-focused']) { <span class="option-focus-badge">[FOCUS]</span> }
+                        @if (vm.props['data-focused']) {
+                          <span class="option-focus-badge">[FOCUS]</span>
+                        }
                       </div>
                     }
                   </div>
@@ -155,9 +181,13 @@ export interface OptionVM {
                       <span class="option-icon">{{ vm.props['aria-selected'] ? '●' : '○' }}</span>
                       <div class="option-label-container">
                         <span>{{ vm.option.label }}</span>
-                        @if (vm.option['groupLabel']) { <span class="option-group-label">{{ vm.option['groupLabel'] }}</span> }
+                        @if (vm.option['groupLabel']) {
+                          <span class="option-group-label">{{ vm.option['groupLabel'] }}</span>
+                        }
                       </div>
-                      @if (vm.props['data-focused']) { <span class="option-focus-badge">[FOCUS]</span> }
+                      @if (vm.props['data-focused']) {
+                        <span class="option-focus-badge">[FOCUS]</span>
+                      }
                     </div>
                   }
                 }
@@ -181,7 +211,7 @@ export interface OptionVM {
         }
       </div>
     </div>
-  `
+  `,
 })
 export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Input() virtualize = false;
@@ -201,9 +231,9 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
   @Input() defaultOptions?: boolean | any[];
 
   @ViewChild('nativeSelect') nativeSelectRef?: ElementRef<HTMLSelectElement>;
-  
+
   private _listboxRef?: ElementRef<HTMLDivElement>;
-  @ViewChild('listbox') 
+  @ViewChild('listbox')
   set listboxRef(ref: ElementRef<HTMLDivElement> | undefined) {
     if (this._listboxRef === ref) return;
     if (this._listboxRef && this.scrollListener) {
@@ -213,7 +243,7 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
     if (ref) {
       this.zone.runOutsideAngular(() => {
         const el = ref.nativeElement;
-        
+
         // When listbox mounts (opens), scroll to the focused item!
         setTimeout(() => {
           const instance = (this.selectSvc as any).instance;
@@ -226,7 +256,7 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
           const instance = (this.selectSvc as any).instance;
           if (instance) instance.onScroll(el.scrollTop);
         };
-        
+
         this.hoverListener = (e: MouseEvent) => {
           const target = e.target as HTMLElement;
           const optionItem = target.closest('.option-item');
@@ -249,9 +279,9 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
   optionsVM: OptionVM[] = [];
 
   constructor(
-    public selectSvc: HeadlessSelectService, 
+    public selectSvc: HeadlessSelectService,
     private zone: NgZone,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -271,10 +301,10 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
       },
       fetchRemoteOptions: this.fetchRemoteOptions,
       cacheOptions: this.cacheOptions,
-      defaultOptions: this.defaultOptions
+      defaultOptions: this.defaultOptions,
     });
 
-    this.selectSvc.state$.subscribe(state => {
+    this.selectSvc.state$.subscribe((state) => {
       if (state) {
         this.zone.run(() => {
           const searchChanged = this.state && this.state.search !== state.search;
@@ -290,7 +320,18 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.state && (changes['options'] || changes['multiple'] || changes['searchable'] || changes['creatable'] || changes['placeholder'] || changes['value'] || changes['virtualize'] || changes['itemHeight'] || changes['containerHeight'])) {
+    if (
+      this.state &&
+      (changes['options'] ||
+        changes['multiple'] ||
+        changes['searchable'] ||
+        changes['creatable'] ||
+        changes['placeholder'] ||
+        changes['value'] ||
+        changes['virtualize'] ||
+        changes['itemHeight'] ||
+        changes['containerHeight'])
+    ) {
       this.selectSvc.setConfig({
         options: this.options,
         multiple: this.multiple,
@@ -300,7 +341,7 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
         value: this.value,
         virtualize: this.virtualize,
         itemHeight: this.itemHeight,
-        containerHeight: this.containerHeight
+        containerHeight: this.containerHeight,
       });
     }
   }
@@ -318,18 +359,32 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
 
   ngOnDestroy() {
     if (this._listboxRef) {
-      if (this.scrollListener) this._listboxRef.nativeElement.removeEventListener('scroll', this.scrollListener);
-      if (this.hoverListener) this._listboxRef.nativeElement.removeEventListener('mouseover', this.hoverListener);
+      if (this.scrollListener)
+        this._listboxRef.nativeElement.removeEventListener('scroll', this.scrollListener);
+      if (this.hoverListener)
+        this._listboxRef.nativeElement.removeEventListener('mouseover', this.hoverListener);
     }
     this.selectSvc.destroy();
   }
 
-  triggerProps() { return this.selectSvc.getTriggerProps(); }
-  listboxProps() { return this.selectSvc.getListboxProps(); }
-  searchProps() { return this.selectSvc.getSearchInputProps(); }
-  nativeProps() { return this.selectSvc.getNativeSelectProps(); }
-  optProps(val: string) { return this.selectSvc.getOptionProps(val); }
-  createProps() { return this.selectSvc.getCreateOptionProps(); }
+  triggerProps() {
+    return this.selectSvc.getTriggerProps();
+  }
+  listboxProps() {
+    return this.selectSvc.getListboxProps();
+  }
+  searchProps() {
+    return this.selectSvc.getSearchInputProps();
+  }
+  nativeProps() {
+    return this.selectSvc.getNativeSelectProps();
+  }
+  optProps(val: string) {
+    return this.selectSvc.getOptionProps(val);
+  }
+  createProps() {
+    return this.selectSvc.getCreateOptionProps();
+  }
 
   onSearchKeyDown(e: KeyboardEvent) {
     const props = this.searchProps();
@@ -371,13 +426,13 @@ export class CustomSelectComponent implements OnInit, OnDestroy, OnChanges, Afte
       this.optionsVM = slice.map((opt, i) => ({
         option: opt,
         props: this.selectSvc.getOptionProps(opt.value),
-        index: start + i
+        index: start + i,
       }));
     } else {
       this.optionsVM = this.state.visibleOptions.map((opt, i) => ({
         option: opt,
         props: this.selectSvc.getOptionProps(opt.value),
-        index: i
+        index: i,
       }));
     }
   }
