@@ -320,6 +320,7 @@ export interface ListboxProps {
   role: string;
   'aria-multiselectable': boolean;
   'aria-label'?: string;
+  'aria-labelledby'?: string;
 }
 
 /**
@@ -455,6 +456,10 @@ export interface SelectInstance {
    * Updates virtualization calculations based on scroll position.
    */
   onScroll: (scrollTop: number) => void;
+  /**
+   * Processes keyboard events.
+   */
+  handleKeyDown: (e: any) => void;
   /**
    * Patches the current configuration with new values.
    */

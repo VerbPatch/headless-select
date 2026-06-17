@@ -464,6 +464,7 @@ export function useSelect(initialConfig: SelectConfig): SelectInstance {
     focusPrev: handlers.focusPrev,
     focusFirst: handlers.focusFirst,
     focusLast: handlers.focusLast,
+    handleKeyDown: handlers.handleKeyDown,
 
     setConfig: (patch: Partial<SelectConfig>) => {
       const prevOptions = config.options;

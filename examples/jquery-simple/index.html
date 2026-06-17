@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery Headless Select Showcase</title>
+  </head>
+  <body>
+    <div style="padding: 2rem; max-width: 1000px; margin: 0 auto;">
+      <h1>jQuery Headless Select Showcase</h1>
+      <p>Demonstrating various configurations of the jQuery adapter.</p>
+
+      <!-- ── Progressive Enhancement ─────────────────────────────── -->
+      <section style="margin-bottom: 3rem;">
+        <h2>Progressive Enhancement</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+            Native Hydration (Pre-filled via HTML)
+          </label>
+
+          <div class="select-container" id="select-hydration">
+            <div class="native-interface-container">
+              <label>Native Select Interface</label>
+              <select class="native-select visible" multiple>
+                <optgroup label="Colors">
+                  <option value="red" selected>Red</option>
+                  <option value="green">Green</option>
+                  <option value="blue" selected>Blue</option>
+                </optgroup>
+              </select>
+              <div class="native-note">↑ Native &lt;select&gt; element. 2-way sync active.</div>
+            </div>
+            <div class="custom-ui-wrapper">
+              <label>Headless Custom UI</label>
+              <button class="select-trigger js-trigger">Select colors...</button>
+              <div class="select-dropdown js-dropdown" style="display: none;">
+                <div class="listbox-container js-listbox"></div>
+              </div>
+            </div>
+            <div class="render-count-badge js-badge">Render Count: 0</div>
+          </div>
+
+          <div style="font-size: 11px; color: #666; margin-top: 8px;">
+            Notice: The Headless UI above is automatically populated and synchronized from the
+            standard <code>&lt;option&gt;</code> tags defined in the source code.
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Standard Selects ────────────────────────────────────── -->
+      <section style="margin-bottom: 3rem;">
+        <h2>Standard Selects</h2>
+
+        <!-- Basic Single Select -->
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+            Basic Single Select
+          </label>
+          <div class="select-container" id="select-single">
+            <div class="native-interface-container">
+              <label>Native Select Interface</label>
+              <select class="native-select visible js-native"></select>
+              <div class="native-note">↑ Native &lt;select&gt; element. 2-way sync active.</div>
+            </div>
+            <div class="custom-ui-wrapper">
+              <label>Headless Custom UI</label>
+              <button class="select-trigger js-trigger">Pick a fruit</button>
+              <div class="select-dropdown js-dropdown" style="display: none;">
+                <div class="search-container">
+                  <input class="search-input js-search" placeholder="Search options..." />
+                </div>
+                <div class="listbox-container js-listbox"></div>
+              </div>
+            </div>
+            <div class="render-count-badge js-badge">Render Count: 0</div>
+          </div>
+        </div>
+
+        <!-- Multiple Select with Groups -->
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+            Multiple Select with Groups
+          </label>
+          <div class="select-container" id="select-multi">
+            <div class="native-interface-container">
+              <label>Native Select Interface</label>
+              <select class="native-select visible js-native" multiple style="height:120px;"></select>
+              <div class="native-note">↑ Native &lt;select&gt; element. 2-way sync active.</div>
+            </div>
+            <div class="custom-ui-wrapper">
+              <label>Headless Custom UI</label>
+              <button class="select-trigger js-trigger">Select food...</button>
+              <div class="select-dropdown js-dropdown" style="display: none;">
+                <div class="search-container">
+                  <input class="search-input js-search" placeholder="Search options..." />
+                </div>
+                <div class="listbox-container js-listbox"></div>
+              </div>
+            </div>
+            <div class="render-count-badge js-badge">Render Count: 0</div>
+          </div>
+          <div style="margin-top: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 4px; border: 1px solid #eee; color: #333;">
+            <h4 style="margin: 0 0 0.5rem 0;">Controlled State Management</h4>
+            <p style="margin: 0 0 1rem 0; font-size: 13px; color: #666;">
+              Current multi-select value: <code id="multi-value-display">["apple","banana"]</code>
+            </p>
+            <button onclick="forceSetMulti()" style="padding: 4px 12px; cursor: pointer;">
+              Force Set to [Apple, Carrot]
+            </button>
+          </div>
+        </div>
+
+        <!-- Searchable & Creatable -->
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+            Searchable &amp; Creatable (Native Hidden)
+          </label>
+          <div class="select-container" id="select-creatable">
+            <div class="custom-ui-wrapper">
+              <label>Headless Custom UI</label>
+              <div class="custom-ui-note">(Pure Headless - No Native Sync)</div>
+              <button class="select-trigger js-trigger">Framework...</button>
+              <div class="select-dropdown js-dropdown" style="display: none;">
+                <div class="search-container">
+                  <input class="search-input js-search" placeholder="Search options..." />
+                </div>
+                <div class="listbox-container js-listbox"></div>
+              </div>
+            </div>
+            <div class="render-count-badge js-badge">Render Count: 0</div>
+          </div>
+          <div style="font-size: 11px; color: #666; margin-top: 8px;">
+            Notice: The native <code>&lt;select&gt;</code> is present in the DOM but visually hidden
+            (using <code>hideNative</code>). Synchronization and validation still work perfectly in
+            the background.
+          </div>
+        </div>
+
+        <!-- Remote Loading -->
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+            Remote Loading (Async)
+          </label>
+          <div class="select-container" id="select-remote">
+            <div class="native-interface-container">
+              <label>Native Select Interface</label>
+              <select class="native-select visible js-native"></select>
+              <div class="native-note">↑ Native &lt;select&gt; element. Populated &amp; synced after async load.</div>
+            </div>
+            <div class="custom-ui-wrapper">
+              <label>Headless Custom UI</label>
+              <button class="select-trigger js-trigger">Search users...</button>
+              <div class="select-dropdown js-dropdown" style="display: none;">
+                <div class="search-container">
+                  <input class="search-input js-search" placeholder="Search options..." />
+                </div>
+                <div class="listbox-container js-listbox"></div>
+              </div>
+            </div>
+            <div class="render-count-badge js-badge">Render Count: 0</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Performance ──────────────────────────────────────────── -->
+      <section style="margin-bottom: 3rem;">
+        <h2>Performance</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+            Virtualized Select (10,000 items)
+          </label>
+          <div class="select-container" id="select-virtual">
+            <div class="native-interface-container">
+              <label>Native Select Interface</label>
+              <select class="native-select visible js-native" style="height:120px;"></select>
+              <div class="native-note">↑ Native &lt;select&gt; element. Synced with virtualized headless UI.</div>
+            </div>
+            <div class="custom-ui-wrapper">
+              <label>Headless Custom UI (Virtualized)</label>
+              <button class="select-trigger js-trigger">Scroll 10,000 items...</button>
+              <div class="select-dropdown js-dropdown" style="display: none;">
+                <div class="search-container">
+                  <input class="search-input js-search" placeholder="Search 10,000 items..." />
+                </div>
+                <div class="listbox-container js-listbox" style="height:300px;max-height:300px;overflow-y:auto;position:relative;"></div>
+              </div>
+            </div>
+            <div class="render-count-badge js-badge">Render Count: 0</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Core Engine ─────────────────────────────────────────── -->
+      <section style="margin-bottom: 3rem;">
+        <h2>Core Engine</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+            Pure Headless (No Native Element)
+          </label>
+          <div class="select-container" id="select-headless">
+            <div class="custom-ui-wrapper">
+              <label>Headless Custom UI</label>
+              <div class="custom-ui-note">(Pure Headless - No Native Sync)</div>
+              <button class="select-trigger js-trigger">Select engine mode...</button>
+              <div class="select-dropdown js-dropdown" style="display: none;">
+                <div class="listbox-container js-listbox"></div>
+              </div>
+            </div>
+            <div class="render-count-badge js-badge">Render Count: 0</div>
+          </div>
+          <div style="font-size: 11px; color: #666; margin-top: 8px;">
+            Notice: There is no native <code>&lt;select&gt;</code> element here. The library is
+            operating as a standalone logic engine.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

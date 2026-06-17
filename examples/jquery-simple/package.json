@@ -1,20 +1,20 @@
 {
-  "name": "svelte-simple",
+  "name": "jquery-simple",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@verbpatch/svelte-select": "workspace:*",
-    "svelte": "^5.43.6"
+    "@verbpatch/headless-select": "workspace:*",
+    "@verbpatch/jquery-select": "workspace:*",
+    "jquery": "^3.7.1"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^6.2.1",
-    "tslib": "^2.6.2",
+    "@types/jquery": "^3.5.29",
     "typescript": "^5.9.3",
     "vite": "^7.2.2"
   }

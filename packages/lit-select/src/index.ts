@@ -8,9 +8,10 @@ export class SelectController implements ReactiveController {
   private unsubscribe?: () => void;
 
   constructor(host: ReactiveControllerHost, config: SelectConfig) {
-    (this.host = host).addController(this);
+    this.host = host;
     this.instance = useSelect(config);
     this.state = this.instance.getState();
+    host.addController(this);
   }
 
   hostConnected() {
